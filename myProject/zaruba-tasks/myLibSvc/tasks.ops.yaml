@@ -1,0 +1,10 @@
+tasks:
+
+  createMyLibSvcMigration:
+    icon: 🔧
+    extend: zrbRunShellScript
+    location: ../../myApp
+    configRefs:
+      - createMyLibSvcMigration
+      - myLibSvc
+    envRef: myLibSvc

@@ -1,0 +1,46 @@
+tasks:
+
+  startMyApp:
+    icon: ⚛️
+    extend: zrbStartApp
+    location: ../../myApp
+    inputs:
+      - runMyAppInLocal
+    dependencies:
+      - prepareMyApp
+      - migrateMyApp
+    configRefs:
+      - startMyApp
+      - myApp
+    envRef: myApp
+
+  prepareMyApp:
+    icon: 🔧
+    extend: zrbRunShellScript
+    location: ../../myApp
+    configRefs:
+      - prepareMyApp
+      - myApp
+    envRef: myApp
+
+  testMyApp:
+    icon: ✅
+    extend: zrbRunShellScript
+    location: ../../myApp
+    dependencies:
+      - prepareMyApp
+    configRefs:
+      - testMyApp
+      - myApp
+    envRef: myApp
+
+  migrateMyApp:
+    icon: 🦆
+    extend: zrbRunShellScript
+    location: ../../myApp
+    dependencies:
+      - prepareMyApp
+    configRefs:
+      - migrateMyApp
+      - myApp
+    envRef: myApp

@@ -1,0 +1,48 @@
+tasks:
+
+  startMyBackend:
+    icon: ⚛️
+    extend: zrbStartApp
+    location: ../../myApp
+    inputs:
+      - runMyBackendInLocal
+    dependencies:
+      - prepareMyBackend
+      - migrateMyBackend
+      - startMyRabbitmq
+    configRefs:
+      - startMyBackend
+      - myBackend
+    envRef: myBackend
+
+  prepareMyBackend:
+    icon: 🔧
+    extend: zrbRunShellScript
+    location: ../../myApp
+    configRefs:
+      - prepareMyBackend
+      - myBackend
+    envRef: myBackend
+
+  testMyBackend:
+    icon: ✅
+    extend: zrbRunShellScript
+    location: ../../myApp
+    dependencies:
+      - prepareMyBackend
+    configRefs:
+      - testMyBackend
+      - myBackend
+    envRef: myBackend
+
+  migrateMyBackend:
+    icon: 🦆
+    extend: zrbRunShellScript
+    location: ../../myApp
+    dependencies:
+      - prepareMyBackend
+    configRefs:
+      - migrateMyBackend
+      - myBackend
+    envRef: myBackend
+

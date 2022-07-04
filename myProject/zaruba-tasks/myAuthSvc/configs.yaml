@@ -1,0 +1,34 @@
+configs:
+
+  myAuthSvc:
+    runInLocal: '{{ .GetValue "runMyAuthSvcInLocal" }}'
+    ports: |
+      {{ .GetEnv "APP_HTTP_PORT" }}
+
+  myAuthSvcContainer:
+    useImagePrefix: true
+    imageName: my-app
+    containerName: myAuthSvc
+    localhost: host.docker.internal
+    checkCommand: |
+      echo "check myAuthSvc"
+    volumes: |
+
+
+  startMyAuthSvc:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/application.sh" }}"
+    check: |
+      echo "check myAuthSvc"
+
+  prepareMyAuthSvc:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/preparation.sh" }}"
+
+  testMyAuthSvc:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/test.sh" }}"
+
+  migrateMyAuthSvc:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/migration.sh" }}"

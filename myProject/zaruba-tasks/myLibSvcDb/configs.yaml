@@ -1,0 +1,19 @@
+configs:
+
+  myLibSvcDb:
+    runInLocal: '{{ .GetValue "runMyLibSvcDbInLocal" }}'
+    ports: |
+      3306
+
+  myLibSvcDbContainer:
+    useImagePrefix: true
+    imageName: my-lib-svc-db
+    containerName: myLibSvcDb
+    localhost: host.docker.internal
+    afterCheck: sleep 3
+    checkCommand: |
+      mysqladmin ping -u "root" -p{{ .GetEnv "MYSQL_ROOT_PASSWORD" }}
+    command : |
+
+    volumes: |
+      initdb.d:/docker-entrypoint-initdb.d

@@ -1,0 +1,164 @@
+includes:
+  - ./zaruba-tasks/myApp/index.yaml
+  - ./zaruba-tasks/myAuthSvcDb/index.yaml
+  - ./zaruba-tasks/myLibSvcDb/index.yaml
+  - ./zaruba-tasks/myRabbitmq/index.yaml
+  - ./zaruba-tasks/myFrontend/index.yaml
+  - ./zaruba-tasks/myBackend/index.yaml
+  - ./zaruba-tasks/myAuthSvc/index.yaml
+  - ./zaruba-tasks/myLibSvc/index.yaml
+
+tasks:
+
+  prepare:
+    icon: 🔧
+    extend: zrbWrapper
+    dependencies:
+      - prepareMyApp
+      - prepareMyFrontend
+      - prepareMyBackend
+      - prepareMyAuthSvc
+      - prepareMyLibSvc
+
+  migrate:
+    icon: 🦆
+    extend: zrbWrapper
+    dependencies:
+      - migrateMyApp
+      - migrateMyFrontend
+      - migrateMyBackend
+      - migrateMyAuthSvc
+      - migrateMyLibSvc
+
+  test:
+    icon: ✅
+    extend: zrbWrapper
+    dependencies:
+      - testMyApp
+      - testMyFrontend
+      - testMyBackend
+      - testMyAuthSvc
+      - testMyLibSvc
+
+  start:
+    icon: 🏁
+    extend: zrbWrapper
+    dependencies:
+      - startMyApp
+      - startMyAuthSvcDb
+      - startMyLibSvcDb
+      - startMyRabbitmq
+      - startMyFrontend
+      - startMyBackend
+      - startMyAuthSvc
+      - startMyLibSvc
+
+  run:
+    icon: 🏁
+    extend: zrbWrapper
+    dependencies: []
+
+  startContainers:
+    icon: 🐳
+    extend: zrbWrapper
+    dependencies:
+      - startMyAppContainer
+      - startMyAuthSvcDbContainer
+      - startMyLibSvcDbContainer
+      - startMyRabbitmqContainer
+      - startMyFrontendContainer
+      - startMyBackendContainer
+      - startMyAuthSvcContainer
+      - startMyLibSvcContainer
+
+  runContainers:
+    icon: 🐳
+    extend: zrbWrapper
+    dependencies: []
+
+  stopContainers:
+    icon: ✋
+    extend: zrbWrapper
+    dependencies:
+      - stopMyAppContainer
+      - stopMyAuthSvcDbContainer
+      - stopMyLibSvcDbContainer
+      - stopMyRabbitmqContainer
+      - stopMyFrontendContainer
+      - stopMyBackendContainer
+      - stopMyAuthSvcContainer
+      - stopMyLibSvcContainer
+
+  removeContainers:
+    icon: ❌
+    extend: zrbWrapper
+    dependencies:
+      - removeMyAppContainer
+      - removeMyAuthSvcDbContainer
+      - removeMyLibSvcDbContainer
+      - removeMyRabbitmqContainer
+      - removeMyFrontendContainer
+      - removeMyBackendContainer
+      - removeMyAuthSvcContainer
+      - removeMyLibSvcContainer
+
+  pullImages:
+    icon: 📥
+    extend: zrbWrapper
+    dependencies: []
+
+  pushImages:
+    icon: 📤
+    extend: zrbWrapper
+    dependencies:
+      - pushMyAppImage
+      - pushMyAuthSvcDbImage
+      - pushMyLibSvcDbImage
+      - pushMyRabbitmqImage
+      - pushMyFrontendImage
+      - pushMyBackendImage
+      - pushMyAuthSvcImage
+      - pushMyLibSvcImage
+
+  buildImages:
+    icon: 🏭
+    extend: zrbWrapper
+    dependencies:
+      - buildMyAppImage
+      - buildMyAuthSvcDbImage
+      - buildMyLibSvcDbImage
+      - buildMyRabbitmqImage
+      - buildMyFrontendImage
+      - buildMyBackendImage
+      - buildMyAuthSvcImage
+      - buildMyLibSvcImage
+
+  prepareDeployments:
+    icon: 🔧
+    extend: zrbWrapper
+    dependencies: []
+
+  deploy:
+    icon: 🏭
+    extend: zrbWrapper
+    dependencies: []
+
+  destroy:
+    icon: ❌
+    extend: zrbWrapper
+    dependencies: []
+
+  startMyMicroservices:
+    dependencies:
+      - startMyFrontend
+      - startMyBackend
+      - startMyAuthSvc
+      - startMyLibSvc
+
+  startMyMicroservicesContainers:
+    dependencies:
+      - startMyFrontendContainer
+      - startMyBackendContainer
+      - startMyAuthSvcContainer
+      - startMyLibSvcContainer
+

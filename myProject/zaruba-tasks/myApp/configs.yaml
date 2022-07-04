@@ -1,0 +1,34 @@
+configs:
+
+  myApp:
+    runInLocal: '{{ .GetValue "runMyAppInLocal" }}'
+    ports: |
+      {{ .GetEnv "APP_HTTP_PORT" }}
+
+  myAppContainer:
+    useImagePrefix: true
+    imageName: my-app
+    containerName: myApp
+    localhost: host.docker.internal
+    checkCommand: |
+      echo "check myApp"
+    volumes: |
+
+
+  startMyApp:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myApp/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myApp/bash/application.sh" }}"
+    check: |
+      echo "check myApp"
+
+  prepareMyApp:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myApp/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myApp/bash/preparation.sh" }}"
+
+  testMyApp:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myApp/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myApp/bash/test.sh" }}"
+
+  migrateMyApp:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myApp/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myApp/bash/migration.sh" }}"

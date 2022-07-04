@@ -1,0 +1,8 @@
+inputs:
+
+  runMyAuthSvcInLocal:
+    default: true
+    options: [true, false]
+    allowCustom: false
+    description: Whether to run myAuthSvc locally
+    prompt: Run myAuthSvc locally?

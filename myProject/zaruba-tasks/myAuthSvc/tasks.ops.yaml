@@ -1,0 +1,10 @@
+tasks:
+
+  createMyAuthSvcMigration:
+    icon: 🔧
+    extend: zrbRunShellScript
+    location: ../../myApp
+    configRefs:
+      - createMyAuthSvcMigration
+      - myAuthSvc
+    envRef: myAuthSvc

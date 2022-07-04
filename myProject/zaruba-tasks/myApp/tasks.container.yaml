@@ -1,0 +1,55 @@
+tasks:
+
+  startMyAppContainer:
+    icon: ⚛️
+    extend: zrbStartDockerContainer
+    location: ../../myApp
+    inputs:
+      - runMyAppInLocal
+    dependencies:
+      - buildMyAppImage
+    configRefs:
+      - myAppContainer
+      - myApp
+    envRefs: 
+      - myApp
+
+  buildMyAppImage:
+    icon: 🏭
+    extend: zrbBuildDockerImage
+    location: ../../myApp
+    configRefs:
+      - myAppContainer
+      - myApp
+    envRefs: 
+      - myApp
+
+  pushMyAppImage:
+    icon: 📤
+    extend: zrbPushDockerImage
+    dependencies:
+      - buildMyAppImage
+    configRefs:
+      - myAppContainer
+      - myApp
+    envRefs: 
+      - myApp
+
+  stopMyAppContainer:
+    icon: ✋
+    extend: zrbStopDockerContainer
+    configRefs:
+      - myAppContainer
+      - myApp
+    envRefs: 
+      - myApp
+
+  removeMyAppContainer:
+    icon: ❌
+    extend: zrbRemoveDockerContainer
+    location: ../../myApp
+    configRefs:
+      - myAppContainer
+      - myApp
+    envRefs: 
+      - myApp

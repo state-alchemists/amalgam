@@ -1,0 +1,8 @@
+inputs:
+
+  runMyAuthSvcDbInLocal:
+    default: true
+    options: [true, false]
+    allowCustom: false
+    description: Whether to run myAuthSvcDb locally
+    prompt: Run myAuthSvcDb locally?

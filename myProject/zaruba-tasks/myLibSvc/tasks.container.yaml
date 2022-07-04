@@ -1,0 +1,55 @@
+tasks:
+
+  startMyLibSvcContainer:
+    icon: ⚛️
+    extend: zrbStartDockerContainer
+    location: ../../myApp
+    inputs:
+      - runMyLibSvcInLocal
+    dependencies:
+      - buildMyLibSvcImage
+    configRefs:
+      - myLibSvcContainer
+      - myLibSvc
+    envRefs: 
+      - myLibSvc
+
+  buildMyLibSvcImage:
+    icon: 🏭
+    extend: zrbBuildDockerImage
+    location: ../../myApp
+    configRefs:
+      - myLibSvcContainer
+      - myLibSvc
+    envRefs: 
+      - myLibSvc
+
+  pushMyLibSvcImage:
+    icon: 📤
+    extend: zrbPushDockerImage
+    dependencies:
+      - buildMyLibSvcImage
+    configRefs:
+      - myLibSvcContainer
+      - myLibSvc
+    envRefs: 
+      - myLibSvc
+
+  stopMyLibSvcContainer:
+    icon: ✋
+    extend: zrbStopDockerContainer
+    configRefs:
+      - myLibSvcContainer
+      - myLibSvc
+    envRefs: 
+      - myLibSvc
+
+  removeMyLibSvcContainer:
+    icon: ❌
+    extend: zrbRemoveDockerContainer
+    location: ../../myApp
+    configRefs:
+      - myLibSvcContainer
+      - myLibSvc
+    envRefs: 
+      - myLibSvc

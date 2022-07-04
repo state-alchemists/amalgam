@@ -1,0 +1,11 @@
+tasks:
+
+  startMyRabbitmq:
+    icon: 🐇
+    dependencies:
+      - startMyRabbitmqContainer
+
+  stopMyRabbitmq:
+    icon: ✋
+    dependencies:
+      - stopMyRabbitmqContainer

@@ -1,0 +1,10 @@
+tasks:
+
+  createMyFrontendMigration:
+    icon: 🔧
+    extend: zrbRunShellScript
+    location: ../../myApp
+    configRefs:
+      - createMyFrontendMigration
+      - myFrontend
+    envRef: myFrontend

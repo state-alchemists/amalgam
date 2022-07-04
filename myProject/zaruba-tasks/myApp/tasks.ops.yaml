@@ -1,0 +1,10 @@
+tasks:
+
+  createMyAppMigration:
+    icon: 🔧
+    extend: zrbRunShellScript
+    location: ../../myApp
+    configRefs:
+      - createMyAppMigration
+      - myApp
+    envRef: myApp

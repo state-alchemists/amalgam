@@ -1,0 +1,11 @@
+tasks:
+
+  startMyLibSvcDb:
+    icon: 🐬
+    dependencies:
+      - startMyLibSvcDbContainer
+
+  stopMyLibSvcDb:
+    icon: ✋
+    dependencies:
+      - stopMyLibSvcDbContainer

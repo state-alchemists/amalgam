@@ -1,0 +1,10 @@
+tasks:
+
+  resetMyRabbitmq:
+    icon: 👶
+    extend: zrbRunInDockerContainer
+    location: ../../myRabbitmq
+    configRef: myRabbitmqContainer
+    envRef: myRabbitmq
+    configs:
+      templateLocation: '{{ .GetProjectPath "zaruba-tasks/myRabbitmq/utilities/reset" }}'

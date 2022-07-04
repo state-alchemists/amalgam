@@ -1,0 +1,15 @@
+envs:
+
+  myAuthSvcDb:
+    MYSQL_DATABASE:
+      default: sample
+      from: MY_AUTH_SVC_DB_MYSQL_DATABASE
+    MYSQL_PASSWORD:
+      default: mysql
+      from: MY_AUTH_SVC_DB_MYSQL_PASSWORD
+    MYSQL_ROOT_PASSWORD:
+      default: Alch3mist
+      from: MY_AUTH_SVC_DB_MYSQL_ROOT_PASSWORD
+    MYSQL_USER:
+      default: mysql
+      from: MY_AUTH_SVC_DB_MYSQL_USER

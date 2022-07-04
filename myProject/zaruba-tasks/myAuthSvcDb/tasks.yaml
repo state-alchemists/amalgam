@@ -1,0 +1,11 @@
+tasks:
+
+  startMyAuthSvcDb:
+    icon: 🐬
+    dependencies:
+      - startMyAuthSvcDbContainer
+
+  stopMyAuthSvcDb:
+    icon: ✋
+    dependencies:
+      - stopMyAuthSvcDbContainer

@@ -1,0 +1,34 @@
+configs:
+
+  myBackend:
+    runInLocal: '{{ .GetValue "runMyBackendInLocal" }}'
+    ports: |
+      {{ .GetEnv "APP_HTTP_PORT" }}
+
+  myBackendContainer:
+    useImagePrefix: true
+    imageName: my-app
+    containerName: myBackend
+    localhost: host.docker.internal
+    checkCommand: |
+      echo "check myBackend"
+    volumes: |
+
+
+  startMyBackend:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myBackend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myBackend/bash/application.sh" }}"
+    check: |
+      echo "check myBackend"
+
+  prepareMyBackend:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myBackend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myBackend/bash/preparation.sh" }}"
+
+  testMyBackend:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myBackend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myBackend/bash/test.sh" }}"
+
+  migrateMyBackend:
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myBackend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myBackend/bash/migration.sh" }}"

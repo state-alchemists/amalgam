@@ -1,0 +1,49 @@
+tasks:
+
+  startMyLibSvc:
+    icon: ⚛️
+    extend: zrbStartApp
+    location: ../../myApp
+    inputs:
+      - runMyLibSvcInLocal
+    dependencies:
+      - prepareMyLibSvc
+      - migrateMyLibSvc
+      - startMyRabbitmq
+      - startMyLibSvcDb
+    configRefs:
+      - startMyLibSvc
+      - myLibSvc
+    envRef: myLibSvc
+
+  prepareMyLibSvc:
+    icon: 🔧
+    extend: zrbRunShellScript
+    location: ../../myApp
+    configRefs:
+      - prepareMyLibSvc
+      - myLibSvc
+    envRef: myLibSvc
+
+  testMyLibSvc:
+    icon: ✅
+    extend: zrbRunShellScript
+    location: ../../myApp
+    dependencies:
+      - prepareMyLibSvc
+    configRefs:
+      - testMyLibSvc
+      - myLibSvc
+    envRef: myLibSvc
+
+  migrateMyLibSvc:
+    icon: 🦆
+    extend: zrbRunShellScript
+    location: ../../myApp
+    dependencies:
+      - prepareMyLibSvc
+    configRefs:
+      - migrateMyLibSvc
+      - myLibSvc
+    envRef: myLibSvc
+

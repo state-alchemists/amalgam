@@ -1,0 +1,15 @@
+defaultBranch: master
+defaultImagePrefix: ""
+defaultImageTag: latest
+defaultKubeContext: docker-desktop
+defaultKubeNamespace: default
+hostDockerInternal: host.docker.internal
+pulumiUseLocalBackend: "false"
+runMyAppInLocal: "true"
+runMyAuthSvcDbInLocal: "true"
+runMyAuthSvcInLocal: "true"
+runMyBackendInLocal: "true"
+runMyFrontendInLocal: "true"
+runMyLibSvcDbInLocal: "true"
+runMyLibSvcInLocal: "true"
+runMyRabbitmqInLocal: "true"

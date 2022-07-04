@@ -1,0 +1,19 @@
+configs:
+
+  myAuthSvcDb:
+    runInLocal: '{{ .GetValue "runMyAuthSvcDbInLocal" }}'
+    ports: |
+      3307:3306
+
+  myAuthSvcDbContainer:
+    useImagePrefix: true
+    imageName: my-auth-svc-db
+    containerName: myAuthSvcDb
+    localhost: host.docker.internal
+    afterCheck: sleep 3
+    checkCommand: |
+      mysqladmin ping -u "root" -p{{ .GetEnv "MYSQL_ROOT_PASSWORD" }}
+    command : |
+
+    volumes: |
+      initdb.d:/docker-entrypoint-initdb.d

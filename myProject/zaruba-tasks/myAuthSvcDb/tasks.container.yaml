@@ -1,0 +1,55 @@
+tasks:
+
+  startMyAuthSvcDbContainer:
+    icon: 🐬
+    extend: zrbStartDockerContainer
+    location: ../../myAuthSvcDb
+    inputs:
+      - runMyAuthSvcDbInLocal
+    dependencies:
+      - buildMyAuthSvcDbImage
+    configRefs:
+      - myAuthSvcDbContainer
+      - myAuthSvcDb
+    envRefs: 
+      - myAuthSvcDb
+
+  buildMyAuthSvcDbImage:
+    icon: 🏭
+    extend: zrbBuildDockerImage
+    location: ../../myAuthSvcDb
+    configRefs:
+      - myAuthSvcDbContainer
+      - myAuthSvcDb
+    envRefs: 
+      - myAuthSvcDb
+
+  pushMyAuthSvcDbImage:
+    icon: 📤
+    extend: zrbPushDockerImage
+    dependencies:
+      - buildMyAuthSvcDbImage
+    configRefs:
+      - myAuthSvcDbContainer
+      - myAuthSvcDb
+    envRefs: 
+      - myAuthSvcDb
+
+  stopMyAuthSvcDbContainer:
+    icon: ✋
+    extend: zrbStopDockerContainer
+    configRefs:
+      - myAuthSvcDbContainer
+      - myAuthSvcDb
+    envRefs: 
+      - myAuthSvcDb
+
+  removeMyAuthSvcDbContainer:
+    icon: ❌
+    extend: zrbRemoveDockerContainer
+    location: ../../myAuthSvcDb
+    configRefs:
+      - myAuthSvcDbContainer
+      - myAuthSvcDb
+    envRefs: 
+      - myAuthSvcDb
