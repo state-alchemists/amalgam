@@ -10,10 +10,10 @@ configs:
     imageName: my-auth-svc-db
     containerName: myAuthSvcDb
     localhost: host.docker.internal
-    afterCheck: sleep 3
+    afterCheck: sleep 10
     checkCommand: |
       mysqladmin ping -u "root" -p{{ .GetEnv "MYSQL_ROOT_PASSWORD" }}
-    command : |
-
-    volumes: |
+    command: ""
+    volumes: |-
       initdb.d:/docker-entrypoint-initdb.d
+

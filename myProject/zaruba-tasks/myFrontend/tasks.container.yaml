@@ -8,10 +8,11 @@ tasks:
       - runMyFrontendInLocal
     dependencies:
       - buildMyFrontendImage
+      - startMyRabbitmqContainer
     configRefs:
       - myFrontendContainer
       - myFrontend
-    envRefs: 
+    envRefs:
       - myFrontend
 
   buildMyFrontendImage:
@@ -21,7 +22,7 @@ tasks:
     configRefs:
       - myFrontendContainer
       - myFrontend
-    envRefs: 
+    envRefs:
       - myFrontend
 
   pushMyFrontendImage:
@@ -32,7 +33,7 @@ tasks:
     configRefs:
       - myFrontendContainer
       - myFrontend
-    envRefs: 
+    envRefs:
       - myFrontend
 
   stopMyFrontendContainer:
@@ -41,7 +42,7 @@ tasks:
     configRefs:
       - myFrontendContainer
       - myFrontend
-    envRefs: 
+    envRefs:
       - myFrontend
 
   removeMyFrontendContainer:
@@ -51,5 +52,6 @@ tasks:
     configRefs:
       - myFrontendContainer
       - myFrontend
-    envRefs: 
+    envRefs:
       - myFrontend
+

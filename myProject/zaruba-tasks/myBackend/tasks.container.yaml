@@ -8,10 +8,11 @@ tasks:
       - runMyBackendInLocal
     dependencies:
       - buildMyBackendImage
+      - startMyRabbitmqContainer
     configRefs:
       - myBackendContainer
       - myBackend
-    envRefs: 
+    envRefs:
       - myBackend
 
   buildMyBackendImage:
@@ -21,7 +22,7 @@ tasks:
     configRefs:
       - myBackendContainer
       - myBackend
-    envRefs: 
+    envRefs:
       - myBackend
 
   pushMyBackendImage:
@@ -32,7 +33,7 @@ tasks:
     configRefs:
       - myBackendContainer
       - myBackend
-    envRefs: 
+    envRefs:
       - myBackend
 
   stopMyBackendContainer:
@@ -41,7 +42,7 @@ tasks:
     configRefs:
       - myBackendContainer
       - myBackend
-    envRefs: 
+    envRefs:
       - myBackend
 
   removeMyBackendContainer:
@@ -51,5 +52,6 @@ tasks:
     configRefs:
       - myBackendContainer
       - myBackend
-    envRefs: 
+    envRefs:
       - myBackend
+

@@ -43,6 +43,7 @@ tasks:
     location: ../../myApp
     dependencies:
       - prepareMyFrontend
+      - migrateMyApp
     configRefs:
       - migrateMyFrontend
       - myFrontend

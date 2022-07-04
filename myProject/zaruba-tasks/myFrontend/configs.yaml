@@ -29,6 +29,6 @@ configs:
       . "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/test.sh" }}"
 
   migrateMyFrontend:
-    start: |
-      . "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/migration.sh" }}"
+    start: |-
+      echo "Done"
 

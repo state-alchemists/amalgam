@@ -8,10 +8,12 @@ tasks:
       - runMyLibSvcInLocal
     dependencies:
       - buildMyLibSvcImage
+      - startMyRabbitmqContainer
+      - startMyLibSvcDbContainer
     configRefs:
       - myLibSvcContainer
       - myLibSvc
-    envRefs: 
+    envRefs:
       - myLibSvc
 
   buildMyLibSvcImage:
@@ -21,7 +23,7 @@ tasks:
     configRefs:
       - myLibSvcContainer
       - myLibSvc
-    envRefs: 
+    envRefs:
       - myLibSvc
 
   pushMyLibSvcImage:
@@ -32,7 +34,7 @@ tasks:
     configRefs:
       - myLibSvcContainer
       - myLibSvc
-    envRefs: 
+    envRefs:
       - myLibSvc
 
   stopMyLibSvcContainer:
@@ -41,7 +43,7 @@ tasks:
     configRefs:
       - myLibSvcContainer
       - myLibSvc
-    envRefs: 
+    envRefs:
       - myLibSvc
 
   removeMyLibSvcContainer:
@@ -51,5 +53,6 @@ tasks:
     configRefs:
       - myLibSvcContainer
       - myLibSvc
-    envRefs: 
+    envRefs:
       - myLibSvc
+

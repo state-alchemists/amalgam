@@ -12,9 +12,9 @@ configs:
     imageName: my-rabbitmq
     containerName: myRabbitmq
     localhost: host.docker.internal
-    afterCheck: sleep 3
+    afterCheck: sleep 15
     checkCommand: |
       rabbitmqctl await_startup
-    command : |
+    command: ""
+    volumes: ""
 
-    volumes: |

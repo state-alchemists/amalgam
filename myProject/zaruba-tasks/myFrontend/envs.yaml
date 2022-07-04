@@ -37,6 +37,9 @@ envs:
     APP_CREATE_OAUTH_ACCESS_TOKEN:
       default: /api/v1/create-oauth-access-token/
       from: MY_FRONTEND_APP_CREATE_OAUTH_ACCESS_TOKEN
+    APP_DB_CREATE_ALL:
+      default: "1"
+      from: MY_FRONTEND_APP_DB_CREATE_ALL
     APP_ENABLE_API:
       default: "0"
       from: MY_FRONTEND_APP_ENABLE_API
@@ -130,6 +133,9 @@ envs:
     APP_RPC_TYPE:
       default: rmq
       from: MY_FRONTEND_APP_RPC_TYPE
+    APP_SEED_ROOT_USER:
+      default: "0"
+      from: MY_FRONTEND_APP_SEED_ROOT_USER
     APP_SQLALCHEMY_DATABASE_URL:
       default: sqlite:///database.db
       from: MY_FRONTEND_APP_SQLALCHEMY_DATABASE_URL

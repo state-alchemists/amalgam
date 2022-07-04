@@ -8,10 +8,12 @@ tasks:
       - runMyAuthSvcInLocal
     dependencies:
       - buildMyAuthSvcImage
+      - startMyRabbitmqContainer
+      - startMyAuthSvcDbContainer
     configRefs:
       - myAuthSvcContainer
       - myAuthSvc
-    envRefs: 
+    envRefs:
       - myAuthSvc
 
   buildMyAuthSvcImage:
@@ -21,7 +23,7 @@ tasks:
     configRefs:
       - myAuthSvcContainer
       - myAuthSvc
-    envRefs: 
+    envRefs:
       - myAuthSvc
 
   pushMyAuthSvcImage:
@@ -32,7 +34,7 @@ tasks:
     configRefs:
       - myAuthSvcContainer
       - myAuthSvc
-    envRefs: 
+    envRefs:
       - myAuthSvc
 
   stopMyAuthSvcContainer:
@@ -41,7 +43,7 @@ tasks:
     configRefs:
       - myAuthSvcContainer
       - myAuthSvc
-    envRefs: 
+    envRefs:
       - myAuthSvc
 
   removeMyAuthSvcContainer:
@@ -51,5 +53,6 @@ tasks:
     configRefs:
       - myAuthSvcContainer
       - myAuthSvc
-    envRefs: 
+    envRefs:
       - myAuthSvc
+

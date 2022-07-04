@@ -25,7 +25,7 @@ class RMQConnection():
 
     def _process_data_events(self):
         while True:
-            time.sleep(5)
+            time.sleep(1)
             if not self.should_check_connection:
                 break
             try:
