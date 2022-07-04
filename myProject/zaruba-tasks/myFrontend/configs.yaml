@@ -12,8 +12,7 @@ configs:
     localhost: host.docker.internal
     checkCommand: |
       echo "check myFrontend"
-    volumes: |
-
+    volumes: ""
 
   startMyFrontend:
     start: |
@@ -22,8 +21,8 @@ configs:
       echo "check myFrontend"
 
   prepareMyFrontend:
-    start: |
-      . "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/preparation.sh" }}"
+    start: |-
+      echo "Done"
 
   testMyFrontend:
     start: |
@@ -32,3 +31,4 @@ configs:
   migrateMyFrontend:
     start: |
       . "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/migration.sh" }}"
+

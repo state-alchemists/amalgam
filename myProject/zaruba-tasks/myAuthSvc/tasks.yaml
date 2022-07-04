@@ -24,6 +24,8 @@ tasks:
       - prepareMyAuthSvc
       - myAuthSvc
     envRef: myAuthSvc
+    dependencies:
+      - prepareMyApp
 
   testMyAuthSvc:
     icon: ✅
@@ -42,6 +44,7 @@ tasks:
     location: ../../myApp
     dependencies:
       - prepareMyAuthSvc
+      - startMyAuthSvcDb
     configRefs:
       - migrateMyAuthSvc
       - myAuthSvc

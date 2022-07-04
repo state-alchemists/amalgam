@@ -61,7 +61,7 @@ zaruba please addMysql \
 
 echo "👷 Add mysql for libSvc"
 zaruba please addMysql \
-    appDirectory=myLibSvcDb
+    appDirectory=myLibSvcDb \
     appPorts='["3308:3306"]'
 
 echo "👷 Add rabbitmq"
@@ -89,6 +89,9 @@ zaruba task setEnv startMyFrontend APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyFrontend APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyFrontend APP_UI_BACKEND_URL http://localhost:3002
 
+zaruba task addDependencies prepareMyFrontend prepareMyApp
+zaruba task setConfig prepareMyFrontend start 'echo "Done"'
+
 zaruba task addDependencies startMyFrontend startMyRabbitmq
 
 ################################################################################################
@@ -110,6 +113,9 @@ zaruba task setEnv startMyBackend APP_RABBITMQ_HOST localhost
 zaruba task setEnv startMyBackend APP_RABBITMQ_USER root
 zaruba task setEnv startMyBackend APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyBackend APP_RABBITMQ_VHOST /
+
+zaruba task addDependencies prepareMyBackend prepareMyApp
+zaruba task setConfig prepareMyBackend start 'echo "Done"'
 
 zaruba task addDependencies startMyBackend startMyRabbitmq
 
@@ -136,7 +142,11 @@ zaruba task setEnv startMyAuthSvc APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyAuthSvc APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyAuthSvc APP_SQLALCHEMY_DATABASE_URL 'mysql+pymysql://root:Alch3mist@localhost:3307/sample?charset=utf8mb4'
 
+zaruba task addDependencies prepareMyAuthSvc prepareMyApp
+zaruba task setConfig prepareMyAuthSvc start 'echo "Done"'
+
 zaruba task addDependencies startMyAuthSvc startMyRabbitmq
+zaruba task addDependencies migrateMyAuthSvc startMyAuthSvcDb
 zaruba task addDependencies startMyAuthSvc startMyAuthSvcDb
 
 
@@ -162,7 +172,11 @@ zaruba task setEnv startMyLibSvc APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyLibSvc APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyLibSvc APP_SQLALCHEMY_DATABASE_URL 'mysql+pymysql://root:Alch3mist@localhost:3308/sample?charset=utf8mb4'
 
+zaruba task addDependencies prepareMyLibSvc prepareMyApp
+zaruba task setConfig prepareMyLibSvc start 'echo "Done"'
+
 zaruba task addDependencies startMyLibSvc startMyRabbitmq
+zaruba task addDependencies migrateMyLibSvc startMyLibSvcDb
 zaruba task addDependencies startMyLibSvc startMyLibSvcDb
 
 ################################################################################################

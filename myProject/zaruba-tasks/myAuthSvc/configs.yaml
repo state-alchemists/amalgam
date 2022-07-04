@@ -12,8 +12,7 @@ configs:
     localhost: host.docker.internal
     checkCommand: |
       echo "check myAuthSvc"
-    volumes: |
-
+    volumes: ""
 
   startMyAuthSvc:
     start: |
@@ -22,8 +21,8 @@ configs:
       echo "check myAuthSvc"
 
   prepareMyAuthSvc:
-    start: |
-      . "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/preparation.sh" }}"
+    start: |-
+      echo "Done"
 
   testMyAuthSvc:
     start: |
@@ -32,3 +31,4 @@ configs:
   migrateMyAuthSvc:
     start: |
       . "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/migration.sh" }}"
+

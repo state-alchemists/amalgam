@@ -23,6 +23,8 @@ tasks:
       - prepareMyFrontend
       - myFrontend
     envRef: myFrontend
+    dependencies:
+      - prepareMyApp
 
   testMyFrontend:
     icon: ✅

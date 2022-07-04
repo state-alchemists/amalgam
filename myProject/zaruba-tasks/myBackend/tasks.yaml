@@ -23,6 +23,8 @@ tasks:
       - prepareMyBackend
       - myBackend
     envRef: myBackend
+    dependencies:
+      - prepareMyApp
 
   testMyBackend:
     icon: ✅

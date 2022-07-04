@@ -12,8 +12,7 @@ configs:
     localhost: host.docker.internal
     checkCommand: |
       echo "check myLibSvc"
-    volumes: |
-
+    volumes: ""
 
   startMyLibSvc:
     start: |
@@ -22,8 +21,8 @@ configs:
       echo "check myLibSvc"
 
   prepareMyLibSvc:
-    start: |
-      . "{{ .GetProjectPath "zaruba-tasks/myLibSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myLibSvc/bash/preparation.sh" }}"
+    start: |-
+      echo "Done"
 
   testMyLibSvc:
     start: |
@@ -32,3 +31,4 @@ configs:
   migrateMyLibSvc:
     start: |
       . "{{ .GetProjectPath "zaruba-tasks/myLibSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myLibSvc/bash/migration.sh" }}"
+
