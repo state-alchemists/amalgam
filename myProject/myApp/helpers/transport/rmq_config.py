@@ -62,7 +62,7 @@ class RMQEventMap:
     def get_prefetch_count(self, event_name: str) -> int:
         if event_name in self.mapping and 'prefetch_count' in self.mappping[event_name] and self.mapping[event_name]['prefetch_count'] > 0:
             return self.mapping[event_name]['prefetch_count']
-        return 1
+        return 10
 
     def get_auto_ack(self, event_name: str) -> bool:
         if event_name in self.mapping and 'auto_ack' in self.mapping[event_name]:
