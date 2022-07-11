@@ -90,7 +90,7 @@
     },
     {
       "name": "APP_HTTP_PORT",
-      "value": "3004"
+      "value": "3000"
     },
     {
       "name": "APP_KAFKA_BOOTSTRAP_SERVERS",
@@ -253,6 +253,7 @@
       "value": "sqlite:///test.db"
     }
   ],
+  "fullnameOverride": "lib-svc",
   "image.repository": "my-app",
   "image.tag": "latest",
   "namespace": "default",

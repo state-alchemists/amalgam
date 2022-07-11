@@ -253,6 +253,7 @@
       "value": "sqlite:///test.db"
     }
   ],
+  "fullnameOverride": "frontend",
   "image.repository": "my-app",
   "image.tag": "latest",
   "namespace": "default",

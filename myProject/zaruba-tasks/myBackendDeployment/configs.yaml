@@ -3,12 +3,13 @@ configs:
   prepareMyBackendDeployment:
     useImagePrefix: true
     imagePrefix: '{{ .GetValue "defaultImagePrefix" }}'
-    namespace: default
+    namespace: '{{ if .GetValue "myBackendDeploymentspace" }}{{ .GetValue "myBackendDeploymentspace" }}{{ else }}default{{ end }}'
     imageName: my-app
-    imageTag: latest
-    replicaCount: 1
-    serviceType: LoadBalancer
-    serviceEnabled: true
+    imageTag: '{{ if .GetValue "ztplDeploymentImageTag" }}{{ .GetValue "ztplDeploymentImageTag" }}{{ else }}latest{{ end }}'
+    replicaCount: '{{ if .GetValue "ztplDeploymentReplicaCount" }}{{ .GetValue "ztplDeploymentReplicaCount" }}{{ else }}1{{ end }}'
+    serviceType: 'LoadBalancer'
+    serviceEnabled: '{{ if .GetValue "ztplDeploymentServiceEnabled" }}{{ .GetValue "ztplDeploymentServiceEnabled" }}{{ else }}true{{ end }}'
+    fullnameOverride: 'backend'
     ports: |-
       3002
     start: |-
@@ -16,8 +17,8 @@ configs:
       #
       if [ ! -d "./venv" ]
       then
-       echo "${_YELLOW}${_CONSTRUCTION_ICON} Create virtual environment.${_NORMAL}"
-       python -m venv ./venv
+      echo "${_YELLOW}${_CONSTRUCTION_ICON} Create virtual environment.${_NORMAL}"
+      python -m venv ./venv
       fi
       source ./venv/bin/activate
       echo "${_YELLOW}${_CONSTRUCTION_ICON} Install pip packages.${_NORMAL}"

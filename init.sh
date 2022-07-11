@@ -265,7 +265,8 @@ zaruba please addAppHelmDeployment \
     deploymentDirectory=myAuthSvcDeployment \
     appPorts='["3000"]'
 
-zaruba task setEnv deployMyAuthSvcDeployment APP_HTTP_PORT 3003
+zaruba task setConfig prepareMyAuthSvcDeployment fullnameOverride auth-svc
+zaruba task setEnv deployMyAuthSvcDeployment APP_HTTP_PORT 3000
 zaruba task setEnv deployMyAuthSvcDeployment APP_ENABLE_ROUTE_HANDLER 0
 zaruba task setEnv deployMyAuthSvcDeployment APP_ENABLE_UI 0
 zaruba task setEnv deployMyAuthSvcDeployment APP_ENABLE_API 0
@@ -276,7 +277,7 @@ zaruba task setEnv deployMyAuthSvcDeployment APP_RABBITMQ_HOST rabbitmq
 zaruba task setEnv deployMyAuthSvcDeployment APP_RABBITMQ_USER root
 zaruba task setEnv deployMyAuthSvcDeployment APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv deployMyAuthSvcDeployment APP_RABBITMQ_VHOST /
-zaruba task setEnv deployMyAuthSvcDeployment APP_SQLALCHEMY_DATABASE_URL "mysql+pymysql://root:Alch3mist@auth-svc-db/lib?charset=utf8mb4"
+zaruba task setEnv deployMyAuthSvcDeployment APP_SQLALCHEMY_DATABASE_URL "mysql+pymysql://root:Alch3mist@auth-svc-db/auth?charset=utf8mb4"
 zaruba task setEnv deployMyAuthSvcDeployment APP_RABBITMQ_HOST "rabbitmq"
 
 echo "👷 Add lib svc deployment"
@@ -286,7 +287,8 @@ zaruba please addAppHelmDeployment \
     deploymentDirectory=myLibSvcDeployment\
     appPorts='["3000"]'
 
-zaruba task setEnv deployMyLibSvcDeployment APP_HTTP_PORT 3004
+zaruba task setConfig prepareMyLibSvcDeployment fullnameOverride lib-svc
+zaruba task setEnv deployMyLibSvcDeployment APP_HTTP_PORT 3000
 zaruba task setEnv deployMyLibSvcDeployment APP_ENABLE_ROUTE_HANDLER 0
 zaruba task setEnv deployMyLibSvcDeployment APP_ENABLE_UI 0
 zaruba task setEnv deployMyLibSvcDeployment APP_ENABLE_API 0
@@ -308,6 +310,7 @@ zaruba please addAppHelmDeployment \
 
 zaruba task setConfig prepareMyFrontendDeployment ports 3001
 zaruba task setConfig prepareMyFrontendDeployment serviceType LoadBalancer
+zaruba task setConfig prepareMyFrontendDeployment fullnameOverride frontend
 zaruba task setEnv deployMyFrontendDeployment APP_HTTP_PORT 3001
 zaruba task setEnv deployMyFrontendDeployment APP_ENABLE_API 0
 zaruba task setEnv deployMyFrontendDeployment APP_ENABLE_RPC_HANDLER 0
@@ -329,8 +332,9 @@ zaruba please addAppHelmDeployment \
 
 zaruba task setConfig prepareMyBackendDeployment ports 3002
 zaruba task setConfig prepareMyBackendDeployment serviceType LoadBalancer
-zaruba task setEnv deployMyBackendDeployment APP_HTTP_PORT 3001
-zaruba task setEnv deployMyBackendDeployment APP_ENABLE_API 0
+zaruba task setConfig prepareMyBackendDeployment fullnameOverride backend
+zaruba task setEnv deployMyBackendDeployment APP_HTTP_PORT 3002
+zaruba task setEnv deployMyBackendDeployment APP_ENABLE_UI 0
 zaruba task setEnv deployMyBackendDeployment APP_ENABLE_RPC_HANDLER 0
 zaruba task setEnv deployMyBackendDeployment APP_ENABLE_EVENT_HANDLER 0
 zaruba task setEnv deployMyBackendDeployment APP_RPC_TYPE rmq
@@ -339,7 +343,6 @@ zaruba task setEnv deployMyBackendDeployment APP_RABBITMQ_HOST rabbitmq
 zaruba task setEnv deployMyBackendDeployment APP_RABBITMQ_USER root
 zaruba task setEnv deployMyBackendDeployment APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv deployMyBackendDeployment APP_RABBITMQ_VHOST /
-zaruba task setEnv deployMyBackendDeployment APP_UI_BACKEND_URL http://localhost:3002
 zaruba task setEnv deployMyBackendDeployment APP_SEED_ROOT_USER 0
 
 echo "👷 Synchronize environment"

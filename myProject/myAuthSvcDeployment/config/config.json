@@ -94,7 +94,7 @@
     },
     {
       "name": "APP_HTTP_PORT",
-      "value": "3003"
+      "value": "3000"
     },
     {
       "name": "APP_KAFKA_BOOTSTRAP_SERVERS",
@@ -186,7 +186,7 @@
     },
     {
       "name": "APP_SQLALCHEMY_DATABASE_URL",
-      "value": "mysql+pymysql://root:Alch3mist@auth-svc-db/lib?charset=utf8mb4"
+      "value": "mysql+pymysql://root:Alch3mist@auth-svc-db/auth?charset=utf8mb4"
     },
     {
       "name": "APP_UI_BACKEND_URL",
@@ -257,6 +257,7 @@
       "value": "sqlite:///test.db"
     }
   ],
+  "fullnameOverride": "auth-svc",
   "image.repository": "my-app",
   "image.tag": "latest",
   "namespace": "default",

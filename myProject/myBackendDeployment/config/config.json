@@ -54,7 +54,7 @@
     },
     {
       "name": "APP_ENABLE_API",
-      "value": "0"
+      "value": "1"
     },
     {
       "name": "APP_ENABLE_AUTH_MODULE",
@@ -78,7 +78,7 @@
     },
     {
       "name": "APP_ENABLE_UI",
-      "value": "1"
+      "value": "0"
     },
     {
       "name": "APP_ERROR_THRESHOLD",
@@ -90,7 +90,7 @@
     },
     {
       "name": "APP_HTTP_PORT",
-      "value": "3001"
+      "value": "3002"
     },
     {
       "name": "APP_KAFKA_BOOTSTRAP_SERVERS",
@@ -186,7 +186,7 @@
     },
     {
       "name": "APP_UI_BACKEND_URL",
-      "value": "http://localhost:3002"
+      "value": "http://localhost:3000"
     },
     {
       "name": "APP_UI_JINJA_DIR",
@@ -253,6 +253,7 @@
       "value": "sqlite:///test.db"
     }
   ],
+  "fullnameOverride": "backend",
   "image.repository": "my-app",
   "image.tag": "latest",
   "namespace": "default",

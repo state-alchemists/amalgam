@@ -3,7 +3,7 @@ envs:
   myLibSvcDeployment:
     APP_HTTP_PORT:
       from: MY_LIB_SVC_DEPLOYMENT_APP_HTTP_PORT
-      default: 3004
+      default: 3000
     APP_ENABLE_ROUTE_HANDLER:
       from: MY_LIB_SVC_DEPLOYMENT_APP_ENABLE_ROUTE_HANDLER
       default: 0

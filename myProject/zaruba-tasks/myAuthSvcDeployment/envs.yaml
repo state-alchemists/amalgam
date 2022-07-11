@@ -3,7 +3,7 @@ envs:
   myAuthSvcDeployment:
     APP_HTTP_PORT:
       from: MY_AUTH_SVC_DEPLOYMENT_APP_HTTP_PORT
-      default: 3003
+      default: 3000
     APP_ENABLE_ROUTE_HANDLER:
       from: MY_AUTH_SVC_DEPLOYMENT_APP_ENABLE_ROUTE_HANDLER
       default: 0
@@ -36,7 +36,7 @@ envs:
       default: /
     APP_SQLALCHEMY_DATABASE_URL:
       from: MY_AUTH_SVC_DEPLOYMENT_APP_SQLALCHEMY_DATABASE_URL
-      default: mysql+pymysql://root:Alch3mist@auth-svc-db/lib?charset=utf8mb4
+      default: mysql+pymysql://root:Alch3mist@auth-svc-db/auth?charset=utf8mb4
     APP_ACCESS_TOKEN_ALGORITHM:
       from: MY_AUTH_SVC_DEPLOYMENT_APP_ACCESS_TOKEN_ALGORITHM
       default: HS256

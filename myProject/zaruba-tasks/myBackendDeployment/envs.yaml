@@ -3,9 +3,9 @@ envs:
   myBackendDeployment:
     APP_HTTP_PORT:
       from: MY_BACKEND_DEPLOYMENT_APP_HTTP_PORT
-      default: 3001
-    APP_ENABLE_API:
-      from: MY_BACKEND_DEPLOYMENT_APP_ENABLE_API
+      default: 3002
+    APP_ENABLE_UI:
+      from: MY_BACKEND_DEPLOYMENT_APP_ENABLE_UI
       default: 0
     APP_ENABLE_RPC_HANDLER:
       from: MY_BACKEND_DEPLOYMENT_APP_ENABLE_RPC_HANDLER
@@ -31,18 +31,9 @@ envs:
     APP_RABBITMQ_VHOST:
       from: MY_BACKEND_DEPLOYMENT_APP_RABBITMQ_VHOST
       default: /
-    APP_UI_BACKEND_URL:
-      from: MY_BACKEND_DEPLOYMENT_APP_UI_BACKEND_URL
-      default: http://localhost:3002
     APP_SEED_ROOT_USER:
       from: MY_BACKEND_DEPLOYMENT_APP_SEED_ROOT_USER
       default: 0
-    PULUMI_BACKEND_URL:
-      from: MY_BACKEND_DEPLOYMENT_PULUMI_BACKEND_URL
-      default: ""
-    PULUMI_CONFIG_PASSPHRASE:
-      from: MY_BACKEND_DEPLOYMENT_PULUMI_CONFIG_PASSPHRASE
-      default: defaultLocalPulumiPassphrase
     APP_ACCESS_TOKEN_ALGORITHM:
       from: MY_BACKEND_DEPLOYMENT_APP_ACCESS_TOKEN_ALGORITHM
       default: HS256
@@ -82,6 +73,9 @@ envs:
     APP_DB_CREATE_ALL:
       from: MY_BACKEND_DEPLOYMENT_APP_DB_CREATE_ALL
       default: "1"
+    APP_ENABLE_API:
+      from: MY_BACKEND_DEPLOYMENT_APP_ENABLE_API
+      default: "1"
     APP_ENABLE_AUTH_MODULE:
       from: MY_BACKEND_DEPLOYMENT_APP_ENABLE_AUTH_MODULE
       default: "1"
@@ -90,9 +84,6 @@ envs:
       default: "1"
     APP_ENABLE_ROUTE_HANDLER:
       from: MY_BACKEND_DEPLOYMENT_APP_ENABLE_ROUTE_HANDLER
-      default: "1"
-    APP_ENABLE_UI:
-      from: MY_BACKEND_DEPLOYMENT_APP_ENABLE_UI
       default: "1"
     APP_ERROR_THRESHOLD:
       from: MY_BACKEND_DEPLOYMENT_APP_ERROR_THRESHOLD
@@ -148,6 +139,9 @@ envs:
     APP_SQLALCHEMY_DATABASE_URL:
       from: MY_BACKEND_DEPLOYMENT_APP_SQLALCHEMY_DATABASE_URL
       default: sqlite:///database.db
+    APP_UI_BACKEND_URL:
+      from: MY_BACKEND_DEPLOYMENT_APP_UI_BACKEND_URL
+      default: http://localhost:3000
     APP_UI_JINJA_DIR:
       from: MY_BACKEND_DEPLOYMENT_APP_UI_JINJA_DIR
       default: _jinja_templates
@@ -187,4 +181,10 @@ envs:
     TEST_SQLALCHEMY_DATABASE_URL:
       from: MY_BACKEND_DEPLOYMENT_TEST_SQLALCHEMY_DATABASE_URL
       default: sqlite:///test.db
+    PULUMI_BACKEND_URL:
+      from: MY_BACKEND_DEPLOYMENT_PULUMI_BACKEND_URL
+      default: ""
+    PULUMI_CONFIG_PASSPHRASE:
+      from: MY_BACKEND_DEPLOYMENT_PULUMI_CONFIG_PASSPHRASE
+      default: defaultLocalPulumiPassphrase
 

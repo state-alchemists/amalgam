@@ -22,6 +22,11 @@ Please open [init.sh](init.sh) to see the details.
 ```bash
 cd myProject
 zaruba please startMyApp
+
+# (or run as container)
+# zaruba pleaase startMyAppContainer
+# (ctrl + c)
+# zaruba please stopContainers
 ```
 
 # How to run your application as a microservices
@@ -29,6 +34,19 @@ zaruba please startMyApp
 ```bash
 cd myProject
 zaruba please startMyMicroservices
+
+# (or run as containers)
+# zaruba please startMyMicroservicesContainer
+# (ctrl + c)
+# zaruba please stopContainers
+```
+
+# How to deploy to Kubernetes
+
+```bash
+cd myProject
+zaruba please deploy
+# (zaruba please destroy)
 ```
 
 
