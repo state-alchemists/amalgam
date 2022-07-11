@@ -1,0 +1,38 @@
+tasks:
+
+  prepareMyAuthSvcDeployment:
+    icon: 🏁
+    extend: zrbRunShellScript
+    location: ../../myAuthSvcDeployment
+    configRefs:
+      - prepareMyAuthSvcDeployment
+    envRef: myAuthSvcDeployment
+    syncEnvLocation: ../../myApp
+
+  previewMyAuthSvcDeployment:
+    icon: 🏁
+    extend: zrbPulumiPreview
+    location: ../../myAuthSvcDeployment
+    timeout: 1h
+    envRef: myAuthSvcDeployment
+    syncEnvLocation: ../../myApp
+
+  deployMyAuthSvcDeployment:
+    icon: 🏁
+    extend: zrbPulumiDeploy
+    location: ../../myAuthSvcDeployment
+    timeout: 1h
+    dependencies:
+      - prepareMyAuthSvcDeployment
+      - zrbSetKubeContext
+    envRef: myAuthSvcDeployment
+
+  destroyMyAuthSvcDeployment:
+    icon: 🏁
+    extend: zrbPulumiDestroy
+    location: ../../myAuthSvcDeployment
+    timeout: 1h
+    dependencies:
+      - prepareMyAuthSvcDeployment
+      - zrbSetKubeContext
+    envRef: myAuthSvcDeployment

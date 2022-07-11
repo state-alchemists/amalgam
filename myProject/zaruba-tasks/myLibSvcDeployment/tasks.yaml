@@ -1,0 +1,38 @@
+tasks:
+
+  prepareMyLibSvcDeployment:
+    icon: 🏁
+    extend: zrbRunShellScript
+    location: ../../myLibSvcDeployment
+    configRefs:
+      - prepareMyLibSvcDeployment
+    envRef: myLibSvcDeployment
+    syncEnvLocation: ../../myApp
+
+  previewMyLibSvcDeployment:
+    icon: 🏁
+    extend: zrbPulumiPreview
+    location: ../../myLibSvcDeployment
+    timeout: 1h
+    envRef: myLibSvcDeployment
+    syncEnvLocation: ../../myApp
+
+  deployMyLibSvcDeployment:
+    icon: 🏁
+    extend: zrbPulumiDeploy
+    location: ../../myLibSvcDeployment
+    timeout: 1h
+    dependencies:
+      - prepareMyLibSvcDeployment
+      - zrbSetKubeContext
+    envRef: myLibSvcDeployment
+
+  destroyMyLibSvcDeployment:
+    icon: 🏁
+    extend: zrbPulumiDestroy
+    location: ../../myLibSvcDeployment
+    timeout: 1h
+    dependencies:
+      - prepareMyLibSvcDeployment
+      - zrbSetKubeContext
+    envRef: myLibSvcDeployment

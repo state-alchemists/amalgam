@@ -7,6 +7,13 @@ includes:
   - ./zaruba-tasks/myBackend/index.yaml
   - ./zaruba-tasks/myAuthSvc/index.yaml
   - ./zaruba-tasks/myLibSvc/index.yaml
+  - ./zaruba-tasks/myAuthSvcDbDeployment/index.yaml
+  - ./zaruba-tasks/myLibSvcDbDeployment/index.yaml
+  - ./zaruba-tasks/myRabbitmqDeployment/index.yaml
+  - ./zaruba-tasks/myAuthSvcDeployment/index.yaml
+  - ./zaruba-tasks/myLibSvcDeployment/index.yaml
+  - ./zaruba-tasks/myFrontendDeployment/index.yaml
+  - ./zaruba-tasks/myBackendDeployment/index.yaml
 
 tasks:
 
@@ -136,17 +143,38 @@ tasks:
   prepareDeployments:
     icon: 🔧
     extend: zrbWrapper
-    dependencies: []
+    dependencies:
+      - prepareMyAuthSvcDbDeployment
+      - prepareMyLibSvcDbDeployment
+      - prepareMyRabbitmqDeployment
+      - prepareMyAuthSvcDeployment
+      - prepareMyLibSvcDeployment
+      - prepareMyFrontendDeployment
+      - prepareMyBackendDeployment
 
   deploy:
     icon: 🏭
     extend: zrbWrapper
-    dependencies: []
+    dependencies:
+      - deployMyAuthSvcDbDeployment
+      - deployMyLibSvcDbDeployment
+      - deployMyRabbitmqDeployment
+      - deployMyAuthSvcDeployment
+      - deployMyLibSvcDeployment
+      - deployMyFrontendDeployment
+      - deployMyBackendDeployment
 
   destroy:
     icon: ❌
     extend: zrbWrapper
-    dependencies: []
+    dependencies:
+      - destroyMyAuthSvcDbDeployment
+      - destroyMyLibSvcDbDeployment
+      - destroyMyRabbitmqDeployment
+      - destroyMyAuthSvcDeployment
+      - destroyMyLibSvcDeployment
+      - destroyMyFrontendDeployment
+      - destroyMyBackendDeployment
 
   startMyMicroservices:
     dependencies:
