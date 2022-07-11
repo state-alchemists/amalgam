@@ -10,7 +10,7 @@ with open('./config/config.json') as f:
     config = json.load(f)
 
 app = Chart(
-    'my-app', 
+    'my-backend-deployment', 
     config=LocalChartOpts(
         path = './chart',
         namespace = config.get('namespace', 'default'),

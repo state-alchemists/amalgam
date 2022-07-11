@@ -1,8 +1,8 @@
-"""20220711224451 dusty_half
+"""20220712000156 cold_green
 
-Revision ID: 5fcfa054c4a0
+Revision ID: d48d0a2e583a
 Revises: 7dda1641a129
-Create Date: 2022-07-11 22:44:51.538542
+Create Date: 2022-07-12 00:01:57.045745
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5fcfa054c4a0'
+revision = 'd48d0a2e583a'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

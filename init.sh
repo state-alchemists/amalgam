@@ -246,23 +246,24 @@ zaruba project setValue pulumiUseLocalBackend yes
 
 echo "👷 Add auth svc db deployment"
 zaruba please addMysqlHelmDeployment deploymentDirectory=myAuthSvcDbDeployment
-zaruba task setEnv deployMyAuthSvcDbDeployment FULLNAME_OVERRIDE "auth-svc-db"
+zaruba task setEnv deployMyAuthSvcDbDeployment FULLNAMEOVERRIDE "auth-svc-db"
 zaruba task setEnv deployMyAuthSvcDbDeployment AUTH_DATABASE "auth"
 
 echo "👷 Add lib svc db deployment"
 zaruba please addMysqlHelmDeployment deploymentDirectory=myLibSvcDbDeployment
-zaruba task setEnv deployMyLibSvcDbDeployment FULLNAME_OVERRIDE "lib-svc-db"
+zaruba task setEnv deployMyLibSvcDbDeployment FULLNAMEOVERRIDE "lib-svc-db"
 zaruba task setEnv deployMyLibSvcDbDeployment AUTH_DATABASE "lib"
 
 echo "👷 Add rabbitmq deployment"
 zaruba please addRabbitmqHelmDeployment deploymentDirectory=myRabbitmqDeployment
-zaruba task setEnv deployMyRabbitmqDeployment FULLNAME_OVERRIDE "rabbitmq"
+zaruba task setEnv deployMyRabbitmqDeployment FULLNAMEOVERRIDE "rabbitmq"
 
 echo "👷 Add auth svc deployment"
 
 zaruba please addAppHelmDeployment \
     appDirectory=myApp \
-    deploymentDirectory=myAuthSvcDeployment
+    deploymentDirectory=myAuthSvcDeployment \
+    appPorts='["3000"]'
 
 zaruba task setEnv deployMyAuthSvcDeployment APP_HTTP_PORT 3003
 zaruba task setEnv deployMyAuthSvcDeployment APP_ENABLE_ROUTE_HANDLER 0
@@ -282,7 +283,8 @@ echo "👷 Add lib svc deployment"
 
 zaruba please addAppHelmDeployment \
     appDirectory=myApp \
-    deploymentDirectory=myLibSvcDeployment
+    deploymentDirectory=myLibSvcDeployment\
+    appPorts='["3000"]'
 
 zaruba task setEnv deployMyLibSvcDeployment APP_HTTP_PORT 3004
 zaruba task setEnv deployMyLibSvcDeployment APP_ENABLE_ROUTE_HANDLER 0
@@ -301,7 +303,8 @@ echo "👷 Add frontend deployment"
 
 zaruba please addAppHelmDeployment \
     appDirectory=myApp \
-    deploymentDirectory=myFrontendDeployment
+    deploymentDirectory=myFrontendDeployment \
+    appPorts='["3001"]'
 
 zaruba task setConfig prepareMyFrontendDeployment ports 3001
 zaruba task setConfig prepareMyFrontendDeployment serviceType LoadBalancer
@@ -321,7 +324,9 @@ zaruba task setEnv deployMyFrontendDeployment APP_SEED_ROOT_USER 0
 echo "👷 Add backend deployment"
 zaruba please addAppHelmDeployment \
     appDirectory=myApp \
-    deploymentDirectory=myBackendDeployment
+    deploymentDirectory=myBackendDeployment \
+    appPorts='["3002"]'
+
 zaruba task setConfig prepareMyBackendDeployment ports 3002
 zaruba task setConfig prepareMyBackendDeployment serviceType LoadBalancer
 zaruba task setEnv deployMyBackendDeployment APP_HTTP_PORT 3001

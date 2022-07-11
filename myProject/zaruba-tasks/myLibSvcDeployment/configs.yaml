@@ -10,8 +10,7 @@ configs:
     serviceType: ClusterIP
     serviceEnabled: true
     ports: |
-      {{ .GetEnv "APP_HTTP_PORT" }}
-      {{ .GetEnv "APP_ACCESS_TOKEN_EXPIRE" }}
+      3000
     start: |
       # Activate venv
       #
