@@ -340,6 +340,9 @@ zaruba task setEnv deployMyBackendDeployment APP_SEED_ROOT_USER 0
 echo "👷 Synchronize environment"
 zaruba please syncEnv
 
+echo "👷 Build image"
+zaruba please buildImages
+
 echo "👷 This is enough for deployment."
 echo "👷 To deploy, you can run: cd myProject && zaruba please deploy"
 echo "👷 Once running, you can visit:"
