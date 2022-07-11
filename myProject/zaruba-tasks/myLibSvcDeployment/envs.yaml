@@ -37,12 +37,6 @@ envs:
     APP_SQLALCHEMY_DATABASE_URL:
       from: MY_LIB_SVC_DEPLOYMENT_APP_SQLALCHEMY_DATABASE_URL
       default: mysql+pymysql://root:Alch3mist@lib-svc-db/lib?charset=utf8mb4
-    PULUMI_BACKEND_URL:
-      from: MY_LIB_SVC_DEPLOYMENT_PULUMI_BACKEND_URL
-      default: ""
-    PULUMI_CONFIG_PASSPHRASE:
-      from: MY_LIB_SVC_DEPLOYMENT_PULUMI_CONFIG_PASSPHRASE
-      default: defaultLocalPulumiPassphrase
     APP_ACCESS_TOKEN_ALGORITHM:
       from: MY_LIB_SVC_DEPLOYMENT_APP_ACCESS_TOKEN_ALGORITHM
       default: HS256
@@ -187,4 +181,10 @@ envs:
     TEST_SQLALCHEMY_DATABASE_URL:
       from: MY_LIB_SVC_DEPLOYMENT_TEST_SQLALCHEMY_DATABASE_URL
       default: sqlite:///test.db
+    PULUMI_BACKEND_URL:
+      from: MY_LIB_SVC_DEPLOYMENT_PULUMI_BACKEND_URL
+      default: ""
+    PULUMI_CONFIG_PASSPHRASE:
+      from: MY_LIB_SVC_DEPLOYMENT_PULUMI_CONFIG_PASSPHRASE
+      default: defaultLocalPulumiPassphrase
 
