@@ -353,6 +353,9 @@ zaruba please syncEnv
 echo "👷 Build image"
 zaruba please buildImages
 
+echo "👷 Prepare deployments"
+zaruba please prepareDeployments
+
 echo "👷 This is enough for deployment."
 echo "👷 To deploy, you can run: cd myProject && zaruba please deploy"
 echo "👷 Once running, you can visit:"
