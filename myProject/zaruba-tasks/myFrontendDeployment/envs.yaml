@@ -188,7 +188,7 @@ envs:
       default: LoadBalancer
     SERVICE_ENABLED:
       from: MY_FRONTEND_DEPLOYMENT_SERVICE_ENABLED
-      default: "True"
+      default: True
     FULLNAME_OVERRIDE:
       from: MY_FRONTEND_DEPLOYMENT_FULLNAME_OVERRIDE
       default: frontend

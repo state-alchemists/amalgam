@@ -332,9 +332,9 @@ zaruba please addAppHelmDeployment \
     deploymentDirectory=myBackendDeployment \
     appPorts='["3002"]'
 
-zaruba task setEnv deployMyFrontendDeployment SERVICE_TYPE LoadBalancer
-zaruba task setEnv deployMyFrontendDeployment SERVICE_ENABLED True
-zaruba task setEnv deployMyFrontendDeployment FULLNAME_OVERRIDE frontend
+zaruba task setEnv deployMyBackendDeployment SERVICE_TYPE LoadBalancer
+zaruba task setEnv deployMyBackendDeployment SERVICE_ENABLED True
+zaruba task setEnv deployMyBackendDeployment FULLNAME_OVERRIDE backend
 zaruba task setEnv prepareMyBackendDeployment APP_HTTP_PORT 3002
 zaruba task setEnv prepareMyBackendDeployment APP_ENABLE_UI 0
 zaruba task setEnv prepareMyBackendDeployment APP_ENABLE_RPC_HANDLER 0

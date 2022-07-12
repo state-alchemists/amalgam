@@ -183,9 +183,15 @@ envs:
       default: sqlite:///test.db
 
   myBackendDeployment:
+    SERVICE_TYPE:
+      from: MY_BACKEND_DEPLOYMENT_SERVICE_TYPE
+      default: LoadBalancer
+    SERVICE_ENABLED:
+      from: MY_BACKEND_DEPLOYMENT_SERVICE_ENABLED
+      default: True
     FULLNAME_OVERRIDE:
       from: MY_BACKEND_DEPLOYMENT_FULLNAME_OVERRIDE
-      default: ""
+      default: backend
     NAMESPACE:
       from: MY_BACKEND_DEPLOYMENT_NAMESPACE
       default: default
@@ -198,10 +204,4 @@ envs:
     REPLICA_COUNT:
       from: MY_BACKEND_DEPLOYMENT_REPLICA_COUNT
       default: "1"
-    SERVICE_ENABLED:
-      from: MY_BACKEND_DEPLOYMENT_SERVICE_ENABLED
-      default: "True"
-    SERVICE_TYPE:
-      from: MY_BACKEND_DEPLOYMENT_SERVICE_TYPE
-      default: ClusterIP
 
