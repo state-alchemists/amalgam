@@ -64,6 +64,8 @@ zaruba please startMyMicroservices
 ```bash
 cd myProject
 zaruba please deploy
-# (zaruba please destroy)
+# zaruba please destroy
 ```
+
+![on kubernetes](images/on-kubernetes.png)
 
