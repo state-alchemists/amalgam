@@ -6,7 +6,7 @@ tasks:
     location: ../../myAuthSvcDeployment
     configRefs:
       - prepareMyAuthSvcDeployment
-    envRef: myAuthSvcDeployment
+    envRef: myAuthSvcDeploymentEnv
     syncEnvLocation: ../../myApp
 
   previewMyAuthSvcDeployment:
@@ -15,7 +15,8 @@ tasks:
     location: ../../myAuthSvcDeployment
     timeout: 1h
     envRef: myAuthSvcDeployment
-    syncEnvLocation: ../../myApp
+    dependencies:
+      - prepareMyAuthSvcDeployment
 
   deployMyAuthSvcDeployment:
     icon: 🏁

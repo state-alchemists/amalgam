@@ -6,7 +6,7 @@ tasks:
     location: ../../myLibSvcDeployment
     configRefs:
       - prepareMyLibSvcDeployment
-    envRef: myLibSvcDeployment
+    envRef: myLibSvcDeploymentEnv
     syncEnvLocation: ../../myApp
 
   previewMyLibSvcDeployment:
@@ -15,7 +15,8 @@ tasks:
     location: ../../myLibSvcDeployment
     timeout: 1h
     envRef: myLibSvcDeployment
-    syncEnvLocation: ../../myApp
+    dependencies:
+      - prepareMyLibSvcDeployment
 
   deployMyLibSvcDeployment:
     icon: 🏁

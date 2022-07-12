@@ -9,5 +9,6 @@ then
     echo "${_BOLD}${_YELLOW}Run in venv${_NORMAL}"
     . $@
 else
+    _NO_VENV=1
     . $@
 fi

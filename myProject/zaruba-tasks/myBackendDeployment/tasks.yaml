@@ -6,7 +6,7 @@ tasks:
     location: ../../myBackendDeployment
     configRefs:
       - prepareMyBackendDeployment
-    envRef: myBackendDeployment
+    envRef: myBackendDeploymentEnv
     syncEnvLocation: ../../myApp
 
   previewMyBackendDeployment:
@@ -15,7 +15,8 @@ tasks:
     location: ../../myBackendDeployment
     timeout: 1h
     envRef: myBackendDeployment
-    syncEnvLocation: ../../myApp
+    dependencies:
+      - prepareMyBackendDeployment
 
   deployMyBackendDeployment:
     icon: 🏁

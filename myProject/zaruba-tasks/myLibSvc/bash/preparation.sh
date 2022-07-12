@@ -1,5 +1,5 @@
 echo "${_BOLD}${_YELLOW}Start preparation${_NORMAL}"
-if [ ! -d "./venv" ]
+if [ "${_NO_VENV}" = "1" ] && [ ! -d "./venv" ]
 then
     echo "${_BOLD}${_YELLOW}Creating venv${_NORMAL}"
     python -m venv ./venv

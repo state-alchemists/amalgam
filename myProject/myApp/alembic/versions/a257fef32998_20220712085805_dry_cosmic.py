@@ -1,8 +1,8 @@
-"""20220712012856 patient_fragrant
+"""20220712085805 dry_cosmic
 
-Revision ID: 1c95e0e021e2
+Revision ID: a257fef32998
 Revises: 7dda1641a129
-Create Date: 2022-07-12 01:28:57.117155
+Create Date: 2022-07-12 08:58:05.591965
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '1c95e0e021e2'
+revision = 'a257fef32998'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

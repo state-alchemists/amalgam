@@ -3,42 +3,18 @@ configs:
   prepareMyAuthSvcDeployment:
     useImagePrefix: true
     imagePrefix: '{{ .GetValue "defaultImagePrefix" }}'
-    namespace: '{{ if .GetValue "myAuthSvcDeploymentspace" }}{{ .GetValue "myAuthSvcDeploymentspace" }}{{ else }}default{{ end }}'
     imageName: my-app
     imageTag: '{{ if .GetValue "ztplDeploymentImageTag" }}{{ .GetValue "ztplDeploymentImageTag" }}{{ else }}latest{{ end }}'
-    replicaCount: '{{ if .GetValue "ztplDeploymentReplicaCount" }}{{ .GetValue "ztplDeploymentReplicaCount" }}{{ else }}1{{ end }}'
-    serviceType: '{{ if .GetValue "ztplDeploymentServiceType" }}{{ .GetValue "ztplDeploymentServiceType" }}{{ else }}ClusterIP{{ end }}'
-    serviceEnabled: '{{ if .GetValue "ztplDeploymentServiceEnabled" }}{{ .GetValue "ztplDeploymentServiceEnabled" }}{{ else }}true{{ end }}'
-    fullnameOverride: 'auth-svc'
     ports: |
       3000
-    start: |-
-      # Activate venv
-      #
-      if [ ! -d "./venv" ]
-      then
-        echo "${_YELLOW}${_CONSTRUCTION_ICON} Create virtual environment.${_NORMAL}"
-        python -m venv ./venv
-      fi
-      source ./venv/bin/activate
-      echo "${_YELLOW}${_CONSTRUCTION_ICON} Install pip packages.${_NORMAL}"
-      pip install -r requirements.txt
-      #
-      # Prepare Variable
-      #
+    start: |
+      . "{{ .GetProjectPath "zaruba-tasks/myAuthSvcDeployment/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myAuthSvcDeployment/bash/preparation.sh" }}"
       DEPLOYMENT_CONFIG={}
-      IMAGE_NAME="{{ .GetDockerImageName }}"
+      IMAGE_REPOSITORY="{{ .GetDockerImageName }}"
       IMAGE_TAG="{{ if .GetConfig "imageTag" }}{{ .GetConfig "imageTag" }}{{ else }}latest{{ end }}"
       RAW_ENVS='{{ .Util.Json.FromStringDict .GetEnvs }}'
-      #
-      # Generate deployment configuration
-      #
       . '{{ .GetProjectPath "zaruba-tasks/myAuthSvcDeployment/bash/util.sh" }}'
       . '{{ .GetProjectPath "zaruba-tasks/myAuthSvcDeployment/bash/prepareVariables.sh" }}'
       echo "${_YELLOW}${_CONSTRUCTION_ICON} Deployment config:${_NORMAL} ${DEPLOYMENT_CONFIG}"
-      #
-      # Prepare Chart
-      #
       ${ZARUBA_BIN} json print "${DEPLOYMENT_CONFIG}" '{{ .GetProjectPath "myAuthSvcDeployment/config/config.json" }}'
       . '{{ .GetProjectPath "zaruba-tasks/myAuthSvcDeployment/bash/prepareChart.sh" }}'
-

@@ -197,14 +197,6 @@
       "value": "App"
     },
     {
-      "name": "PULUMI_BACKEND_URL",
-      "value": ""
-    },
-    {
-      "name": "PULUMI_CONFIG_PASSPHRASE",
-      "value": "defaultLocalPulumiPassphrase"
-    },
-    {
       "name": "PYTHONUNBUFFERED",
       "value": "1"
     },
@@ -253,10 +245,8 @@
       "value": "sqlite:///test.db"
     }
   ],
-  "fullnameOverride": "lib-svc",
   "image.repository": "my-app",
   "image.tag": "latest",
-  "namespace": "default",
   "ports": [
     {
       "containerPort": 3000,
@@ -264,8 +254,6 @@
       "protocol": "TCP"
     }
   ],
-  "replicaCount": 1,
-  "service.enabled": true,
   "service.ports": [
     {
       "name": "port0",
@@ -273,6 +261,5 @@
       "protocol": "TCP",
       "targetPort": "port0"
     }
-  ],
-  "service.type": "ClusterIP"
+  ]
 }

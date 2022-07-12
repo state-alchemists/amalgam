@@ -6,7 +6,7 @@ tasks:
     location: ../../myFrontendDeployment
     configRefs:
       - prepareMyFrontendDeployment
-    envRef: myFrontendDeployment
+    envRef: myFrontendDeploymentEnv
     syncEnvLocation: ../../myApp
 
   previewMyFrontendDeployment:
@@ -15,7 +15,8 @@ tasks:
     location: ../../myFrontendDeployment
     timeout: 1h
     envRef: myFrontendDeployment
-    syncEnvLocation: ../../myApp
+    dependencies:
+      - prepareMyFrontendDeployment
 
   deployMyFrontendDeployment:
     icon: 🏁
