@@ -281,7 +281,7 @@ zaruba task setEnv prepareMyAuthSvcDeployment APP_RABBITMQ_VHOST /
 zaruba task setEnv prepareMyAuthSvcDeployment APP_SQLALCHEMY_DATABASE_URL "mysql+pymysql://root:Alch3mist@auth-svc-db/auth?charset=utf8mb4"
 zaruba task setEnv prepareMyAuthSvcDeployment APP_RABBITMQ_HOST "rabbitmq"
 
-echo "👷 Add lib svc preparement"
+echo "👷 Add lib svc deployment"
 
 zaruba please addAppHelmDeployment \
     appDirectory=myApp \
@@ -303,7 +303,7 @@ zaruba task setEnv prepareMyLibSvcDeployment APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv prepareMyLibSvcDeployment APP_RABBITMQ_VHOST /
 zaruba task setEnv prepareMyLibSvcDeployment APP_SQLALCHEMY_DATABASE_URL "mysql+pymysql://root:Alch3mist@lib-svc-db/lib?charset=utf8mb4"
 
-echo "👷 Add frontend preparement"
+echo "👷 Add frontend deployment"
 
 zaruba please addAppHelmDeployment \
     appDirectory=myApp \
@@ -326,7 +326,7 @@ zaruba task setEnv prepareMyFrontendDeployment APP_RABBITMQ_VHOST /
 zaruba task setEnv prepareMyFrontendDeployment APP_UI_BACKEND_URL http://localhost:3002
 zaruba task setEnv prepareMyFrontendDeployment APP_SEED_ROOT_USER 0
 
-echo "👷 Add backend preparement"
+echo "👷 Add backend deployment"
 zaruba please addAppHelmDeployment \
     appDirectory=myApp \
     deploymentDirectory=myBackendDeployment \
