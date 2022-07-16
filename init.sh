@@ -265,6 +265,8 @@ zaruba please addAppHelmDeployment \
     deploymentDirectory=myAuthSvcDeployment \
     appPorts='["3000"]'
 
+zaruba task setEnv deployMyAuthSvcDeployment LIVENESS_PROBE_HTTP_GET_PATH /readiness
+zaruba task setEnv deployMyAuthSvcDeployment READINESS_PROBE_HTTP_GET_PATH /readiness
 zaruba task setEnv deployMyAuthSvcDeployment SERVICE_ENABLED False
 zaruba task setEnv deployMyAuthSvcDeployment FULLNAME_OVERRIDE auth-svc
 zaruba task setEnv prepareMyAuthSvcDeployment APP_HTTP_PORT 3000
@@ -288,6 +290,8 @@ zaruba please addAppHelmDeployment \
     deploymentDirectory=myLibSvcDeployment\
     appPorts='["3000"]'
 
+zaruba task setEnv deployMyLibSvcDeployment LIVENESS_PROBE_HTTP_GET_PATH /readiness
+zaruba task setEnv deployMyLibSvcDeployment READINESS_PROBE_HTTP_GET_PATH /readiness
 zaruba task setEnv deployMyLibSvcDeployment SERVICE_ENABLED False
 zaruba task setEnv deployMyLibSvcDeployment FULLNAME_OVERRIDE lib-svc
 zaruba task setEnv prepareMyLibSvcDeployment APP_HTTP_PORT 3000
@@ -310,6 +314,8 @@ zaruba please addAppHelmDeployment \
     deploymentDirectory=myFrontendDeployment \
     appPorts='["3001"]'
 
+zaruba task setEnv deployMyFrontendDeployment LIVENESS_PROBE_HTTP_GET_PATH /readiness
+zaruba task setEnv deployMyFrontendDeployment READINESS_PROBE_HTTP_GET_PATH /readiness
 zaruba task setEnv deployMyFrontendDeployment SERVICE_TYPE LoadBalancer
 zaruba task setEnv deployMyFrontendDeployment SERVICE_ENABLED True
 zaruba task setEnv deployMyFrontendDeployment FULLNAME_OVERRIDE frontend
@@ -332,6 +338,8 @@ zaruba please addAppHelmDeployment \
     deploymentDirectory=myBackendDeployment \
     appPorts='["3002"]'
 
+zaruba task setEnv deployMyBackendDeployment LIVENESS_PROBE_HTTP_GET_PATH /readiness
+zaruba task setEnv deployMyBackendDeployment READINESS_PROBE_HTTP_GET_PATH /readiness
 zaruba task setEnv deployMyBackendDeployment SERVICE_TYPE LoadBalancer
 zaruba task setEnv deployMyBackendDeployment SERVICE_ENABLED True
 zaruba task setEnv deployMyBackendDeployment FULLNAME_OVERRIDE backend

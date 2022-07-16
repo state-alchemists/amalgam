@@ -1,8 +1,8 @@
 # Documentation
 
-MyApp is a microservice-ready monolith application.
+`MyApp` is a microservice-ready monolith application.
 
-In this documentation, you will see MyApp's [motivation and architecture](motivation-and-architecture/README.md) as well as how to manage MyApp.
+In this documentation, you will see `MyApp`'s [motivation and architecture](motivation-and-architecture/README.md) as well as how to manage `MyApp`.
 
 <!--startToc-->
 * [Motivation and architecture](motivation-and-architecture/README.md)
