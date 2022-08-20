@@ -10,6 +10,7 @@ import uuid
 import pika
 import threading
 import traceback
+import sys
 
 class RMQRPCReply(BaseModel):
     result: Any
@@ -21,14 +22,10 @@ class RMQRPC(RMQConnection, RPC):
         RMQConnection.__init__(self, rmq_connection_parameters)
         self._event_map = rmq_event_map
         self._error_count = 0
-        self._is_failing = False
         self._publish_connection = self.create_connection()
 
     def get_error_count(self) -> int:
         return self._error_count
-
-    def is_failing(self) -> bool:
-        return self._is_failing
 
     def handle(self, rpc_name: str) -> Callable[..., Any]:
         def register_rpc_handler(rpc_handler: Callable[..., Any]):
@@ -55,8 +52,10 @@ class RMQRPC(RMQConnection, RPC):
                     ch.basic_consume(queue=queue, on_message_callback=on_rpc_request, auto_ack=auto_ack)
                     ch.start_consuming()
                 except:
+                    if self._should_check_connection:
+                        print(traceback.format_exc(), file=sys.stderr) 
                     self._is_failing = True
-                    print(traceback.format_exc()) 
+                    self.shutdown()
             thread = threading.Thread(target=consume)
             thread.start()
         return register_rpc_handler
@@ -72,7 +71,7 @@ class RMQRPC(RMQConnection, RPC):
                 except Exception as e:
                     reply.error_message = getattr(e, 'message', repr(e))
                     self._error_count += 1
-                    print(traceback.format_exc()) 
+                    print(traceback.format_exc(), file=sys.stderr) 
                 body: Any = self._event_map.get_encoder(rpc_name)(reply.dict())
                 # send reply
                 ch.basic_publish(
@@ -84,7 +83,7 @@ class RMQRPC(RMQConnection, RPC):
                 print({'action': 'send_rmq_rpc_reply', 'rpc_name': rpc_name, 'args': args, 'result': reply.result, 'error': reply.error_message, 'exchange': exchange, 'routing_key': queue, 'correlation_id': props.correlation_id})
             except Exception as e:
                 self._error_count += 1
-                print(traceback.format_exc()) 
+                print(traceback.format_exc(), file=sys.stderr) 
             finally:
                 if not auto_ack:
                     ch.basic_ack(delivery_tag=method.delivery_tag)
@@ -109,11 +108,12 @@ class RMQRPCCaller():
         self.ch = self.connection.channel()
         self.corr_id = str(uuid.uuid4())
         self.replied = False
+        self.reply_queue = ''
 
     def call(self, rpc_name: str, *args: Any) -> Any:
         # consume from reply queue
-        reply_queue = 'reply.' + rpc_name + self.corr_id
-        self._consume_from_reply_queue(rpc_name, reply_queue)
+        self.reply_queue = 'reply.' + rpc_name + self.corr_id
+        self._consume_from_reply_queue(rpc_name, self.reply_queue)
         # publish message
         exchange = self.event_map.get_exchange_name(rpc_name)
         routing_key = self.event_map.get_queue_name(rpc_name)
@@ -124,7 +124,7 @@ class RMQRPCCaller():
             exchange=exchange,
             routing_key=routing_key,
             properties=pika.BasicProperties(
-                reply_to=reply_queue,
+                reply_to=self.reply_queue,
                 correlation_id=self.corr_id,
             ),
             body=body
@@ -132,13 +132,18 @@ class RMQRPCCaller():
         # handle timeout
         self._handle_timeout(rpc_name)
         # clean up
-        self.ch.stop_consuming()
-        self.ch.queue_delete(reply_queue)
+        self._clean_up()
+        if self.is_timeout:
+            raise Exception('Timeout while calling {}'.format(rpc_name))
         if self.reply is None:
             raise Exception('No reply')
         if self.reply.error_message:
             raise Exception(self.reply.error_message)
         return self.reply.result
+
+    def _clean_up(self):
+        self.ch.stop_consuming()
+        self.ch.queue_delete(self.reply_queue)
 
     def _consume_from_reply_queue(self, rpc_name: str, reply_queue: str):
         self.ch.queue_declare(queue=reply_queue, exclusive=True)
@@ -154,7 +159,7 @@ class RMQRPCCaller():
                     print({'action': 'get_rmq_rpc_reply', 'queue': reply_queue, 'correlation_id': self.corr_id, 'result': self.reply.result, 'error': self.reply.error_message})
                 except Exception as e:
                     print({'action': 'get_rmq_rpc_reply', 'queue': reply_queue, 'correlation_id': self.corr_id, 'body': body, 'error': getattr(e, 'message', repr(e))})
-                    print(traceback.format_exc()) 
+                    print(traceback.format_exc(), file=sys.stderr) 
                 self.replied = True
             ch.basic_ack(delivery_tag=method.delivery_tag)
         return on_rpc_response
@@ -167,5 +172,3 @@ class RMQRPCCaller():
             if start + rpc_timeout < time.time() * 1000:
                 self.is_timeout = True
                 break
-        if self.is_timeout:
-            raise Exception('Timeout while calling {}'.format(rpc_name))

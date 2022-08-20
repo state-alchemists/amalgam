@@ -113,6 +113,10 @@
       "value": "http://localhost:8081"
     },
     {
+      "name": "APP_KAFKA_SECURITY_PROTOCOL",
+      "value": "PLAINTEXT"
+    },
+    {
       "name": "APP_MESSAGE_BUS_TYPE",
       "value": "rmq"
     },
@@ -223,6 +227,10 @@
     {
       "name": "TEST_KAFKA_SCHEMA_REGISTRY",
       "value": "http://localhost:8081"
+    },
+    {
+      "name": "TEST_KAFKA_SECURITY_PROTOCOL",
+      "value": "PLAINTEXT"
     },
     {
       "name": "TEST_RABBITMQ_HOST",

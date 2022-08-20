@@ -1,15 +1,12 @@
 envs:
 
   myAuthSvcDbDeployment:
-    FULLNAMEOVERRIDE:
-      from: MY_AUTH_SVC_DB_DEPLOYMENT_FULLNAMEOVERRIDE
-      default: auth-svc-db
-    AUTH_DATABASE:
-      from: MY_AUTH_SVC_DB_DEPLOYMENT_AUTH_DATABASE
-      default: auth
     ARCHITECTURE:
       from: MY_AUTH_SVC_DB_DEPLOYMENT_ARCHITECTURE
       default: standalone
+    AUTH_DATABASE:
+      from: MY_AUTH_SVC_DB_DEPLOYMENT_AUTH_DATABASE
+      default: auth
     AUTH_EXISTINGSECRET:
       from: MY_AUTH_SVC_DB_DEPLOYMENT_AUTH_EXISTINGSECRET
       default: ""
@@ -46,6 +43,9 @@ envs:
     DIAGNOSTICMODE_ENABLED:
       from: MY_AUTH_SVC_DB_DEPLOYMENT_DIAGNOSTICMODE_ENABLED
       default: "False"
+    FULLNAMEOVERRIDE:
+      from: MY_AUTH_SVC_DB_DEPLOYMENT_FULLNAMEOVERRIDE
+      default: "auth-svc-db"
     GLOBAL_IMAGEREGISTRY:
       from: MY_AUTH_SVC_DB_DEPLOYMENT_GLOBAL_IMAGEREGISTRY
       default: ""

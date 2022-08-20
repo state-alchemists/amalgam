@@ -11,6 +11,7 @@ from schemas.menuContext import MenuContext
 from schemas.user import User
 
 import traceback
+import sys
 
 def register_book_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService, menu_service: MenuService, templates: Jinja2Templates, enable_ui: bool, enable_api:bool):
 
@@ -25,7 +26,7 @@ def register_book_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: Au
             try:
                 result = rpc.call('find_book', keyword, limit, offset)
             except:
-                print(traceback.format_exc()) 
+                print(traceback.format_exc(), file=sys.stderr) 
                 raise HTTPException(status_code=500, detail='Internal Server Error')
             return BookResult.parse_obj(result)
 
@@ -36,7 +37,7 @@ def register_book_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: Au
             try:
                 book = rpc.call('find_book_by_id', id)
             except:
-                print(traceback.format_exc()) 
+                print(traceback.format_exc(), file=sys.stderr) 
                 raise HTTPException(status_code=500, detail='Internal Server Error')
             if book is None:
                 raise HTTPException(status_code=404, detail='Not Found')
@@ -49,7 +50,7 @@ def register_book_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: Au
             try:
                 book = rpc.call('insert_book', book_data.dict(), current_user.dict())
             except:
-                print(traceback.format_exc()) 
+                print(traceback.format_exc(), file=sys.stderr) 
                 raise HTTPException(status_code=500, detail='Internal Server Error')
             if book is None:
                 raise HTTPException(status_code=404, detail='Not Found')
@@ -62,7 +63,7 @@ def register_book_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: Au
             try:
                 book = rpc.call('update_book', id, book_data.dict(), current_user.dict())
             except:
-                print(traceback.format_exc()) 
+                print(traceback.format_exc(), file=sys.stderr) 
                 raise HTTPException(status_code=500, detail='Internal Server Error')
             if book is None:
                 raise HTTPException(status_code=404, detail='Not Found')
@@ -75,7 +76,7 @@ def register_book_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: Au
             try:
                 book = rpc.call('delete_book', id, current_user.dict())
             except:
-                print(traceback.format_exc()) 
+                print(traceback.format_exc(), file=sys.stderr) 
                 raise HTTPException(status_code=500, detail='Internal Server Error')
             if book is None:
                 raise HTTPException(status_code=404, detail='Not Found')

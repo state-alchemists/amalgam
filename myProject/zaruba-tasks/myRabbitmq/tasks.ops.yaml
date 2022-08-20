@@ -8,3 +8,5 @@ tasks:
     envRef: myRabbitmq
     configs:
       templateLocation: '{{ .GetProjectPath "zaruba-tasks/myRabbitmq/utilities/reset" }}'
+    maxStartRetry: 5
+    startRetryDelay: 10s

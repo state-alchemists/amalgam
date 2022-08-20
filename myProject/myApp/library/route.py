@@ -10,6 +10,7 @@ from ui.menuService import MenuService
 from helpers.transport import MessageBus, RPC
 
 import traceback
+import sys
 
 def register_library_route_handler(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService, menu_service: MenuService, templates: Jinja2Templates, enable_ui: bool, enable_api:bool):
 
@@ -26,7 +27,7 @@ def register_library_route_handler(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
                     'content_path': 'library/.html'
                 }, status_code=200)
             except:
-                print(traceback.format_exc()) 
+                print(traceback.format_exc(), file=sys.stderr) 
                 return templates.TemplateResponse('default_error.html', context={
                     'request': request,
                     'status_code': 500,

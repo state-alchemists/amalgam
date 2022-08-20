@@ -4,6 +4,7 @@ from typing import Mapping, List, Any
 from helpers.transport import RPC
 
 import traceback
+import sys
 
 def register_library_rpc_handler(rpc: RPC, book_repo: BookRepo):
 

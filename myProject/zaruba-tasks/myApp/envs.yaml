@@ -82,6 +82,9 @@ envs:
     APP_KAFKA_SCHEMA_REGISTRY:
       default: http://localhost:8081
       from: MY_APP_APP_KAFKA_SCHEMA_REGISTRY
+    APP_KAFKA_SECURITY_PROTOCOL:
+      default: PLAINTEXT
+      from: MY_APP_APP_KAFKA_SECURITY_PROTOCOL
     APP_MESSAGE_BUS_TYPE:
       default: local
       from: MY_APP_APP_MESSAGE_BUS_TYPE
@@ -163,6 +166,9 @@ envs:
     TEST_KAFKA_SCHEMA_REGISTRY:
       default: http://localhost:8081
       from: MY_APP_TEST_KAFKA_SCHEMA_REGISTRY
+    TEST_KAFKA_SECURITY_PROTOCOL:
+      default: PLAINTEXT
+      from: MY_APP_TEST_KAFKA_SECURITY_PROTOCOL
     TEST_RABBITMQ_HOST:
       default: localhost
       from: MY_APP_TEST_RABBITMQ_HOST

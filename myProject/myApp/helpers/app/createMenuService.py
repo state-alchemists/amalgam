@@ -14,5 +14,5 @@ def create_menu_service(rpc: RPC, auth_service: AuthService) -> MenuService:
     menu_service.add_menu(name='auth/users', title='Users', url='/auth/users', auth_type=AuthType.AUTHORIZED, permission_name='ui:auth:user', parent_name='auth')
     menu_service.add_menu(name='library', title='Library', url='#', auth_type=AuthType.EVERYONE)
     menu_service.add_menu(name='library:books', title='Books', url='/library/books', auth_type=AuthType.AUTHORIZED, permission_name='ui:library:book', parent_name='library')
-    menu_service.add_menu(name='library:/', title='Home', url='', auth_type=AuthType.EVERYONE, parent_name='library')
+    menu_service.add_menu(name='library:/', title='Home', url='/', auth_type=AuthType.EVERYONE, parent_name='library')
     return menu_service
