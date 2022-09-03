@@ -1,6 +1,5 @@
 from repos.dbBook import DBBookRepo
 from library import register_library_route_handler, register_library_event_handler, register_library_rpc_handler
-# -- 📖 Common import
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.security import OAuth2PasswordBearer
@@ -70,28 +69,12 @@ rpc = create_rpc(rpc_type, rmq_connection_parameters, rmq_event_map)
 db_url = os.getenv('APP_SQLALCHEMY_DATABASE_URL', 'sqlite:///database.db')
 db_create_all = os.getenv('APP_DB_CREATE_ALL', '1') != '0'
 engine = create_engine(db_url, echo=True)
-book_repo = DBBookRepo(engine=engine, create_all=db_create_all)
-role_repo = DBRoleRepo(engine=engine, create_all=db_create_all)
-user_repo = DBUserRepo(engine=engine, create_all=db_create_all)
 
 ################################################
-# -- 👤 User initialization
+# -- 🔒 Auth service initialization
 ################################################
-role_service = RoleService(role_repo)
 guest_username = os.getenv('APP_GUEST_USERNAME', 'guest')
 root_permission = os.getenv('APP_ROOT_PERMISSION', 'root')
-user_service = DefaultUserService(user_repo, role_service, guest_username, root_permission=root_permission)
-if os.getenv('APP_SEED_ROOT_USER', '1') != '0':
-    user_seeder_service = UserSeederService(user_service)
-    user_seeder_service.seed(UserData(
-        username = os.getenv('APP_ROOT_USERNAME', 'root'),
-        email = os.getenv('APP_ROOT_INITIAL_EMAIL', 'root@root.com'),
-        phone_number = os.getenv('APP_ROOT_INITIAL_PHONE_NUMBER', '+621234567890'),
-        password = os.getenv('APP_ROOT_INITIAL_PASSWORD', 'toor'),
-        active = True,
-        permissions = [root_permission],
-        full_name = os.getenv('APP_ROOT_INITIAL_FULL_NAME', 'root')
-    ))
 create_oauth_access_token_url = os.getenv('APP_CREATE_OAUTH_ACCESS_TOKEN_URL', '/api/v1/create-oauth-access-token/')
 create_access_token_url = os.getenv('APP_CREATE_ACCESS_TOKEN_URL', '/api/v1/create-access-token/')
 renew_access_token_url = os.getenv('APP_RENEW_ACCESS_TOKEN_URL', '/api/v1/refresh-access-token/')
@@ -144,8 +127,27 @@ handle_app_shutdown(app, mb, rpc)
 register_readiness_handler(app, mb, rpc, error_threshold)
 register_public_dir_route_handler(app, public_url, public_dir, public_route_name='static-resources')
 register_template_exception_handler(app, templates)
+
+################################################
+# -- 🔒 Auth module
+################################################
 enable_auth_module = os.getenv('APP_ENABLE_AUTH_MODULE', '1') != '0'
 if enable_auth_module:
+    role_repo = DBRoleRepo(engine=engine, create_all=db_create_all)
+    user_repo = DBUserRepo(engine=engine, create_all=db_create_all)
+    role_service = RoleService(role_repo)
+    user_service = DefaultUserService(user_repo, role_service, guest_username, root_permission=root_permission)
+    if os.getenv('APP_SEED_ROOT_USER', '1') != '0':
+        user_seeder_service = UserSeederService(user_service)
+        user_seeder_service.seed(UserData(
+            username = os.getenv('APP_ROOT_USERNAME', 'root'),
+            email = os.getenv('APP_ROOT_INITIAL_EMAIL', 'root@root.com'),
+            phone_number = os.getenv('APP_ROOT_INITIAL_PHONE_NUMBER', '+621234567890'),
+            password = os.getenv('APP_ROOT_INITIAL_PASSWORD', 'toor'),
+            active = True,
+            permissions = [root_permission],
+            full_name = os.getenv('APP_ROOT_INITIAL_FULL_NAME', 'root')
+        ))
     token_service = JWTTokenService(
         user_service = user_service,
         access_token_secret_key = os.getenv('APP_ACCESS_TOKEN_SECRET_KEY', '123'),
@@ -161,10 +163,11 @@ if enable_auth_module:
         register_auth_rpc_handler(rpc, role_service, user_service, token_service, account_service)
 
 ################################################
-# -- 🧩 library
+# -- 🧩 Library module
 ################################################
 enable_library_module = os.getenv('APP_ENABLE_LIBRARY_MODULE', '1') != '0'
 if enable_library_module:
+    book_repo = DBBookRepo(engine=engine, create_all=db_create_all)
     if enable_route_handler:
         register_library_route_handler(app, mb, rpc, auth_service, menu_service, templates, enable_ui, enable_api)
     if enable_event_handler:

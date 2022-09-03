@@ -1,16 +1,17 @@
-"""20220820113401 huge_restless
+"""20220903093451 delicate_cedar
 
-Revision ID: 56118bf2d722
+Revision ID: 4c6b25c86bf3
 Revises: 7dda1641a129
-Create Date: 2022-08-20 11:34:01.914820
+Create Date: 2022-09-03 09:34:52.014701
 
 """
 from alembic import op
 import sqlalchemy as sa
+import os
 
 
 # revision identifiers, used by Alembic.
-revision = '56118bf2d722'
+revision = '4c6b25c86bf3'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
