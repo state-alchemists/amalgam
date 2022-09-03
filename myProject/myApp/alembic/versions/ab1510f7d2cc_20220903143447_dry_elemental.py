@@ -1,8 +1,8 @@
-"""20220903125211 long_bird
+"""20220903143447 dry_elemental
 
-Revision ID: 888bb05bc558
+Revision ID: ab1510f7d2cc
 Revises: 7dda1641a129
-Create Date: 2022-09-03 12:52:12.377191
+Create Date: 2022-09-03 14:34:47.682191
 
 """
 from alembic import op
@@ -11,14 +11,14 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '888bb05bc558'
+revision = 'ab1510f7d2cc'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
 
 
 def run_migration() -> bool:
-    return os.getenv('MIGRATION_RUN_ALL', '0') != '0'
+    return os.getenv('MIGRATION_RUN_ALL', '0') != '0' or os.getenv('APP_ENABLE_LIBRARY_MODULE', '1') != '0'
 
 
 def upgrade() -> None:

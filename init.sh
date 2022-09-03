@@ -54,6 +54,33 @@ zaruba please addFastAppPage \
 echo "👷 Generate myAppMigration"
 zaruba please createMyAppMigration
 
+echo "👷 Update myAppMigration file"
+# Look for newly generated migration file and change:
+#   return os.getenv('MIGRATION_RUN_ALL', '0') != '0'
+# into:
+#   return os.getenv('MIGRATION_RUN_ALL', '0') != '0' or os.getenv('APP_ENABLE_LIBRARY_MODULE', '1') != '0'
+MIGRATION_PATH=myApp/alembic/versions
+for MIGRATION_FILE in $(zaruba file list "${MIGRATION_PATH}")
+do
+    if [ -f "${MIGRATION_PATH}/${MIGRATION_FILE}" ]
+    then
+        MATCH=$(zaruba str submatch "$(cat "${MIGRATION_PATH}/${MIGRATION_FILE}")" "op\.create_table\('books',")
+        if [ "${MATCH}" != "null" ]
+        then
+            MIGRATION_LINES=$(zaruba lines read "${MIGRATION_PATH}/${MIGRATION_FILE}")
+            LINE_INDEX=$(zaruba lines getIndex "${MIGRATION_LINES}" "(\w*)return os.getenv\('MIGRATION_RUN_ALL'")
+            if [ "${LINE_INDEX}" = -1 ]
+            then
+                echo "Pattern not found"
+                exit 1
+            fi
+            MIGRATION_LINES=$(zaruba lines replace "${MIGRATION_LINES}" "${LINE_INDEX}" "    return os.getenv('MIGRATION_RUN_ALL', '0') != '0' or os.getenv('APP_ENABLE_LIBRARY_MODULE', '1') != '0'")
+            zaruba lines write "${MIGRATION_PATH}/${MIGRATION_FILE}" "${MIGRATION_LINES}"
+            break
+        fi
+    fi
+done
+
 echo "👷 Synchronize environment"
 zaruba please syncEnv
 
@@ -105,6 +132,8 @@ zaruba task setEnv startMyFrontend APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyFrontend APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyFrontend APP_UI_BACKEND_URL http://localhost:3002
 zaruba task setEnv startMyFrontend APP_SEED_ROOT_USER 0
+zaruba task setEnv startMyFrontend APP_DB_CREATE_ALL 0
+zaruba task setEnv startMyFrontend MIGRATION_RUN_ALL 0
 
 zaruba task addDependencies prepareMyFrontend prepareMyApp
 zaruba task setConfig prepareMyFrontend start 'echo "Done"'
@@ -134,6 +163,8 @@ zaruba task setEnv startMyBackend APP_RABBITMQ_USER root
 zaruba task setEnv startMyBackend APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyBackend APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyBackend APP_SEED_ROOT_USER 0
+zaruba task setEnv startMyBackend APP_DB_CREATE_ALL 0
+zaruba task setEnv startMyBackend MIGRATION_RUN_ALL 0
 
 zaruba task addDependencies prepareMyBackend prepareMyApp
 zaruba task setConfig prepareMyBackend start 'echo "Done"'
@@ -165,6 +196,8 @@ zaruba task setEnv startMyAuthSvc APP_RABBITMQ_USER root
 zaruba task setEnv startMyAuthSvc APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyAuthSvc APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyAuthSvc APP_SQLALCHEMY_DATABASE_URL 'mysql+pymysql://root:Alch3mist@localhost:3307/sample?charset=utf8mb4'
+zaruba task setEnv startMyAuthSvc APP_DB_CREATE_ALL 0
+zaruba task setEnv startMyAuthSvc MIGRATION_RUN_ALL 0
 
 zaruba task addDependencies prepareMyAuthSvc prepareMyApp
 zaruba task setConfig prepareMyAuthSvc start 'echo "Done"'
@@ -198,6 +231,8 @@ zaruba task setEnv startMyLibSvc APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyLibSvc APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyLibSvc APP_SQLALCHEMY_DATABASE_URL 'mysql+pymysql://root:Alch3mist@localhost:3308/sample?charset=utf8mb4'
 zaruba task setEnv startMyLibSvc APP_SEED_ROOT_USER 0
+zaruba task setEnv startMyLibSvc APP_DB_CREATE_ALL 0
+zaruba task setEnv startMyLibSvc MIGRATION_RUN_ALL 0
 
 zaruba task addDependencies prepareMyLibSvc prepareMyApp
 zaruba task setConfig prepareMyLibSvc start 'echo "Done"'

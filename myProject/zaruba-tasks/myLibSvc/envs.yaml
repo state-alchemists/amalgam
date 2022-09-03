@@ -38,7 +38,7 @@ envs:
       default: /api/v1/create-oauth-access-token/
       from: MY_LIB_SVC_APP_CREATE_OAUTH_ACCESS_TOKEN
     APP_DB_CREATE_ALL:
-      default: "1"
+      default: "0"
       from: MY_LIB_SVC_APP_DB_CREATE_ALL
     APP_ENABLE_API:
       default: "0"
@@ -152,7 +152,7 @@ envs:
       default: App
       from: MY_LIB_SVC_APP_UI_SITE_NAME
     MIGRATION_RUN_ALL:
-      default: "1"
+      default: "0"
       from: MY_LIB_SVC_MIGRATION_RUN_ALL
     MIGRATION_SQLALCHEMY_DATABASE_URL:
       default: sqlite:///migration.db
