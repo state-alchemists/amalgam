@@ -10,3 +10,6 @@ tasks:
       - createMyAppMigration
       - myApp
     envRef: myApp
+    envs:
+      MIGRATION_RUN_ALL:
+        default: 1

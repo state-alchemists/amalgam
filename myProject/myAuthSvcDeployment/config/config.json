@@ -205,6 +205,14 @@
       "value": "App"
     },
     {
+      "name": "MIGRATION_RUN_ALL",
+      "value": "1"
+    },
+    {
+      "name": "MIGRATION_SQLALCHEMY_DATABASE_URL",
+      "value": "sqlite:///migration.db"
+    },
+    {
       "name": "PYTHONUNBUFFERED",
       "value": "1"
     },

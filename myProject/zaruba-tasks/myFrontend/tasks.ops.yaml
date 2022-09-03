@@ -10,3 +10,6 @@ tasks:
       - createMyFrontendMigration
       - myFrontend
     envRef: myFrontend
+    envs:
+      MIGRATION_RUN_ALL:
+        default: 1

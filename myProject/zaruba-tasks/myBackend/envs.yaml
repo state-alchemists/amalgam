@@ -151,6 +151,12 @@ envs:
     APP_UI_SITE_NAME:
       default: App
       from: MY_BACKEND_APP_UI_SITE_NAME
+    MIGRATION_RUN_ALL:
+      default: "1"
+      from: MY_BACKEND_MIGRATION_RUN_ALL
+    MIGRATION_SQLALCHEMY_DATABASE_URL:
+      default: sqlite:///migration.db
+      from: MY_BACKEND_MIGRATION_SQLALCHEMY_DATABASE_URL
     TEST_INTEGRATION:
       default: "0"
       from: MY_BACKEND_TEST_INTEGRATION
