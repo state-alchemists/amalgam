@@ -1,8 +1,8 @@
-"""20220903143447 dry_elemental
+"""20220904164721 solitary_dream
 
-Revision ID: ab1510f7d2cc
+Revision ID: 23f3d640a91a
 Revises: 7dda1641a129
-Create Date: 2022-09-03 14:34:47.682191
+Create Date: 2022-09-04 16:47:21.769776
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'ab1510f7d2cc'
+revision = '23f3d640a91a'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
