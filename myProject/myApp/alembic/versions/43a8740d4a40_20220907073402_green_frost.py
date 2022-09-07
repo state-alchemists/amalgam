@@ -1,8 +1,8 @@
-"""20220904164721 solitary_dream
+"""20220907073402 green_frost
 
-Revision ID: 23f3d640a91a
+Revision ID: 43a8740d4a40
 Revises: 7dda1641a129
-Create Date: 2022-09-04 16:47:21.769776
+Create Date: 2022-09-07 07:34:02.822182
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '23f3d640a91a'
+revision = '43a8740d4a40'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
