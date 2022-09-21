@@ -41,7 +41,7 @@
       "value": "600"
     },
     {
-      "name": "APP_CREATE_ACCESS_TOKEN_URL",
+      "name": "APP_CREATE_ACCESS_TOKEN_URL_PATH",
       "value": "/api/v1/create-access-token/"
     },
     {
@@ -122,10 +122,10 @@
     },
     {
       "name": "APP_PUBLIC_DIR",
-      "value": "_public"
+      "value": "public"
     },
     {
-      "name": "APP_PUBLIC_URL",
+      "name": "APP_PUBLIC_URL_PATH",
       "value": "/public"
     },
     {
@@ -149,7 +149,7 @@
       "value": "300"
     },
     {
-      "name": "APP_RENEW_ACCESS_TOKEN_URL",
+      "name": "APP_RENEW_ACCESS_TOKEN_URL_PATH",
       "value": "/api/v1/renew-access-token/"
     },
     {
@@ -193,8 +193,8 @@
       "value": "http://localhost:3002"
     },
     {
-      "name": "APP_UI_JINJA_DIR",
-      "value": "_jinja_templates"
+      "name": "APP_UI_PAGE_DIR",
+      "value": "pages"
     },
     {
       "name": "APP_UI_SITE_NAME",

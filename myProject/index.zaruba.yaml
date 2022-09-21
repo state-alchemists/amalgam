@@ -60,6 +60,12 @@ tasks:
       - startMyAuthSvc
       - startMyLibSvc
 
+  stop:
+    icon: ✋
+    extend: zrbWrapper
+    dependencies:
+      - stopContainers
+
   run:
     icon: 🏁
     extend: zrbWrapper

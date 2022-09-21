@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% include 'default-partials/meta.html' %}
+        {% include 'default-partials/include-css.html' %}
+        <link rel="icon" type="image/x-icon" href="{{ public_url_path}}/favicon/favicon.ico">
+        <title>{{ context.current_menu.title }}</title>
+    </head>
+    <body>
+        {% include 'default-partials/navigation.html' %}
+        {% include 'default-partials/include-js.html' %}
+
+        <div id="app" class="container">
+            <h1>{{ context.current_menu.title }}</h1>
+            <button type="submit" class="btn btn-primary mb-3" @click="logout">Log out</button>
+        </div>
+
+        <script>
+            const { createApp } = Vue;
+            createApp({
+                data() {
+                    return {}
+                },
+                methods: {
+                    logout() {
+                        appHelper.logout();
+                        window.location = '/account/login';
+                    }
+                }
+            }).mount('#app');
+        </script>
+
+    </body>
+</html>

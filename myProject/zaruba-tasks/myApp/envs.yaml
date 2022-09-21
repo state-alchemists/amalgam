@@ -31,9 +31,9 @@ envs:
     APP_CORS_MAX_AGE:
       default: "600"
       from: MY_APP_APP_CORS_MAX_AGE
-    APP_CREATE_ACCESS_TOKEN_URL:
+    APP_CREATE_ACCESS_TOKEN_URL_PATH:
       default: /api/v1/create-access-token/
-      from: MY_APP_APP_CREATE_ACCESS_TOKEN_URL
+      from: MY_APP_APP_CREATE_ACCESS_TOKEN_URL_PATH
     APP_CREATE_OAUTH_ACCESS_TOKEN:
       default: /api/v1/create-oauth-access-token/
       from: MY_APP_APP_CREATE_OAUTH_ACCESS_TOKEN
@@ -89,11 +89,11 @@ envs:
       default: local
       from: MY_APP_APP_MESSAGE_BUS_TYPE
     APP_PUBLIC_DIR:
-      default: _public
+      default: public
       from: MY_APP_APP_PUBLIC_DIR
-    APP_PUBLIC_URL:
+    APP_PUBLIC_URL_PATH:
       default: /public
-      from: MY_APP_APP_PUBLIC_URL
+      from: MY_APP_APP_PUBLIC_URL_PATH
     APP_RABBITMQ_HOST:
       default: localhost
       from: MY_APP_APP_RABBITMQ_HOST
@@ -109,9 +109,9 @@ envs:
     APP_RENEW_ACCESS_TOKEN_INTERVAL:
       default: "300"
       from: MY_APP_APP_RENEW_ACCESS_TOKEN_INTERVAL
-    APP_RENEW_ACCESS_TOKEN_URL:
+    APP_RENEW_ACCESS_TOKEN_URL_PATH:
       default: /api/v1/renew-access-token/
-      from: MY_APP_APP_RENEW_ACCESS_TOKEN_URL
+      from: MY_APP_APP_RENEW_ACCESS_TOKEN_URL_PATH
     APP_ROOT_INITIAL_EMAIL:
       default: root@innistrad.com
       from: MY_APP_APP_ROOT_INITIAL_EMAIL
@@ -142,9 +142,9 @@ envs:
     APP_UI_BACKEND_URL:
       default: http://localhost:3000
       from: MY_APP_APP_UI_BACKEND_URL
-    APP_UI_JINJA_DIR:
-      default: _jinja_templates
-      from: MY_APP_APP_UI_JINJA_DIR
+    APP_UI_PAGE_DIR:
+      default: pages
+      from: MY_APP_APP_UI_PAGE_DIR
     APP_UI_SITE_NAME:
       default: App
       from: MY_APP_APP_UI_SITE_NAME
