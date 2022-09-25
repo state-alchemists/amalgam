@@ -1,8 +1,8 @@
-"""20220922062408 golden_tree
+"""20220925144400 young_parallax
 
-Revision ID: 1015c24f28d5
+Revision ID: 216b58f704d9
 Revises: 7dda1641a129
-Create Date: 2022-09-22 06:24:08.888617
+Create Date: 2022-09-25 14:44:01.087962
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '1015c24f28d5'
+revision = '216b58f704d9'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

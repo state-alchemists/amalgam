@@ -1,13 +1,19 @@
 # MyApp
 
-MyApp is a microservice-ready monolith application.
+`MyApp` is a microservice-ready monolith application.
 
+This application is created using [Zaruba](https://github.com/state-alchemists/zaruba). To create the application, you can invoke:
 
-# How to run
+```bash
+zaruba please initProject # or cd to your zaruba project
+zaruba please addFastApp appDirectory=myApp
 
-MyApp is created using [Zaruba](https://github.com/state-alchemists/zaruba).
+# zaruba please start
+```
 
-You can run it by invoking:
+# 🏁 How to start
+
+You can run `myApp` by invoking:
 
 ```bash
 zaruba please startMyApp
@@ -16,6 +22,8 @@ zaruba please startMyApp
 Alternatively, you can also invoke the following script:
 
 ```bash
+cd myApp
+
 # create virtual environment if not exist
 if [ ! -d ./venv ]; then python -m venv ./venv; fi
 
@@ -32,6 +40,12 @@ source template.env
 ./start.sh
 ```
 
-# Documentation
+# ☑️ Prerequisites
+
+- Python 3.9
+- Pip
+- Virtual env
+
+# 📖 Documentation
 
 Please visit MyApp documentation [here](_docs/README.md).

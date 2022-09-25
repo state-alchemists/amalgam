@@ -2,10 +2,11 @@
 
 `MyApp` is a microservice-ready monolith application.
 
-In this documentation, you will see `MyApp`'s [motivation and architecture](motivation-and-architecture/README.md) as well as how to manage `MyApp`.
+In this documentation, you will see `MyApp`'s [motivation and architecture](motivation-and-architecture/README.md) as well as how to manage and extend `MyApp`.
 
 <!--startToc-->
 * [Motivation and architecture](motivation-and-architecture/README.md)
+    * [Directory structure](motivation-and-architecture/directory-structure.md)
     * [Feature flags](motivation-and-architecture/feature-flags.md)
     * [Interface and layers](motivation-and-architecture/interface-and-layers.md)
     * [Connecting components](motivation-and-architecture/connecting-components.md)
