@@ -5,7 +5,7 @@ from schemas.user import User
 from modules.library.book.repos.bookRepo import BookRepo
 from modules.library.book.bookService import BookService
 
-def register_book_rpc(rpc: RPC, book_repo: BookRepo):
+def register_book_entity_rpc(rpc: RPC, book_repo: BookRepo):
 
     book_service = BookService(book_repo)
 

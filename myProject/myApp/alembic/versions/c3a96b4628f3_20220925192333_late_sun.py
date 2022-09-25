@@ -1,8 +1,8 @@
-"""20220925144400 young_parallax
+"""20220925192333 late_sun
 
-Revision ID: 216b58f704d9
+Revision ID: c3a96b4628f3
 Revises: 7dda1641a129
-Create Date: 2022-09-25 14:44:01.087962
+Create Date: 2022-09-25 19:23:34.284587
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '216b58f704d9'
+revision = 'c3a96b4628f3'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

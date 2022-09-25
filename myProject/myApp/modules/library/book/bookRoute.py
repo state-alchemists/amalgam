@@ -16,7 +16,7 @@ import sys
 ################################################
 # -- ⚙️ API
 ################################################
-def register_book_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService):
+def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService):
 
     @app.get('/api/v1/books/', response_model=BookResult)
     def find_books(keyword: str='', limit: int=100, offset: int=0, current_user:  User = Depends(auth_service.is_authorized('api:book:read'))) -> BookResult:
@@ -84,7 +84,7 @@ def register_book_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service
 ################################################
 # -- 👓 User Interface
 ################################################
-def register_book_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
+def register_book_entity_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
 
     @app.get('/library/books', response_class=HTMLResponse)
     async def user_interface(request: Request, context: MenuContext = Depends(menu_service.authenticate('library:books'))):

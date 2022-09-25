@@ -1,4 +1,4 @@
-from modules.library.book.bookRoute import register_book_api_route, register_book_ui_route
+from modules.library.book.bookRoute import register_book_entity_api_route, register_book_entity_ui_route
 from typing import Mapping, List, Any
 from fastapi import Depends, FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse
@@ -18,7 +18,7 @@ import sys
 ################################################
 def register_library_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService):
 
-    register_book_api_route(app, mb, rpc, auth_service)
+    register_book_entity_api_route(app, mb, rpc, auth_service)
 
     print('Register library api route handler')
 
@@ -47,6 +47,6 @@ def register_library_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_servi
                 'detail': 'Internal server error'
             }, status_code=500)
 
-    register_book_ui_route(app, mb, rpc, menu_service, page_template)
+    register_book_entity_ui_route(app, mb, rpc, menu_service, page_template)
 
     print('Register library api route handler')
