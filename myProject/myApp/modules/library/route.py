@@ -1,5 +1,5 @@
 from modules.library.book.bookRoute import register_book_entity_api_route, register_book_entity_ui_route
-from typing import Mapping, List, Any
+from typing import Mapping, List, Any, Optional
 from fastapi import Depends, FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates

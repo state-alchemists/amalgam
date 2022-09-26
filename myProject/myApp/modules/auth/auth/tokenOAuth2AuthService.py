@@ -15,6 +15,10 @@ class TokenOAuth2AuthService(AuthService):
         self.rpc = rpc
         self.oauth2_scheme = oauth2_scheme
 
+    def _get_guest_user(self) -> User:
+        guest_user_data = self.rpc.call('get_guest_user')
+        return User.parse_obj(guest_user_data)
+
     def _raise_error_or_return_none(self, throw_error: bool, status_code: int, detail: str) -> None:
         if not throw_error:
             return None
@@ -39,7 +43,7 @@ class TokenOAuth2AuthService(AuthService):
     def everyone(self, throw_error: bool = True) -> Callable[[Request], Optional[User]]:
         async def verify_everyone(bearer_token = Depends(self.oauth2_scheme), app_access_token=Cookie(default=None)) -> Optional[User]:
             if bearer_token is None and app_access_token is None:
-                return None
+                return self._get_guest_user()
             token = bearer_token if bearer_token is not None else app_access_token
             return self._get_user_by_token(token)
         return verify_everyone 
@@ -47,11 +51,11 @@ class TokenOAuth2AuthService(AuthService):
     def is_unauthenticated(self, throw_error: bool = True) -> Callable[[Request], Optional[User]]:
         async def verify_is_unauthenticated(bearer_token = Depends(self.oauth2_scheme), app_access_token=Cookie(default=None)) -> Optional[User]:
             if bearer_token is None and app_access_token is None:
-                return None
+                return self._get_guest_user()
             token = bearer_token if bearer_token is not None else app_access_token
             current_user = self._get_user_by_token(token)
             if not current_user or not current_user.active:
-                return None
+                return self._get_guest_user()
             return self._raise_error_or_return_none(throw_error, status.HTTP_401_UNAUTHORIZED, 'Not authenticated')
         return verify_is_unauthenticated
 
