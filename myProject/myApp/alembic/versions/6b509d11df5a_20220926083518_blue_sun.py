@@ -1,8 +1,8 @@
-"""20220926074102 western_lake
+"""20220926083518 blue_sun
 
-Revision ID: 5900ef93a7b2
+Revision ID: 6b509d11df5a
 Revises: 7dda1641a129
-Create Date: 2022-09-26 07:41:03.093926
+Create Date: 2022-09-26 08:35:19.550510
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '5900ef93a7b2'
+revision = '6b509d11df5a'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

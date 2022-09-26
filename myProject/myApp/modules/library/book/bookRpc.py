@@ -1,13 +1,13 @@
 from typing import Any, Optional, Mapping
-from helpers.transport import RPC
+from helpers.transport import RPC, MessageBus
 from schemas.book import Book, BookData
 from schemas.user import User
 from modules.library.book.repos.bookRepo import BookRepo
 from modules.library.book.bookService import BookService
 
-def register_book_entity_rpc(rpc: RPC, book_repo: BookRepo):
+def register_book_entity_rpc(mb: MessageBus, rpc: RPC, book_repo: BookRepo):
 
-    book_service = BookService(book_repo)
+    book_service = BookService(mb, rpc, book_repo)
 
     @rpc.handle('find_book')
     def find_books(keyword: str, limit: int, offset: int) -> Mapping[str, Any]:

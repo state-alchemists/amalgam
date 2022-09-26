@@ -1,10 +1,13 @@
 from typing import Optional
+from helpers.transport import RPC, MessageBus
 from schemas.book import Book, BookData, BookResult
 from modules.library.book.repos.bookRepo import BookRepo
 
 class BookService():
 
-    def __init__(self, book_repo: BookRepo):
+    def __init__(self, mb: MessageBus, rpc: RPC, book_repo: BookRepo):
+        self.mb = mb
+        self.rpc = rpc
         self.book_repo = book_repo
 
     def find(self, keyword: str, limit: int, offset: int) -> BookResult:
