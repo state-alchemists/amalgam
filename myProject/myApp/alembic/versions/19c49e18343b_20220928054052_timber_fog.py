@@ -1,8 +1,8 @@
-"""20220926083518 blue_sun
+"""20220928054052 timber_fog
 
-Revision ID: 6b509d11df5a
+Revision ID: 19c49e18343b
 Revises: 7dda1641a129
-Create Date: 2022-09-26 08:35:19.550510
+Create Date: 2022-09-28 05:40:52.957928
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '6b509d11df5a'
+revision = '19c49e18343b'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

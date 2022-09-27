@@ -24,6 +24,7 @@ def register_book_entity_rpc(mb: MessageBus, rpc: RPC, book_repo: BookRepo):
         current_user = User.parse_obj(current_user_data)
         book = BookData.parse_obj(book_data) 
         book.created_by = current_user.id
+        book.updated_by = current_user.id
         new_book = book_service.insert(book)
         return None if new_book is None else new_book.dict()
 

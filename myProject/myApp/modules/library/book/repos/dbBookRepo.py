@@ -81,7 +81,9 @@ class DBBookRepo(BookRepo):
                 author=book_data.author,
                 synopsis=book_data.synopsis,
                 created_at=datetime.datetime.utcnow(),
-                created_by=book_data.created_by
+                created_by=book_data.created_by,
+                updated_at=datetime.datetime.utcnow(),
+                updated_by=book_data.updated_by,
             )
             db.add(db_book)
             db.commit()
