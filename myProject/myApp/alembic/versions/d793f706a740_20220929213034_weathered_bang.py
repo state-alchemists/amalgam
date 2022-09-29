@@ -1,8 +1,8 @@
-"""20220928054052 timber_fog
+"""20220929213034 weathered_bang
 
-Revision ID: 19c49e18343b
+Revision ID: d793f706a740
 Revises: 7dda1641a129
-Create Date: 2022-09-28 05:40:52.957928
+Create Date: 2022-09-29 21:30:35.352062
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '19c49e18343b'
+revision = 'd793f706a740'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

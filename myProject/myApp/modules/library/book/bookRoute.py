@@ -23,7 +23,7 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         result = {}
         try:
             if not current_user:
-                current_user = rpc.call('get_guest_user')
+                current_user = User.parse_obj(rpc.call('get_guest_user'))
             result = rpc.call('find_book', keyword, limit, offset)
         except:
             print(traceback.format_exc(), file=sys.stderr) 
@@ -36,7 +36,7 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         book = None
         try:
             if not current_user:
-                current_user = rpc.call('get_guest_user')
+                current_user = User.parse_obj(rpc.call('get_guest_user'))
             book = rpc.call('find_book_by_id', id)
         except:
             print(traceback.format_exc(), file=sys.stderr) 
@@ -51,7 +51,7 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         book = None
         try:
             if not current_user:
-                current_user = rpc.call('get_guest_user')
+                current_user = User.parse_obj(rpc.call('get_guest_user'))
             book = rpc.call('insert_book', book_data.dict(), current_user.dict())
         except:
             print(traceback.format_exc(), file=sys.stderr) 
@@ -66,7 +66,7 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         book = None
         try:
             if not current_user:
-                current_user = rpc.call('get_guest_user')
+                current_user = User.parse_obj(rpc.call('get_guest_user'))
             book = rpc.call('update_book', id, book_data.dict(), current_user.dict())
         except:
             print(traceback.format_exc(), file=sys.stderr) 
@@ -81,7 +81,7 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         book = None
         try:
             if not current_user:
-                current_user = rpc.call('get_guest_user')
+                current_user = User.parse_obj(rpc.call('get_guest_user'))
             book = rpc.call('delete_book', id, current_user.dict())
         except:
             print(traceback.format_exc(), file=sys.stderr) 
