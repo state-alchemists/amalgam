@@ -25,7 +25,6 @@ mock_role = Role(
 class MockRoleRepo(RoleRepo):
 
     def __init__(self):
-        self.role_data: Optional[RoleData] = None
         self.find_id: Optional[str] = None
         self.find_keyword: Optional[str] = None
         self.count_keyword: Optional[str] = None
@@ -98,6 +97,18 @@ def test_role_service_find_by_id():
     role = role_service.find_by_id('find_id')
     # make sure all parameters are passed to repo
     assert mock_role_repo.find_id == 'find_id'
+    # make sure role_service return the result correctly
+    assert role == mock_role
+
+
+def test_role_service_find_by_name():
+    mock_mb = LocalMessageBus()
+    mock_rpc = LocalRPC()
+    mock_role_repo = MockRoleRepo()
+    role_service = RoleService(mock_mb, mock_rpc, mock_role_repo)
+    role = role_service.find_by_name('find_name')
+    # make sure all parameters are passed to repo
+    assert mock_role_repo.find_name == 'find_name'
     # make sure role_service return the result correctly
     assert role == mock_role
 

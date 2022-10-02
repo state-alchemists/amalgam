@@ -1,5 +1,5 @@
 from typing import Optional
-from jose import JWTError, jwt
+from jose import jwt
 from datetime import datetime, timedelta
 from schemas.user import User
 from modules.auth.user.userService import UserService
@@ -33,6 +33,11 @@ class JWTTokenService(TokenService):
         return encoded_jwt
 
     def get_user_by_token(self, token: str) -> Optional[User]:
-        payload = jwt.decode(token, self.access_token_secret_key, algorithms=[self.access_token_algorithm])
-        user_id = payload.get("sub")
-        return self.user_service.find_by_id(user_id)
+        if not token:
+            return None
+        try:
+            payload = jwt.decode(token, self.access_token_secret_key, algorithms=[self.access_token_algorithm])
+            user_id = payload.get("sub")
+            return self.user_service.find_by_id(user_id)
+        except:
+            return None

@@ -27,7 +27,6 @@ mock_book = Book(
 class MockBookRepo(BookRepo):
 
     def __init__(self):
-        self.book_data: Optional[BookData] = None
         self.find_id: Optional[str] = None
         self.find_keyword: Optional[str] = None
         self.count_keyword: Optional[str] = None
