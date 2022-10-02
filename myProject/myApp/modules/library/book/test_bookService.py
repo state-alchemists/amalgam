@@ -1,136 +1,109 @@
 from typing import Optional, List
 from modules.library.book.bookService import BookService
-from modules.library.book.repos.bookRepo import BookRepo
-from schemas.book import Book, BookData
+from modules.library.book.repos.dbBookRepo import DBBookRepo
+from schemas.book import BookData, BookData
 from helpers.transport import LocalRPC, LocalMessageBus
 
+from sqlalchemy import create_engine
+
 ################################################
-# -- ⚙️ Mock data and objects
+# -- ⚙️ Helpers
 ################################################
 
-mock_book_data = BookData(
-    synopsis='',
-    title='',
-    author='',
-    created_by='mock_user_id'
-)
-
-mock_book = Book(
-    synopsis='',
-    title='',
-    author='',
-    id='mock_book_id',
-    created_by='mock_user_id',
-    updated_by='mock_user_id'
-)
-
-class MockBookRepo(BookRepo):
-
-    def __init__(self):
-        self.find_id: Optional[str] = None
-        self.find_keyword: Optional[str] = None
-        self.count_keyword: Optional[str] = None
-        self.find_limit: Optional[int] = None
-        self.find_offset: Optional[int] = None
-        self.insert_book_data: Optional[BookData] = None
-        self.update_id: Optional[str] = None
-        self.update_book_data: Optional[BookData] = None
-        self.delete_id: Optional[str] = None
-
-    def find_by_id(self, id: str) -> Optional[Book]:
-        self.find_id = id
-        return mock_book
-
-    def find(self, keyword: str, limit: str, offset: int) -> List[Book]:
-        self.find_keyword = keyword
-        self.find_limit = limit
-        self.find_offset = offset
-        return [mock_book]
-
-    def count(self, keyword: str) -> int:
-        self.count_keyword = keyword
-        return 1
-
-    def insert(self, book_data: BookData) -> Optional[Book]:
-        self.insert_book_data = book_data
-        return mock_book
-
-    def update(self, id: str, book_data: BookData) -> Optional[Book]:
-        self.update_id = id
-        self.update_book_data = book_data
-        return mock_book
-
-    def delete(self, id: str) -> Optional[Book]:
-        self.delete_id = id
-        return mock_book
+def create_book_data():
+    dummy_book_data = BookData(
+        synopsis='',
+        title='',
+        author='',
+    )
+    return dummy_book_data
 
 
 ################################################
 # -- 🧪 Test
 ################################################
 
-def test_book_service_find():
-    mock_mb = LocalMessageBus()
-    mock_rpc = LocalRPC()
-    mock_book_repo = MockBookRepo()
-    book_service = BookService(mock_mb, mock_rpc, mock_book_repo)
-    book_result = book_service.find('find_keyword', 73, 37)
-    # make sure all parameters are passed to repo
-    assert mock_book_repo.find_keyword == 'find_keyword'
-    assert mock_book_repo.find_limit == 73
-    assert mock_book_repo.find_offset == 37
-    assert mock_book_repo.count_keyword == 'find_keyword'
-    # make sure book_service return the result correctly
-    assert book_result.count == 1
-    assert len(book_result.rows) == 1
-    assert book_result.rows[0] == mock_book
+def test_book_service():
+    engine = create_engine('sqlite://', echo=True)
+    book_repo = DBBookRepo(engine=engine, create_all=True)
+    mb = LocalMessageBus()
+    rpc = LocalRPC()
+    book_service = BookService(mb, rpc, book_repo)
 
+    # prepare insert
+    inserted_book_data = create_book_data()
+    inserted_book_data.title = 'original'
+    inserted_book_data.created_by = 'original_user'
+    inserted_book_data.updated_by = 'original_user'
+    # test insert
+    inserted_book = book_service.insert(inserted_book_data)
+    assert inserted_book is not None
+    assert inserted_book.id != '' 
+    assert inserted_book.title == 'original'
+    assert inserted_book.created_by == 'original_user'
+    assert inserted_book.updated_by == 'original_user'
 
-def test_book_service_find_by_id():
-    mock_mb = LocalMessageBus()
-    mock_rpc = LocalRPC()
-    mock_book_repo = MockBookRepo()
-    book_service = BookService(mock_mb, mock_rpc, mock_book_repo)
-    book = book_service.find_by_id('find_id')
-    # make sure all parameters are passed to repo
-    assert mock_book_repo.find_id == 'find_id'
-    # make sure book_service return the result correctly
-    assert book == mock_book
+    # test find by id (existing, after insert)
+    existing_book = book_service.find_by_id(inserted_book.id)
+    assert existing_book is not None
+    assert existing_book.id == inserted_book.id
+    assert existing_book.title == inserted_book.title
+    assert existing_book.created_by == inserted_book.created_by
+    assert existing_book.updated_by == inserted_book.updated_by
 
+    # test find by id (non existing)
+    non_existing_book = book_service.find_by_id('invalid_id')
+    assert non_existing_book is None
 
-def test_book_service_insert():
-    mock_mb = LocalMessageBus()
-    mock_rpc = LocalRPC()
-    mock_book_repo = MockBookRepo()
-    book_service = BookService(mock_mb, mock_rpc, mock_book_repo)
-    new_book = book_service.insert(mock_book_data)
-    # make sure all parameters are passed to repo
-    assert mock_book_repo.insert_book_data == mock_book_data
-    # make sure book_service return the result correctly
-    assert new_book == mock_book
+    # prepare update (existing)
+    updated_book_data = create_book_data()
+    updated_book_data.title = 'updated'
+    updated_book_data.updated_by = 'editor'
+    # test update (existing)
+    updated_book = book_service.update(inserted_book.id, updated_book_data)
+    assert updated_book is not None
+    assert updated_book.id == inserted_book.id
+    assert updated_book.title == 'updated'
+    assert updated_book.created_by == 'original_user'
+    assert updated_book.updated_by == 'editor'
 
+    # test update (non existing)
+    non_existing_book = book_service.update('invalid_id', updated_book_data)
+    assert non_existing_book is None
 
-def test_book_service_update():
-    mock_mb = LocalMessageBus()
-    mock_rpc = LocalRPC()
-    mock_book_repo = MockBookRepo()
-    book_service = BookService(mock_mb, mock_rpc, mock_book_repo)
-    updated_book = book_service.update('update_id', mock_book_data)
-    # make sure all parameters are passed to repo
-    assert mock_book_repo.update_id == 'update_id'
-    assert mock_book_repo.update_book_data == mock_book_data
-    # make sure book_service return the result correctly
-    assert updated_book == mock_book
+    # test find by id (existing, after insert)
+    existing_book = book_service.find_by_id(updated_book.id)
+    assert existing_book is not None
+    assert existing_book.id == inserted_book.id
+    assert existing_book.title == 'updated'
+    assert existing_book.created_by == 'original_user'
+    assert existing_book.updated_by == 'editor'
 
+    # test find (before delete, correct keyword)
+    existing_result = book_service.find(keyword='updated', limit=10, offset=0)
+    assert existing_result.count == 1
+    assert len(existing_result.rows) == 1
+    assert existing_result.rows[0].id == inserted_book.id
 
-def test_book_service_delete():
-    mock_mb = LocalMessageBus()
-    mock_rpc = LocalRPC()
-    mock_book_repo = MockBookRepo()
-    book_service = BookService(mock_mb, mock_rpc, mock_book_repo)
-    deleted_book = book_service.delete('delete_id')
-    # make sure all parameters are passed to repo
-    assert mock_book_repo.delete_id == 'delete_id'
-    # make sure book_service return the result correctly
-    assert deleted_book == mock_book
+    # test find (before delete, incorrect keyword)
+    non_existing_result = book_service.find(keyword='incorrect', limit=10, offset=0)
+    assert non_existing_result.count == 0
+    assert len(non_existing_result.rows) == 0
 
+    # test delete existing
+    deleted_book = book_service.delete(inserted_book.id)
+    assert deleted_book is not None
+    assert deleted_book.id == inserted_book.id
+    assert deleted_book.title == 'updated'
+    assert deleted_book.created_by == 'original_user'
+    assert deleted_book.updated_by == 'editor'
+
+    # test delete (non existing)
+    non_existing_book = book_service.delete('invalid_id')
+    assert non_existing_book is None
+
+    # test find (after delete, correct keyword)
+    non_existing_result = book_service.find(keyword='updated', limit=10, offset=0)
+    assert non_existing_result.count == 0
+    assert len(non_existing_result.rows) == 0
+    

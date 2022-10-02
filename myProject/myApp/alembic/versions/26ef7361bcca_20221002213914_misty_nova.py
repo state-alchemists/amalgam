@@ -1,8 +1,8 @@
-"""20221002142835 young_frog
+"""20221002213914 misty_nova
 
-Revision ID: 88145f402160
+Revision ID: 26ef7361bcca
 Revises: 7dda1641a129
-Create Date: 2022-10-02 14:28:36.367245
+Create Date: 2022-10-02 21:39:15.633650
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '88145f402160'
+revision = '26ef7361bcca'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
