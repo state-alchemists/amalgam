@@ -15,6 +15,7 @@ def create_book_data():
         synopsis='',
         title='',
         author='',
+        created_by=''
     )
     return dummy_book_data
 
@@ -23,8 +24,8 @@ def create_book_data():
 # -- 🧪 Test
 ################################################
 
-def test_book_service():
-    engine = create_engine('sqlite://', echo=True)
+def test_book_service_crud():
+    engine = create_engine('sqlite://', echo=False)
     book_repo = DBBookRepo(engine=engine, create_all=True)
     mb = LocalMessageBus()
     rpc = LocalRPC()

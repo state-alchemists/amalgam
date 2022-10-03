@@ -1,8 +1,8 @@
-"""20221002213914 misty_nova
+"""20221003080228 black_sierra
 
-Revision ID: 26ef7361bcca
+Revision ID: 66ed688daaa9
 Revises: 7dda1641a129
-Create Date: 2022-10-02 21:39:15.633650
+Create Date: 2022-10-03 08:02:29.185339
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '26ef7361bcca'
+revision = '66ed688daaa9'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
