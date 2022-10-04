@@ -16,6 +16,7 @@ import sys
 ################################################
 # -- ⚙️ API
 ################################################
+# Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
 def register_library_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService):
 
     register_book_entity_api_route(app, mb, rpc, auth_service)
@@ -26,6 +27,7 @@ def register_library_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_serv
 ################################################
 # -- 👓 User Interface
 ################################################
+# Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
 def register_library_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
 
     @app.get('/', response_class=HTMLResponse)

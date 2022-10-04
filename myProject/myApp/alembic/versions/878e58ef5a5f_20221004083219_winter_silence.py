@@ -1,8 +1,8 @@
-"""20221003080228 black_sierra
+"""20221004083219 winter_silence
 
-Revision ID: 66ed688daaa9
+Revision ID: 878e58ef5a5f
 Revises: 7dda1641a129
-Create Date: 2022-10-03 08:02:29.185339
+Create Date: 2022-10-04 08:32:20.278567
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '66ed688daaa9'
+revision = '878e58ef5a5f'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

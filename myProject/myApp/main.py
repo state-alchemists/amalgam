@@ -101,6 +101,7 @@ if enable_auth_module:
 # -- 🧩 Library module
 ################################################
 enable_library_module = os.getenv('APP_ENABLE_LIBRARY_MODULE', '1') != '0'
+# Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
 if enable_library_module:
     book_repo = DBBookRepo(engine=engine, create_all=db_create_all)
     # API route
@@ -114,4 +115,5 @@ if enable_library_module:
         register_library_event_handler(mb, rpc)
     # serve RPC
     if enable_rpc_handler:
+        # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
         register_library_rpc_handler(mb, rpc, book_repo)

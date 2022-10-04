@@ -11,6 +11,7 @@ from sqlalchemy import create_engine
 ################################################
 
 def create_book_data():
+    # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
     dummy_book_data = BookData(
         synopsis='',
         title='',
@@ -103,8 +104,8 @@ def test_book_service_crud():
     non_existing_book = book_service.delete('invalid_id')
     assert non_existing_book is None
 
-    # test find (after delete, correct keyword)
-    non_existing_result = book_service.find(keyword='updated', limit=10, offset=0)
+    # test find (after delete, no keyword)
+    non_existing_result = book_service.find(keyword='', limit=10, offset=0)
     assert non_existing_result.count == 0
     assert len(non_existing_result.rows) == 0
     
