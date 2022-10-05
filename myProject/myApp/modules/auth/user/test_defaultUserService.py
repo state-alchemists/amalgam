@@ -1,10 +1,10 @@
-from typing import Optional, List
+from typing import Optional, List, Tuple
 from modules.auth.user.userService import DefaultUserService
 from modules.auth.role.roleService import RoleService
 from modules.auth.user.repos.dbUserRepo import DBUserRepo
 from modules.auth.role.repos.dbRoleRepo import DBRoleRepo
-from schemas.user import UserData
-from schemas.role import RoleData
+from schemas.user import User, UserData
+from schemas.role import Role, RoleData
 from helpers.transport import LocalRPC, LocalMessageBus
 
 from sqlalchemy import create_engine
@@ -14,6 +14,7 @@ from sqlalchemy import create_engine
 ################################################
 
 def create_user_data():
+    # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
     dummy_user_data = UserData(
         username='',
         email='',
@@ -36,11 +37,7 @@ def create_role_data():
     return dummy_role_data
 
 
-################################################
-# -- 🧪 Test
-################################################
-
-def test_user_service_crud():
+def init_test_user_components() -> Tuple[DefaultUserService, RoleService, DBUserRepo, DBRoleRepo, LocalMessageBus, LocalRPC]:
     engine = create_engine('sqlite://', echo=False)
     role_repo = DBRoleRepo(engine=engine, create_all=True)
     user_repo = DBUserRepo(engine=engine, create_all=True)
@@ -48,6 +45,41 @@ def test_user_service_crud():
     rpc = LocalRPC()
     role_service = RoleService(mb, rpc, role_repo)
     user_service = DefaultUserService(mb, rpc, user_repo, role_service, 'guest_username', 'root')
+    return user_service, role_service, user_repo, role_repo, mb, rpc
+
+
+def insert_role_data(role_repo: DBRoleRepo, index: Optional[int] = None, permissions: List[str] = []) -> Role:
+    role_data = create_role_data()
+    role_data.name = 'role' if index is None else 'role-{index}'.format(index=index)
+    role_data.permissions=permissions,
+    role_data.created_by = 'original_user'
+    role_data.updated_by = 'original_user'
+    return role_repo.insert(role_data)
+
+
+def insert_user_data(user_repo: DBUserRepo, index: Optional[int] = None, permissions: List[str] = [], role_ids: List[str] = [], password: str = '', active: bool = True) -> User:
+    user_data = create_user_data()
+    user_data.username = 'user' if index is None else 'user-{index}'.format(index=index)
+    user_data.email = '{username}@innistrad.com'.format(user_data.username),
+    user_data.password = password,
+    user_data.phone_number = '+628123456789{index}' if index is None else '+6281234567890'.format(index=index),
+    user_data.permissions = permissions,
+    user_data.role_ids = role_ids,
+    active = active,
+    full_name = '{username} Nguyen'.format(user_data.username),
+    user_data.created_by = 'original_user'
+    user_data.updated_by = 'original_user'
+    return user_repo.insert(user_data)
+
+
+# TODO: refactor
+
+################################################
+# -- 🧪 Test
+################################################
+
+def test_user_service_crud():
+    user_service, role_service, user_repo, role_repo, mb, rpc = init_test_user_components()
 
     # get guest
     guest_user = user_service.get_guest()
@@ -58,7 +90,7 @@ def test_user_service_crud():
 
     # prepare insert
     inserted_user_data = create_user_data()
-    inserted_user_data.username = 'original'
+    inserted_user_data.username = 'user'
     inserted_user_data.password = 'original_password'
     inserted_user_data.created_by = 'original_user'
     inserted_user_data.updated_by = 'original_user'
@@ -66,7 +98,7 @@ def test_user_service_crud():
     inserted_user = user_service.insert(inserted_user_data)
     assert inserted_user is not None
     assert inserted_user.id != '' 
-    assert inserted_user.username == 'original'
+    assert inserted_user.username == 'user'
     assert inserted_user.created_by == 'original_user'
     assert inserted_user.updated_by == 'original_user'
 
@@ -79,7 +111,7 @@ def test_user_service_crud():
     assert existing_user.updated_by == inserted_user.updated_by
 
     # test find by username (existing, after insert)
-    existing_user = user_service.find_by_username('original')
+    existing_user = user_service.find_by_username('user')
     assert existing_user is not None
     assert existing_user.id == inserted_user.id
     assert existing_user.username == inserted_user.username
@@ -87,7 +119,7 @@ def test_user_service_crud():
     assert existing_user.updated_by == inserted_user.updated_by
 
     # test find by identity and password (existing, after insert)
-    existing_user = user_service.find_by_identity_and_password('original', 'original_password')
+    existing_user = user_service.find_by_identity_and_password('user', 'original_password')
     assert existing_user is not None
     assert existing_user.id == inserted_user.id
     assert existing_user.username == inserted_user.username
@@ -103,7 +135,7 @@ def test_user_service_crud():
     assert non_existing_user is None
 
     # test find by identity and password (existing, invalid password)
-    non_existing_user = user_service.find_by_identity_and_password('original', 'invalid_password')
+    non_existing_user = user_service.find_by_identity_and_password('user', 'invalid_password')
     assert non_existing_user is None
 
     # test find by identity and password (non existing)
@@ -164,14 +196,8 @@ def test_user_service_crud():
 
    
 def test_user_service_authorization():
-    engine = create_engine('sqlite://', echo=False)
-    role_repo = DBRoleRepo(engine=engine, create_all=True)
-    user_repo = DBUserRepo(engine=engine, create_all=True)
-    mb = LocalMessageBus()
-    rpc = LocalRPC()
-    role_service = RoleService(mb, rpc, role_repo)
-    user_service = DefaultUserService(mb, rpc, user_repo, role_service, 'guest_username', 'root')
-
+    user_service, role_service, user_repo, role_repo, mb, rpc = init_test_user_components()
+    
     authorized_role_data = create_role_data()
     authorized_role_data.name='authorized_role'
     authorized_role_data.permissions=['unauthorized-1', 'authorized_permission', 'unauthorized-2']

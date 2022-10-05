@@ -1,8 +1,8 @@
-"""20221005101309 short_spectrum
+"""20221005102451 golden_haze
 
-Revision ID: ad28ac1d8246
+Revision ID: 0d41e4d263a6
 Revises: 7dda1641a129
-Create Date: 2022-10-05 10:13:10.002117
+Create Date: 2022-10-05 10:24:52.152179
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'ad28ac1d8246'
+revision = '0d41e4d263a6'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
