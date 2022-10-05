@@ -1,8 +1,8 @@
-"""20221004083219 winter_silence
+"""20221005101309 short_spectrum
 
-Revision ID: 878e58ef5a5f
+Revision ID: ad28ac1d8246
 Revises: 7dda1641a129
-Create Date: 2022-10-04 08:32:20.278567
+Create Date: 2022-10-05 10:13:10.002117
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '878e58ef5a5f'
+revision = 'ad28ac1d8246'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
