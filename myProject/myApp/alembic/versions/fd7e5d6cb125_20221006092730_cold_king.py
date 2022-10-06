@@ -1,8 +1,8 @@
-"""20221005102451 golden_haze
+"""20221006092730 cold_king
 
-Revision ID: 0d41e4d263a6
+Revision ID: fd7e5d6cb125
 Revises: 7dda1641a129
-Create Date: 2022-10-05 10:24:52.152179
+Create Date: 2022-10-06 09:27:30.803775
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '0d41e4d263a6'
+revision = 'fd7e5d6cb125'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
