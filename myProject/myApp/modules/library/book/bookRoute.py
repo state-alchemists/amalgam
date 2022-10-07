@@ -97,7 +97,7 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
 def register_book_entity_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
 
     @app.get('/library/books', response_class=HTMLResponse)
-    async def user_interface(request: Request, context: MenuContext = Depends(menu_service.authenticate('library:books'))):
+    async def user_interface(request: Request, context: MenuContext = Depends(menu_service.is_authorized('library:books'))):
         return page_template.TemplateResponse('default_crud.html', context={
             'api_path': '/api/vi/ztp_app_crud_entities',
             'content_path': 'library/crud/books.html',

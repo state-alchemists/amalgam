@@ -1,8 +1,8 @@
-"""20221006092730 cold_king
+"""20221007224550 broken_elemental
 
-Revision ID: fd7e5d6cb125
+Revision ID: 55bde51e1ee4
 Revises: 7dda1641a129
-Create Date: 2022-10-06 09:27:30.803775
+Create Date: 2022-10-07 22:45:50.982883
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'fd7e5d6cb125'
+revision = '55bde51e1ee4'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

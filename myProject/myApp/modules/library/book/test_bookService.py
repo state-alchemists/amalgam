@@ -21,7 +21,7 @@ def create_book_data():
     return dummy_book_data
 
 
-def init_test_book_components() -> Tuple[BookService, DBBookRepo, LocalMessageBus, LocalRPC]:
+def init_test_book_service_components() -> Tuple[BookService, DBBookRepo, LocalMessageBus, LocalRPC]:
     engine = create_engine('sqlite://', echo=False)
     book_repo = DBBookRepo(engine=engine, create_all=True)
     mb = LocalMessageBus()
@@ -43,7 +43,7 @@ def insert_book_data(book_repo: DBBookRepo, index: Optional[int] = None) -> Book
 ################################################
 
 def test_book_service_crud_find_by_id_existing():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     existing_book = insert_book_data(book_repo)
     # test find by id (existing)
@@ -56,7 +56,7 @@ def test_book_service_crud_find_by_id_existing():
 
 
 def test_book_service_crud_find_by_id_non_existing():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     insert_book_data(book_repo)
     # test find by id (non existing)
@@ -65,7 +65,7 @@ def test_book_service_crud_find_by_id_non_existing():
 
 
 def test_book_service_crud_find_existing():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     existing_book = insert_book_data(book_repo)
     # test find (existing)
@@ -80,7 +80,7 @@ def test_book_service_crud_find_existing():
 
 
 def test_book_service_crud_find_non_existing():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     insert_book_data(book_repo)
     # test find (non existing)
@@ -89,7 +89,7 @@ def test_book_service_crud_find_non_existing():
 
 
 def test_book_service_crud_find_pagination():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     for index in range(7):
         insert_book_data(book_repo, index)
@@ -108,7 +108,7 @@ def test_book_service_crud_find_pagination():
 
 
 def test_book_service_crud_insert():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare insert
     inserted_book_data = create_book_data()
     inserted_book_data.title = 'book'
@@ -125,7 +125,7 @@ def test_book_service_crud_insert():
 
 
 def test_book_service_crud_update_existing():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     existing_book = insert_book_data(book_repo)
     # test update (existing)
@@ -142,7 +142,7 @@ def test_book_service_crud_update_existing():
 
 
 def test_book_service_crud_update_non_existing():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     insert_book_data(book_repo)
     # test update (non existing)
@@ -155,7 +155,7 @@ def test_book_service_crud_update_non_existing():
 
 
 def test_book_service_crud_delete_existing():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     existing_book = insert_book_data(book_repo)
     # test find by id (existing)
@@ -169,7 +169,7 @@ def test_book_service_crud_delete_existing():
 
 
 def test_book_service_crud_delete_non_existing():
-    book_service, book_repo, _, _ = init_test_book_components()
+    book_service, book_repo, _, _ = init_test_book_service_components()
     # prepare repo
     insert_book_data(book_repo)
     # test find by id (non existing)
