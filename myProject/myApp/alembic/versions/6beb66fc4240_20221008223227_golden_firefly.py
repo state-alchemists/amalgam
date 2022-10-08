@@ -1,8 +1,8 @@
-"""20221007224550 broken_elemental
+"""20221008223227 golden_firefly
 
-Revision ID: 55bde51e1ee4
+Revision ID: 6beb66fc4240
 Revises: 7dda1641a129
-Create Date: 2022-10-07 22:45:50.982883
+Create Date: 2022-10-08 22:32:27.823911
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '55bde51e1ee4'
+revision = '6beb66fc4240'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
