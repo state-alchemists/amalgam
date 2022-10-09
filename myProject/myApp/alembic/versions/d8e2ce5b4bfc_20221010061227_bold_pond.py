@@ -1,8 +1,8 @@
-"""20221008223227 golden_firefly
+"""20221010061227 bold_pond
 
-Revision ID: 6beb66fc4240
+Revision ID: d8e2ce5b4bfc
 Revises: 7dda1641a129
-Create Date: 2022-10-08 22:32:27.823911
+Create Date: 2022-10-10 06:12:28.358704
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '6beb66fc4240'
+revision = 'd8e2ce5b4bfc'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
