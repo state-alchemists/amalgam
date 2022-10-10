@@ -1,8 +1,8 @@
-"""20221010061227 bold_pond
+"""20221010222622 lingering_burst
 
-Revision ID: d8e2ce5b4bfc
+Revision ID: 55a8635013f6
 Revises: 7dda1641a129
-Create Date: 2022-10-10 06:12:28.358704
+Create Date: 2022-10-10 22:26:23.660619
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'd8e2ce5b4bfc'
+revision = '55a8635013f6'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
