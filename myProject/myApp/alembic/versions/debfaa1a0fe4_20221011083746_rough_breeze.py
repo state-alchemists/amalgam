@@ -1,8 +1,8 @@
-"""20221010222622 lingering_burst
+"""20221011083746 rough_breeze
 
-Revision ID: 55a8635013f6
+Revision ID: debfaa1a0fe4
 Revises: 7dda1641a129
-Create Date: 2022-10-10 22:26:23.660619
+Create Date: 2022-10-11 08:37:47.451592
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '55a8635013f6'
+revision = 'debfaa1a0fe4'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
