@@ -1,8 +1,8 @@
-"""20221011083746 rough_breeze
+"""20221012222508 timber_violet
 
-Revision ID: debfaa1a0fe4
+Revision ID: 85316e859a17
 Revises: 7dda1641a129
-Create Date: 2022-10-11 08:37:47.451592
+Create Date: 2022-10-12 22:25:08.857440
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'debfaa1a0fe4'
+revision = '85316e859a17'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
