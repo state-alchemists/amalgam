@@ -61,6 +61,10 @@
       "value": "1"
     },
     {
+      "name": "APP_ENABLE_ERROR_PAGE",
+      "value": "1"
+    },
+    {
       "name": "APP_ENABLE_EVENT_HANDLER",
       "value": "0"
     },
@@ -193,12 +197,20 @@
       "value": "http://localhost:3000"
     },
     {
+      "name": "APP_UI_FOOTER",
+      "value": "App \u0026copy; 2022-now"
+    },
+    {
       "name": "APP_UI_PAGE_DIR",
       "value": "pages"
     },
     {
       "name": "APP_UI_SITE_NAME",
       "value": "App"
+    },
+    {
+      "name": "APP_UI_TAGLINE",
+      "value": "Quod est superius est sicut quod inferius"
     },
     {
       "name": "MIGRATION_RUN_ALL",

@@ -46,6 +46,9 @@ envs:
     APP_ENABLE_AUTH_MODULE:
       default: "1"
       from: MY_APP_APP_ENABLE_AUTH_MODULE
+    APP_ENABLE_ERROR_PAGE:
+      default: "1"
+      from: MY_APP_APP_ENABLE_ERROR_PAGE
     APP_ENABLE_EVENT_HANDLER:
       default: "1"
       from: MY_APP_APP_ENABLE_EVENT_HANDLER
@@ -142,12 +145,18 @@ envs:
     APP_UI_BACKEND_URL:
       default: http://localhost:3000
       from: MY_APP_APP_UI_BACKEND_URL
+    APP_UI_FOOTER:
+      default: App &copy; 2022-now
+      from: MY_APP_APP_UI_FOOTER
     APP_UI_PAGE_DIR:
       default: pages
       from: MY_APP_APP_UI_PAGE_DIR
     APP_UI_SITE_NAME:
       default: App
       from: MY_APP_APP_UI_SITE_NAME
+    APP_UI_TAGLINE:
+      default: Quod est superius est sicut quod inferius
+      from: MY_APP_APP_UI_TAGLINE
     MIGRATION_RUN_ALL:
       default: "1"
       from: MY_APP_MIGRATION_RUN_ALL

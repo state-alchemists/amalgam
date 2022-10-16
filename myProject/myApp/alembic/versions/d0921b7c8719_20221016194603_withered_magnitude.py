@@ -1,8 +1,8 @@
-"""20221016145544 crimson_snowflake
+"""20221016194603 withered_magnitude
 
-Revision ID: 2839ffe05b67
+Revision ID: d0921b7c8719
 Revises: 7dda1641a129
-Create Date: 2022-10-16 14:55:45.475853
+Create Date: 2022-10-16 19:46:03.941050
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '2839ffe05b67'
+revision = 'd0921b7c8719'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
