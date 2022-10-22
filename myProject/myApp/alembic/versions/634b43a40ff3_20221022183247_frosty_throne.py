@@ -1,8 +1,8 @@
-"""20221022164827 inner_giant
+"""20221022183247 frosty_throne
 
-Revision ID: b76ededa2a6c
+Revision ID: 634b43a40ff3
 Revises: 7dda1641a129
-Create Date: 2022-10-22 16:48:28.546217
+Create Date: 2022-10-22 18:32:48.136936
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'b76ededa2a6c'
+revision = '634b43a40ff3'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
