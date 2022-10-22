@@ -3,7 +3,10 @@
     const { loadModule } = window['vue3-sfc-loader'];
     Vue.createApp({
         components: {
-            crud: Vue.defineAsyncComponent(() => loadModule('/public/vue/modules/library/crud/booksCrud.vue', vueSfcLoaderOptions))
+            crud: Vue.defineAsyncComponent(() => loadModule(
+                '{{ public_url_path }}/vue/modules/library/crud/booksCrud.vue',
+                appHelper.getVueSfcLoaderOptions()
+            ))
         },
         template: '<crud apiUrl="{{ backend_url }}/api/v1/books"></crud>',
     }).mount('#app');

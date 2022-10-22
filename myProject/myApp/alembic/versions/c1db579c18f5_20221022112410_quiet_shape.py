@@ -1,8 +1,8 @@
-"""20221017230420 throbbing_queen
+"""20221022112410 quiet_shape
 
-Revision ID: 5efc7b2e00bb
+Revision ID: c1db579c18f5
 Revises: 7dda1641a129
-Create Date: 2022-10-17 23:04:21.187580
+Create Date: 2022-10-22 11:24:10.816730
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '5efc7b2e00bb'
+revision = 'c1db579c18f5'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
