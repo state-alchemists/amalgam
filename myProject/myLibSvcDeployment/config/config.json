@@ -89,10 +89,6 @@
       "value": "10"
     },
     {
-      "name": "APP_GUEST_USERNAME",
-      "value": "guest"
-    },
-    {
       "name": "APP_HTTP_PORT",
       "value": "3000"
     },

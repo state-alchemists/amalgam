@@ -24,7 +24,7 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         try:
             if not current_user:
                 current_user = User.parse_obj(rpc.call('get_guest_user'))
-            result = rpc.call('find_book', keyword, limit, offset)
+            result = rpc.call('find_book', keyword, limit, offset, current_user.dict())
         except HTTPException as http_exception:
             raise http_exception
         except:
@@ -39,14 +39,12 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         try:
             if not current_user:
                 current_user = User.parse_obj(rpc.call('get_guest_user'))
-            book = rpc.call('find_book_by_id', id)
+            book = rpc.call('find_book_by_id', id, current_user.dict())
         except HTTPException as http_exception:
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
             raise HTTPException(status_code=500, detail='Internal Server Error')
-        if book is None:
-            raise HTTPException(status_code=404, detail='Not Found')
         return Book.parse_obj(book)
 
 
@@ -62,8 +60,6 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         except:
             print(traceback.format_exc(), file=sys.stderr) 
             raise HTTPException(status_code=500, detail='Internal Server Error')
-        if book is None:
-            raise HTTPException(status_code=404, detail='Not Found')
         return Book.parse_obj(book)
 
 
@@ -79,8 +75,6 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         except:
             print(traceback.format_exc(), file=sys.stderr) 
             raise HTTPException(status_code=500, detail='Internal Server Error')
-        if book is None:
-            raise HTTPException(status_code=404, detail='Not Found')
         return Book.parse_obj(book)
 
 
@@ -96,8 +90,6 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
         except:
             print(traceback.format_exc(), file=sys.stderr) 
             raise HTTPException(status_code=500, detail='Internal Server Error')
-        if book is None:
-            raise HTTPException(status_code=404, detail='Not Found')
         return Book.parse_obj(book)
 
 

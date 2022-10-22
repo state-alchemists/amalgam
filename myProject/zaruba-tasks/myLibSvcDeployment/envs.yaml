@@ -67,9 +67,6 @@ envs:
     APP_ERROR_THRESHOLD:
       from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_ERROR_THRESHOLD
       default: 10
-    APP_GUEST_USERNAME:
-      from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_GUEST_USERNAME
-      default: guest
     APP_HTTP_PORT:
       from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_HTTP_PORT
       default: "3000"

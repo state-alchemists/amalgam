@@ -1,8 +1,8 @@
-"""20221022112410 quiet_shape
+"""20221022163007 young_corona
 
-Revision ID: c1db579c18f5
+Revision ID: 8cdc84cf03e2
 Revises: 7dda1641a129
-Create Date: 2022-10-22 11:24:10.816730
+Create Date: 2022-10-22 16:30:08.143128
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'c1db579c18f5'
+revision = '8cdc84cf03e2'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

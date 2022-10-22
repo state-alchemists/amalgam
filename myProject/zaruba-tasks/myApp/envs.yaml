@@ -64,9 +64,6 @@ envs:
     APP_ERROR_THRESHOLD:
       default: "10"
       from: MY_APP_APP_ERROR_THRESHOLD
-    APP_GUEST_USERNAME:
-      default: guest
-      from: MY_APP_APP_GUEST_USERNAME
     APP_HTTP_PORT:
       default: "3000"
       from: MY_APP_APP_HTTP_PORT
