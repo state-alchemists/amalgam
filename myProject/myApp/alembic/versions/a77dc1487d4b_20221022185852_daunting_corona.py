@@ -1,8 +1,8 @@
-"""20221022185236 delicate_fortress
+"""20221022185852 daunting_corona
 
-Revision ID: 075d3deb0eac
+Revision ID: a77dc1487d4b
 Revises: 7dda1641a129
-Create Date: 2022-10-22 18:52:37.150975
+Create Date: 2022-10-22 18:58:53.387455
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '075d3deb0eac'
+revision = 'a77dc1487d4b'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
