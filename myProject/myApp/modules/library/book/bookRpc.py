@@ -5,6 +5,8 @@ from schemas.user import User
 from modules.library.book.repos.bookRepo import BookRepo
 from modules.library.book.bookService import BookService
 
+import sys
+
 def register_book_entity_rpc(mb: MessageBus, rpc: RPC, book_repo: BookRepo):
 
     book_service = BookService(mb, rpc, book_repo)
@@ -47,4 +49,4 @@ def register_book_entity_rpc(mb: MessageBus, rpc: RPC, book_repo: BookRepo):
         return None if book is None else book.dict()
 
 
-    print('Handle RPC for library.Book')
+    print('Handle RPC for library.Book', file=sys.stderr)

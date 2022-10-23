@@ -11,4 +11,4 @@ def register_library_rpc_handler(mb: MessageBus, rpc: RPC, book_repo: BookRepo):
 
     register_book_entity_rpc(mb, rpc, book_repo)
 
-    print('Register library RPC handler')
+    print('Register library RPC handler', file=sys.stderr)

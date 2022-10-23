@@ -1,8 +1,8 @@
-"""20221022185852 daunting_corona
+"""20221023075018 dawn_tree
 
-Revision ID: a77dc1487d4b
+Revision ID: e6ea4793de0f
 Revises: 7dda1641a129
-Create Date: 2022-10-22 18:58:53.387455
+Create Date: 2022-10-23 07:50:18.703160
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'a77dc1487d4b'
+revision = 'e6ea4793de0f'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

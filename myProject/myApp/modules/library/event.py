@@ -7,4 +7,4 @@ import sys
 # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
 def register_library_event_handler(mb: MessageBus, rpc: RPC):
 
-    print('Register library event handler')
+    print('Register library event handler', file=sys.stderr)

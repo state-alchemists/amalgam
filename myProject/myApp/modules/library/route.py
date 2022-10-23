@@ -21,7 +21,7 @@ def register_library_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_serv
 
     register_book_entity_api_route(app, mb, rpc, auth_service)
 
-    print('Register library api route handler')
+    print('Register library api route handler', file=sys.stderr)
 
 
 ################################################
@@ -51,4 +51,4 @@ def register_library_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_servi
 
     register_book_entity_ui_route(app, mb, rpc, menu_service, page_template)
 
-    print('Register library UI route handler')
+    print('Register library UI route handler', file=sys.stderr)
