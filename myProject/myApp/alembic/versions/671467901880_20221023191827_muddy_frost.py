@@ -1,8 +1,8 @@
-"""20221023075018 dawn_tree
+"""20221023191827 muddy_frost
 
-Revision ID: e6ea4793de0f
+Revision ID: 671467901880
 Revises: 7dda1641a129
-Create Date: 2022-10-23 07:50:18.703160
+Create Date: 2022-10-23 19:18:28.189073
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'e6ea4793de0f'
+revision = '671467901880'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
