@@ -1,8 +1,8 @@
-"""20221023191827 muddy_frost
+"""20221023192804 blue_solstice
 
-Revision ID: 671467901880
+Revision ID: 0caf0a2b6682
 Revises: 7dda1641a129
-Create Date: 2022-10-23 19:18:28.189073
+Create Date: 2022-10-23 19:28:05.452651
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '671467901880'
+revision = '0caf0a2b6682'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
