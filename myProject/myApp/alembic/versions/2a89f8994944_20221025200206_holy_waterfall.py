@@ -1,8 +1,8 @@
-"""20221025092351 terrestrial_river
+"""20221025200206 holy_waterfall
 
-Revision ID: a8597cfc7d43
+Revision ID: 2a89f8994944
 Revises: 7dda1641a129
-Create Date: 2022-10-25 09:23:52.325377
+Create Date: 2022-10-25 20:02:06.683949
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'a8597cfc7d43'
+revision = '2a89f8994944'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
