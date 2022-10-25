@@ -31,7 +31,7 @@ def register_library_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_serv
 def register_library_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
 
     @app.get('/', response_class=HTMLResponse)
-    async def get_(request: Request, context: MenuContext = Depends(menu_service.is_authorized('library:/'))) -> HTMLResponse:
+    async def get_(request: Request, context: MenuContext = Depends(menu_service.has_access('library:/'))) -> HTMLResponse:
         '''
         Handle (get) /
         '''
