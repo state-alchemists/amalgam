@@ -1,6 +1,6 @@
 # Documentation
 
-`MyApp` is a microservice-ready monolith application.
+`MyApp` is a microservice-ready monolith application. It is built on top of [FastAPI](https://fastapi.tiangolo.com/), a modern, fast (high-performance), web framework for building APIs with Python 3.7+ based on standard Python type hints
 
 In this documentation, you will see `MyApp`'s [motivation and architecture](motivation-and-architecture/README.md) as well as how to manage and extend `MyApp`.
 

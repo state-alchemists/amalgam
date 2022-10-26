@@ -1,8 +1,8 @@
-"""20221025200206 holy_waterfall
+"""20221026080045 quiet_snowflake
 
-Revision ID: 2a89f8994944
+Revision ID: 6db479d15cc9
 Revises: 7dda1641a129
-Create Date: 2022-10-25 20:02:06.683949
+Create Date: 2022-10-26 08:00:46.480130
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '2a89f8994944'
+revision = '6db479d15cc9'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None

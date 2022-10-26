@@ -2,10 +2,9 @@ from typing import Any, List, Mapping, Optional
 from helpers.transport import MessageBus, RPC
 from fastapi import Depends, FastAPI, Request, HTTPException
 from fastapi.security import OAuth2
-from modules.auth import AuthService
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from modules.ui import MenuService
+from core import AuthService, MenuService
 from schemas.book import Book, BookData, BookResult
 from schemas.menuContext import MenuContext
 from schemas.user import User
@@ -19,7 +18,10 @@ import sys
 def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService):
 
     @app.get('/api/v1/books/', response_model=BookResult)
-    def find_books(keyword: str='', limit: int=100, offset: int=0, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:read'))) -> BookResult:
+    async def find_books(keyword: str='', limit: int=100, offset: int=0, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:read'))) -> BookResult:
+        '''
+        Serving API to find books by keyword.
+        '''
         result = {}
         try:
             if not current_user:
@@ -34,7 +36,10 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
 
 
     @app.get('/api/v1/books/{id}', response_model=Book)
-    def find_book_by_id(id: str, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:read'))) -> Book:
+    async def find_book_by_id(id: str, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:read'))) -> Book:
+        '''
+        Serving API to find book by id.
+        '''
         book = None
         try:
             if not current_user:
@@ -49,7 +54,10 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
 
 
     @app.post('/api/v1/books/', response_model=Book)
-    def insert_book(book_data: BookData, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:create'))) -> Book:
+    async def insert_book(book_data: BookData, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:create'))) -> Book:
+        '''
+        Serving API to insert new book.
+        '''
         book = None
         try:
             if not current_user:
@@ -64,7 +72,10 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
 
 
     @app.put('/api/v1/books/{id}', response_model=Book)
-    def update_book(id: str, book_data: BookData, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:update'))) -> Book:
+    async def update_book(id: str, book_data: BookData, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:update'))) -> Book:
+        '''
+        Serving API to update book by id.
+        '''
         book = None
         try:
             if not current_user:
@@ -79,7 +90,10 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
 
 
     @app.delete('/api/v1/books/{id}')
-    def delete_book(id: str, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:delete'))) -> Book:
+    async def delete_book(id: str, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:delete'))) -> Book:
+        '''
+        Serving API to delete book by id.
+        '''
         book = None
         try:
             if not current_user:
@@ -99,7 +113,10 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
 def register_book_entity_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
 
     @app.get('/library/books', response_class=HTMLResponse)
-    async def user_interface(request: Request, context: MenuContext = Depends(menu_service.has_access('library:books'))):
+    async def manage_book(request: Request, context: MenuContext = Depends(menu_service.has_access('library:books'))):
+        '''
+        Serving user interface for managing book.
+        '''
         return page_template.TemplateResponse('default_crud.html', context={
             'api_path': '/api/vi/ztp_app_crud_entities',
             'content_path': 'library/crud/books.html',
