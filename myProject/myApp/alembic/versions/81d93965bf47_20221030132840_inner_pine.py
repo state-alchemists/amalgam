@@ -1,8 +1,8 @@
-"""20221026080045 quiet_snowflake
+"""20221030132840 inner_pine
 
-Revision ID: 6db479d15cc9
+Revision ID: 81d93965bf47
 Revises: 7dda1641a129
-Create Date: 2022-10-26 08:00:46.480130
+Create Date: 2022-10-30 13:28:41.547762
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '6db479d15cc9'
+revision = '81d93965bf47'
 down_revision = '7dda1641a129'
 branch_labels = None
 depends_on = None
