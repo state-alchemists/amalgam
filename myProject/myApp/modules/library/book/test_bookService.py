@@ -1,5 +1,5 @@
-from modules.library.book.test_util import create_book_data, insert_book_data, init_test_book_service_components
-from modules.auth.user.test_util import AUTHORIZED_ACTIVE_USER
+from modules.library.book.test_bookService_util import create_book_data, insert_book_data, init_test_book_service_components
+from modules.auth.user.test_defaultUserService_util import AUTHORIZED_ACTIVE_USER
 
 
 def test_book_service_crud_find_by_id_existing():

@@ -28,11 +28,10 @@
             {% endif %}
         </ul>
         <div class="d-flex">
-            <i class="bi bi-person"></i>
             {% if context.current_user %}
-                {{ context.current_user.username }}
-            {% else %}
-                {{ context.guest_user.username }}
+                <i class="bi bi-person"></i> {{ context.current_user.username }}
+            {% elif context.guest_user %}
+                <i class="bi bi-person"></i> {{ context.guest_user.username }}
             {% endif %}
         </form>
     </div>

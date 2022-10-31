@@ -55,6 +55,9 @@ envs:
     APP_ENABLE_LIBRARY_MODULE:
       default: "1"
       from: MY_FRONTEND_APP_ENABLE_LIBRARY_MODULE
+    APP_ENABLE_LOG_MODULE:
+      default: "1"
+      from: MY_FRONTEND_APP_ENABLE_LOG_MODULE
     APP_ENABLE_ROUTE_HANDLER:
       default: "1"
       from: MY_FRONTEND_APP_ENABLE_ROUTE_HANDLER

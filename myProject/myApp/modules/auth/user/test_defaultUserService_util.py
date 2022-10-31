@@ -1,15 +1,15 @@
 from typing import Optional, List, Tuple
-from modules.auth.user.userService import DefaultUserService
+from modules.auth.user.defaultUserService import DefaultUserService
 from modules.auth.role.roleService import RoleService
 from modules.auth.user.repos.dbUserRepo import DBUserRepo
 from modules.auth.role.repos.dbRoleRepo import DBRoleRepo
 from schemas.user import User, UserData
-from helpers.transport import LocalRPC, LocalMessageBus
+from helpers.transport import LocalRPC, LocalMessageBus, MessageBus
 
 from sqlalchemy import create_engine
 
 
-def create_user_data():
+def create_user_data() -> UserData:
     # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
     dummy_user_data = UserData(
         username='',
@@ -24,17 +24,27 @@ def create_user_data():
     return dummy_user_data
 
 
-def create_user():
+def create_user() -> User:
     user_data_dict = create_user_data().dict()
     dummy_user = User(id='', **user_data_dict)
     return dummy_user
+
+
+def create_mb() -> MessageBus:
+    mb = LocalMessageBus()
+    # handle new_activity event
+    @mb.handle('new_activity')
+    def handle_new_activity(activity_data):
+        print('New Activity', activity_data)
+    # return mb
+    return mb
 
 
 def init_test_default_user_service_components() -> Tuple[DefaultUserService, RoleService, DBUserRepo, DBRoleRepo, LocalMessageBus, LocalRPC]:
     engine = create_engine('sqlite://', echo=False)
     role_repo = DBRoleRepo(engine=engine, create_all=True)
     user_repo = DBUserRepo(engine=engine, create_all=True)
-    mb = LocalMessageBus()
+    mb = create_mb()
     rpc = LocalRPC()
     role_service = RoleService(mb, rpc, role_repo)
     user_service = DefaultUserService(mb, rpc, user_repo, role_service, 'root')
@@ -55,11 +65,6 @@ def init_user_data(user_repo: DBUserRepo, index: Optional[int] = None, permissio
     user_data.updated_by = 'original_user'
     return user_repo.insert(user_data)
 
-
-GUEST_USER = create_user()
-GUEST_USER.id = 'mock_guest_user_id'
-GUEST_USER.username = 'guest_username'
-GUEST_USER.created_by = 'mock_user_id'
 
 UNAUTHORIZED_ACTIVE_USER = create_user()
 UNAUTHORIZED_ACTIVE_USER.id = 'mock_unauthorized_active_user_id'

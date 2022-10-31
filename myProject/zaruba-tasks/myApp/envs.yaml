@@ -52,6 +52,9 @@ envs:
     APP_ENABLE_EVENT_HANDLER:
       default: "1"
       from: MY_APP_APP_ENABLE_EVENT_HANDLER
+    APP_ENABLE_LOG_MODULE:
+      default: "1"
+      from: MY_APP_APP_ENABLE_LOG_MODULE
     APP_ENABLE_ROUTE_HANDLER:
       default: "1"
       from: MY_APP_APP_ENABLE_ROUTE_HANDLER

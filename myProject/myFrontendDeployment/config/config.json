@@ -73,6 +73,10 @@
       "value": "1"
     },
     {
+      "name": "APP_ENABLE_LOG_MODULE",
+      "value": "1"
+    },
+    {
       "name": "APP_ENABLE_ROUTE_HANDLER",
       "value": "1"
     },

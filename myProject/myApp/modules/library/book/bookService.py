@@ -1,6 +1,7 @@
 from typing import Optional
 from helpers.transport import RPC, MessageBus
 from schemas.user import User
+from schemas.activity import ActivityData
 from schemas.book import Book, BookData, BookResult
 from modules.library.book.repos.bookRepo import BookRepo
 from fastapi import HTTPException
@@ -20,7 +21,7 @@ class BookService():
 
 
     def find_by_id(self, id: str, current_user: Optional[User] = None) -> Optional[Book]:
-        book = self._find_by_id_or_error(id)
+        book = self._find_by_id_or_error(id, current_user)
         return book
 
 
@@ -28,22 +29,46 @@ class BookService():
         book_data.created_by = current_user.id
         book_data.updated_by = current_user.id
         book_data = self._validate_data(book_data)
-        return self.book_repo.insert(book_data)
+        new_book = self.book_repo.insert(book_data)
+        self.mb.publish('new_activity', ActivityData(
+            user_id = current_user.id,
+            activity = 'insert',
+            object = 'book',
+            row = new_book.dict(),
+            row_id = new_book.id
+        ).dict())
+        return new_book
 
 
     def update(self, id: str, book_data: BookData, current_user: User) -> Optional[Book]:
-        self._find_by_id_or_error(id)
+        self._find_by_id_or_error(id, current_user)
         book_data.updated_by = current_user.id
         book_data = self._validate_data(book_data, id)
-        return self.book_repo.update(id, book_data)
+        updated_book = self.book_repo.update(id, book_data)
+        self.mb.publish('new_activity', ActivityData(
+            user_id = current_user.id,
+            activity = 'update',
+            object = 'book',
+            row = updated_book.dict(),
+            row_id = updated_book.id
+        ).dict())
+        return updated_book
 
 
     def delete(self, id: str, current_user: User) -> Optional[Book]:
-        self._find_by_id_or_error(id)
-        return self.book_repo.delete(id)
+        self._find_by_id_or_error(id, current_user)
+        deleted_book = self.book_repo.delete(id)
+        self.mb.publish('new_activity', ActivityData(
+            user_id = current_user.id,
+            activity = 'delete',
+            object = 'book',
+            row = deleted_book.dict(),
+            row_id = deleted_book.id
+        ).dict())
+        return deleted_book
 
 
-    def _find_by_id_or_error(self, id: Optional[str] = None) -> Optional[Book]:
+    def _find_by_id_or_error(self, id: Optional[str] = None, current_user: Optional[User] = None) -> Optional[Book]:
         book = self.book_repo.find_by_id(id)
         if book is None:
             raise HTTPException(

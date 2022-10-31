@@ -223,6 +223,7 @@ zaruba task setEnv startMyLibSvc APP_ENABLE_ROUTE_HANDLER 0
 zaruba task setEnv startMyLibSvc APP_ENABLE_UI 0
 zaruba task setEnv startMyLibSvc APP_ENABLE_API 0
 zaruba task setEnv startMyLibSvc APP_ENABLE_AUTH_MODULE 0
+zaruba task setEnv startMyLibSvc APP_ENABLE_LOG_MODULE 0
 zaruba task setEnv startMyLibSvc APP_RPC_TYPE rmq
 zaruba task setEnv startMyLibSvc APP_MESSAGE_BUS_TYPE rmq
 zaruba task setEnv startMyLibSvc APP_RABBITMQ_HOST localhost
@@ -308,7 +309,7 @@ zaruba task setEnv prepareMyAuthSvcDeployment APP_HTTP_PORT 3000
 zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_ROUTE_HANDLER 0
 zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_UI 0
 zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_API 0
-zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_LIB_MODULE 0
+zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_LIBRARY_MODULE 0
 zaruba task setEnv prepareMyAuthSvcDeployment APP_RPC_TYPE rmq
 zaruba task setEnv prepareMyAuthSvcDeployment APP_MESSAGE_BUS_TYPE rmq
 zaruba task setEnv prepareMyAuthSvcDeployment APP_RABBITMQ_HOST rabbitmq
@@ -334,6 +335,7 @@ zaruba task setEnv prepareMyLibSvcDeployment APP_ENABLE_ROUTE_HANDLER 0
 zaruba task setEnv prepareMyLibSvcDeployment APP_ENABLE_UI 0
 zaruba task setEnv prepareMyLibSvcDeployment APP_ENABLE_API 0
 zaruba task setEnv prepareMyLibSvcDeployment APP_ENABLE_AUTH_MODULE 0
+zaruba task setEnv prepareMyLibSvcDeployment APP_ENABLE_LOG_MODULE 0
 zaruba task setEnv prepareMyLibSvcDeployment APP_RPC_TYPE rmq
 zaruba task setEnv prepareMyLibSvcDeployment APP_MESSAGE_BUS_TYPE rmq
 zaruba task setEnv prepareMyLibSvcDeployment APP_RABBITMQ_HOST rabbitmq

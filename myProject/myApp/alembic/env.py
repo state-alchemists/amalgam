@@ -1,5 +1,5 @@
 from repos import Base
-from modules.library.book.repos.dbBookRepo import DBBookRepo
+from modules.library.book import BookService, DBBookRepo
 from modules.auth import DBRoleRepo
 from modules.auth import DBUserRepo
 

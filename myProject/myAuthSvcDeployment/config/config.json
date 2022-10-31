@@ -70,11 +70,11 @@
     },
     {
       "name": "APP_ENABLE_LIBRARY_MODULE",
-      "value": "1"
+      "value": "0"
     },
     {
-      "name": "APP_ENABLE_LIB_MODULE",
-      "value": "0"
+      "name": "APP_ENABLE_LOG_MODULE",
+      "value": "1"
     },
     {
       "name": "APP_ENABLE_ROUTE_HANDLER",

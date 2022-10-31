@@ -1,10 +1,10 @@
 from typing import Any, List, Mapping, Optional
+from core import AuthService, MenuService
 from helpers.transport import MessageBus, RPC
 from fastapi import Depends, FastAPI, Request, HTTPException
 from fastapi.security import OAuth2
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
-from core import AuthService, MenuService
 from schemas.book import Book, BookData, BookResult
 from schemas.menuContext import MenuContext
 from schemas.user import User
@@ -15,7 +15,7 @@ import sys
 ################################################
 # -- ⚙️ API
 ################################################
-def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService):
+def register_book_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService):
 
     @app.get('/api/v1/books/', response_model=BookResult)
     async def find_books(keyword: str='', limit: int=100, offset: int=0, current_user: Optional[User] = Depends(auth_service.has_permission('api:book:read'))) -> BookResult:
@@ -110,7 +110,7 @@ def register_book_entity_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_
 ################################################
 # -- 👓 User Interface
 ################################################
-def register_book_entity_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
+def register_book_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
 
     @app.get('/library/books', response_class=HTMLResponse)
     async def manage_book(request: Request, context: MenuContext = Depends(menu_service.has_access('library:books'))):
@@ -119,7 +119,7 @@ def register_book_entity_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_s
         '''
         return page_template.TemplateResponse('default_crud.html', context={
             'api_path': '/api/vi/ztp_app_crud_entities',
-            'content_path': 'library/crud/books.html',
+            'content_path': 'modules/library/crud/books.html',
             'request': request, 
             'context': context
         }, status_code=200)
