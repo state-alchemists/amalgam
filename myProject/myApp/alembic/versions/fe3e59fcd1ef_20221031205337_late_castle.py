@@ -1,8 +1,8 @@
-"""20221031202339 weathered_storm
+"""20221031205337 late_castle
 
-Revision ID: 0d71bb22e63c
+Revision ID: fe3e59fcd1ef
 Revises: 2c643d4333f3
-Create Date: 2022-10-31 20:23:39.937577
+Create Date: 2022-10-31 20:53:38.299109
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '0d71bb22e63c'
+revision = 'fe3e59fcd1ef'
 down_revision = '2c643d4333f3'
 branch_labels = None
 depends_on = None
@@ -60,7 +60,7 @@ def downgrade() -> None:
     sa.Column('activity', sa.VARCHAR(length=255), nullable=False),
     sa.Column('object', sa.VARCHAR(length=255), nullable=True),
     sa.Column('row_id', sa.VARCHAR(length=255), nullable=True),
-    sa.Column('json_row', sa.VARCHAR(length=255), nullable=True),
+    sa.Column('json_row', sa.TEXT(), nullable=True),
     sa.Column('created_at', sa.DATETIME(), nullable=True),
     sa.Column('created_by', sa.VARCHAR(length=36), nullable=True),
     sa.Column('updated_at', sa.DATETIME(), nullable=True),

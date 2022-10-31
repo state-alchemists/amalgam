@@ -2,7 +2,7 @@ from typing import List, Optional
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import Session
-from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy import Boolean, Column, DateTime, ForeignKey, Integer, String, Text
 from schemas.book import Book, BookData
 from modules.library.book.repos.bookRepo import BookRepo
 from repos import Base
