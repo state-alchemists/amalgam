@@ -213,10 +213,6 @@
       "value": "Quod est superius est sicut quod inferius"
     },
     {
-      "name": "MIGRATION_RUN_ALL",
-      "value": "1"
-    },
-    {
       "name": "MIGRATION_SQLALCHEMY_DATABASE_URL",
       "value": "sqlite:///migration.db"
     },

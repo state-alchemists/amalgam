@@ -157,9 +157,6 @@ envs:
     APP_UI_TAGLINE:
       default: Quod est superius est sicut quod inferius
       from: MY_APP_APP_UI_TAGLINE
-    MIGRATION_RUN_ALL:
-      default: "1"
-      from: MY_APP_MIGRATION_RUN_ALL
     MIGRATION_SQLALCHEMY_DATABASE_URL:
       default: sqlite:///migration.db
       from: MY_APP_MIGRATION_SQLALCHEMY_DATABASE_URL

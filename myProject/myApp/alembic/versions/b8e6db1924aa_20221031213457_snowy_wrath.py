@@ -1,8 +1,8 @@
-"""20221031211047 quiet_water
+"""20221031213457 snowy_wrath
 
-Revision ID: 73082377a89c
+Revision ID: b8e6db1924aa
 Revises: 2c643d4333f3
-Create Date: 2022-10-31 21:10:47.633216
+Create Date: 2022-10-31 21:34:58.574669
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '73082377a89c'
+revision = 'b8e6db1924aa'
 down_revision = '2c643d4333f3'
 branch_labels = None
 depends_on = None

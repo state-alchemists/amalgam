@@ -160,9 +160,6 @@ envs:
     APP_UI_TAGLINE:
       default: Quod est superius est sicut quod inferius
       from: MY_FRONTEND_APP_UI_TAGLINE
-    MIGRATION_RUN_ALL:
-      default: "0"
-      from: MY_FRONTEND_MIGRATION_RUN_ALL
     MIGRATION_SQLALCHEMY_DATABASE_URL:
       default: sqlite:///migration.db
       from: MY_FRONTEND_MIGRATION_SQLALCHEMY_DATABASE_URL
@@ -202,4 +199,7 @@ envs:
     TEST_SQLALCHEMY_DATABASE_URL:
       default: sqlite:///test.db
       from: MY_FRONTEND_TEST_SQLALCHEMY_DATABASE_URL
+    MIGRATION_RUN_ALL:
+      from: MY_FRONTEND_MIGRATION_RUN_ALL
+      default: 0
 

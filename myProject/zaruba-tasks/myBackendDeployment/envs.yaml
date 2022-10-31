@@ -160,9 +160,6 @@ envs:
     APP_UI_TAGLINE:
       from: MY_BACKEND_DEPLOYMENT_ENV_APP_UI_TAGLINE
       default: Quod est superius est sicut quod inferius
-    MIGRATION_RUN_ALL:
-      from: MY_BACKEND_DEPLOYMENT_ENV_MIGRATION_RUN_ALL
-      default: 1
     MIGRATION_SQLALCHEMY_DATABASE_URL:
       from: MY_BACKEND_DEPLOYMENT_ENV_MIGRATION_SQLALCHEMY_DATABASE_URL
       default: sqlite:///migration.db
