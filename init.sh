@@ -27,8 +27,8 @@ rm -Rf .git
 # Add application and monolith runner to the project
 ################################################################################################
 
-# create App application + it's runner
-# App application should contain a library module that serve books CRUD
+# create myApp application + it's runner
+# myApp application should contain a library module that serve books CRUD
 echo "👷 Add App application + it's runner"
 zaruba please addFastAppCrud \
     appDirectory=myApp \
@@ -44,6 +44,7 @@ zaruba please addFastAppCrudField \
     appCrudEntity=books \
     appCrudField=synopsis
 
+# add simple homepage
 echo "👷 Add homepage"
 zaruba please addFastAppPage \
     appDirectory=myApp \
@@ -94,6 +95,15 @@ echo "👷 Once running, you can visit: http://localhost:3000"
 # Add sql and rabbitmq to the project
 ################################################################################################
 
+# We want to split myApp into several microservices:
+# - frontend (visual matters)
+# - backend (API gateway)
+# - authSvc (handle auth and user activities)
+# - libSvc (handle book CRUD)
+#
+# We need RabbitMQ to let our services talk to each others
+# We also need MySQL Database for authSvc and libSvc
+
 echo "👷 Add mysql for authSvc"
 zaruba please addMysql \
     appDirectory=myAuthSvcDb \
@@ -114,6 +124,10 @@ zaruba task setConfig startMyRabbitmqContainer afterCheck 'sleep 15'
 ################################################################################################
 # Add frontend runner
 ################################################################################################
+
+# MyFrontend has the same code base as myApp.
+# It focused on visual matters.
+# Thus, we need to disable API, RPC handler, and event handler.
 
 echo "👷 Add frontend"
 zaruba please makeFastAppRunner \
@@ -147,6 +161,10 @@ zaruba task addDependencies startMyFrontendContainer startMyRabbitmqContainer
 # Add backend runner
 ################################################################################################
 
+# MyBackend is an API gateway.
+# It takes request from myFrontend, and emit events or invoke RPC call to be handled by MyAuthSvc and MyLibSvc
+# Thus, we need to disable the UI, RPC handler, and event handler.
+
 echo "👷 Add backend"
 zaruba please makeFastAppRunner \
     appDirectory=myApp \
@@ -178,6 +196,11 @@ zaruba task addDependencies startMyBackendContainer startMyRabbitmqContainer
 ################################################################################################
 # Add authSvc runner
 ################################################################################################
+
+# MyAuthSvc serve authentication and logging.
+# It handle RPC calls and event from MyBackend and other internal services
+# Thus, we need to disable the UI and API handler.
+# We also need to make sure that MyAuthSvc only have Auth module enabled.
 
 echo "👷 Add authSvc"
 zaruba please makeFastAppRunner \
@@ -212,6 +235,11 @@ zaruba task addDependencies startMyAuthSvcContainer startMyAuthSvcDbContainer
 ################################################################################################
 # Add libSvc runner
 ################################################################################################
+
+# MyLibSvc serve book CRUD.
+# It handle RPC calls and event from MyBackend and other internal services
+# Thus, we need to disable the UI and API handler.
+# We also need to make sure that MyAuthSvc only have library module enabled.
 
 echo "👷 Add libSvc"
 zaruba please makeFastAppRunner \
@@ -248,6 +276,10 @@ zaruba task addDependencies startMyLibSvcContainer startMyLibSvcDbContainer
 # Add microservice runner
 ################################################################################################
 
+# We want to run all microservices components by invoking single command:
+# zaruba please startMyMicroservices
+# Thus, we need to create the task and add other tasks as it dependencies.
+
 echo "👷 Add microservice runner"
 zaruba project addTask startMyMicroservices
 zaruba project addTask startMyMicroservicesContainers
@@ -275,6 +307,9 @@ echo "👷 To stop, you need to press ctrl+c and perform: zaruba please stopCont
 ################################################################################################
 # Add Deployments
 ################################################################################################
+
+# Now we are ready for kubernetes.
+# We need to create several deployments to our services.
 
 echo "👷 Set project values"
 zaruba project setValue defaultKubeContext docker-desktop

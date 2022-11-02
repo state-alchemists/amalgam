@@ -1,8 +1,8 @@
-"""20221031220700 white_lake
+"""20221102083329 solitary_corona
 
-Revision ID: 088f3518ef16
+Revision ID: 16165f08bec1
 Revises: 2c643d4333f3
-Create Date: 2022-10-31 22:07:01.227169
+Create Date: 2022-11-02 08:33:29.613114
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '088f3518ef16'
+revision = '16165f08bec1'
 down_revision = '2c643d4333f3'
 branch_labels = None
 depends_on = None
