@@ -10,7 +10,7 @@ charset-normalizer==2.0.12
 click==8.0.1
 confluent-kafka==1.8.2
 coverage==6.4.1
-cryptography==36.0.1
+cryptography==38.0.3
 ecdsa==0.17.0
 exceptiongroup==1.0.0
 fastapi==0.68.1
@@ -29,7 +29,6 @@ packaging==21.3
 passlib==1.7.4
 pika==1.2.0
 pluggy==1.0.0
-py==1.11.0
 pyasn1==0.4.8
 pycparser==2.21
 pydantic==1.8.2

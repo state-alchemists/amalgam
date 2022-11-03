@@ -1,8 +1,8 @@
-"""20221103221349 epic_glade
+"""20221104062644 polished_dawn
 
-Revision ID: d85674f9d2de
+Revision ID: 3857f3a8bab9
 Revises: 2c643d4333f3
-Create Date: 2022-11-03 22:13:50.609690
+Create Date: 2022-11-04 06:26:45.273281
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'd85674f9d2de'
+revision = '3857f3a8bab9'
 down_revision = '2c643d4333f3'
 branch_labels = None
 depends_on = None
