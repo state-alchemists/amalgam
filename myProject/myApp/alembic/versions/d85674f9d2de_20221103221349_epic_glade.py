@@ -1,8 +1,8 @@
-"""20221102083329 solitary_corona
+"""20221103221349 epic_glade
 
-Revision ID: 16165f08bec1
+Revision ID: d85674f9d2de
 Revises: 2c643d4333f3
-Create Date: 2022-11-02 08:33:29.613114
+Create Date: 2022-11-03 22:13:50.609690
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '16165f08bec1'
+revision = 'd85674f9d2de'
 down_revision = '2c643d4333f3'
 branch_labels = None
 depends_on = None

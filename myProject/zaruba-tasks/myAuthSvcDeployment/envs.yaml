@@ -10,9 +10,12 @@ envs:
     APP_ACCESS_TOKEN_SECRET_KEY:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_ACCESS_TOKEN_SECRET_KEY
       default: 09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+    APP_ACTIVITY_EVENTS:
+      from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_ACTIVITY_EVENTS
+      default: '[]'
     APP_CORS_ALLOW_CREDENTIALS:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_CORS_ALLOW_CREDENTIALS
-      default: false
+      default: 0
     APP_CORS_ALLOW_HEADERS:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_CORS_ALLOW_HEADERS
       default: '["*"]'
@@ -27,7 +30,7 @@ envs:
       default:
     APP_CORS_EXPOSE_HEADERS:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_CORS_EXPOSE_HEADERS
-      default: '[]'
+      default: 0
     APP_CORS_MAX_AGE:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_CORS_MAX_AGE
       default: 600
@@ -114,7 +117,7 @@ envs:
       default: /
     APP_RENEW_ACCESS_TOKEN_INTERVAL:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_RENEW_ACCESS_TOKEN_INTERVAL
-      default: 300
+      default: 600
     APP_RENEW_ACCESS_TOKEN_URL_PATH:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_RENEW_ACCESS_TOKEN_URL_PATH
       default: /api/v1/renew-access-token/

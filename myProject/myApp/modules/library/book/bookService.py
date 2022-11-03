@@ -1,5 +1,5 @@
 from typing import Optional
-from helpers.transport import RPC, MessageBus
+from transport import AppMessageBus, AppRPC
 from schemas.user import User
 from schemas.activity import ActivityData
 from schemas.book import Book, BookData, BookResult
@@ -8,7 +8,7 @@ from fastapi import HTTPException
 
 class BookService():
 
-    def __init__(self, mb: MessageBus, rpc: RPC, book_repo: BookRepo):
+    def __init__(self, mb: AppMessageBus, rpc: AppRPC, book_repo: BookRepo):
         self.mb = mb
         self.rpc = rpc
         self.book_repo = book_repo
@@ -30,13 +30,13 @@ class BookService():
         book_data.updated_by = current_user.id
         book_data = self._validate_data(book_data)
         new_book = self.book_repo.insert(book_data)
-        self.mb.publish('new_activity', ActivityData(
+        self.mb.publish_activity(ActivityData(
             user_id = current_user.id,
             activity = 'insert',
             object = 'book',
             row = new_book.dict(),
             row_id = new_book.id
-        ).dict())
+        ))
         return new_book
 
 
@@ -45,26 +45,26 @@ class BookService():
         book_data.updated_by = current_user.id
         book_data = self._validate_data(book_data, id)
         updated_book = self.book_repo.update(id, book_data)
-        self.mb.publish('new_activity', ActivityData(
+        self.mb.publish_activity(ActivityData(
             user_id = current_user.id,
             activity = 'update',
             object = 'book',
             row = updated_book.dict(),
             row_id = updated_book.id
-        ).dict())
+        ))
         return updated_book
 
 
     def delete(self, id: str, current_user: User) -> Optional[Book]:
         self._find_by_id_or_error(id, current_user)
         deleted_book = self.book_repo.delete(id)
-        self.mb.publish('new_activity', ActivityData(
+        self.mb.publish_activity(ActivityData(
             user_id = current_user.id,
             activity = 'delete',
             object = 'book',
             row = deleted_book.dict(),
             row_id = deleted_book.id
-        ).dict())
+        ))
         return deleted_book
 
 

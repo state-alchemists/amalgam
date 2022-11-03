@@ -4,6 +4,7 @@ from schemas.book import Book, BookData
 from modules.library.book.bookService import BookService
 from modules.library.book.repos.dbBookRepo import DBBookRepo
 from helpers.transport import LocalRPC, LocalMessageBus, MessageBus
+from transport import AppMessageBus, AppRPC
 from sqlalchemy import create_engine
 
 def create_book_data() -> BookData:
@@ -25,8 +26,8 @@ def insert_book_data(book_repo: BookRepo, index: Optional[int] = None) -> Book:
     return book_repo.insert(book_data)
 
 
-def create_mb() -> MessageBus:
-    mb = LocalMessageBus()
+def create_mb() -> AppMessageBus:
+    mb = AppMessageBus(LocalMessageBus())
     # handle new_activity event
     @mb.handle('new_activity')
     def handle_new_activity(activity_data):
@@ -35,10 +36,10 @@ def create_mb() -> MessageBus:
     return mb
 
 
-def init_test_book_service_components() -> Tuple[BookService, DBBookRepo, LocalMessageBus, LocalRPC]:
+def init_test_book_service_components() -> Tuple[BookService, DBBookRepo, AppMessageBus, AppRPC]:
     engine = create_engine('sqlite://', echo=False)
     book_repo = DBBookRepo(engine=engine, create_all=True)
     mb = create_mb()
-    rpc = LocalRPC()
+    rpc = AppRPC(LocalRPC())
     book_service = BookService(mb, rpc, book_repo)
     return book_service, book_repo, mb, rpc

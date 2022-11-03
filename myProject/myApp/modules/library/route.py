@@ -4,7 +4,7 @@ from fastapi import Depends, FastAPI, Request, HTTPException
 from fastapi.responses import HTMLResponse
 from fastapi.templating import Jinja2Templates
 from core import AuthService, MenuService
-from helpers.transport import MessageBus, RPC
+from transport import AppMessageBus, AppRPC
 from schemas.menuContext import MenuContext
 from schemas.user import User
 
@@ -16,7 +16,7 @@ import sys
 # -- ⚙️ API
 ################################################
 # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
-def register_library_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_service: AuthService):
+def register_library_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_service: AuthService):
 
     register_book_api_route(app, mb, rpc, auth_service)
 
@@ -27,7 +27,7 @@ def register_library_api_route(app: FastAPI, mb: MessageBus, rpc: RPC, auth_serv
 # -- 👓 User Interface
 ################################################
 # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
-def register_library_ui_route(app: FastAPI, mb: MessageBus, rpc: RPC, menu_service: MenuService, page_template: Jinja2Templates):
+def register_library_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_service: MenuService, page_template: Jinja2Templates):
 
     @app.get('/', response_class=HTMLResponse)
     async def get_(request: Request, context: MenuContext = Depends(menu_service.has_access('library:/'))) -> HTMLResponse:
