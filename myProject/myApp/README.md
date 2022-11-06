@@ -225,4 +225,4 @@ zaruba please addFastAppRpcHandler \
 
 # 📖 Documentation
 
-Please visit MyApp documentation [here](_docs/README.md).
+Please visit [MyApp documentation](_docs/README.md) for more information.

@@ -32,10 +32,6 @@ class DBBookRepo(BookRepo):
             Base.metadata.create_all(bind=engine)
 
 
-    def _get_keyword_filter(self, keyword: str) -> str:
-        return '%{}%'.format(keyword) if keyword != '' else '%'
-
-
     def find_by_id(self, id: str) -> Optional[Book]:
         db = Session(self.engine)
         book: Book
@@ -133,3 +129,6 @@ class DBBookRepo(BookRepo):
             db.close()
         return book
 
+
+    def _get_keyword_filter(self, keyword: str) -> str:
+        return '%{}%'.format(keyword) if keyword != '' else '%'
