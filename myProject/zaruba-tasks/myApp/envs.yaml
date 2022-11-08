@@ -49,6 +49,9 @@ envs:
     APP_ENABLE_AUTH_MODULE:
       default: "1"
       from: MY_APP_APP_ENABLE_AUTH_MODULE
+    APP_ENABLE_CMS_MODULE:
+      default: "1"
+      from: MY_APP_APP_ENABLE_CMS_MODULE
     APP_ENABLE_ERROR_PAGE:
       default: "1"
       from: MY_APP_APP_ENABLE_ERROR_PAGE

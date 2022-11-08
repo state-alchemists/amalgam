@@ -65,6 +65,10 @@
       "value": "0"
     },
     {
+      "name": "APP_ENABLE_CMS_MODULE",
+      "value": "1"
+    },
+    {
       "name": "APP_ENABLE_ERROR_PAGE",
       "value": "1"
     },

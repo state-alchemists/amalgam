@@ -1,7 +1,6 @@
-from core import AuthService
+from core import AuthService, MenuService
 from helpers.transport import RPC
 from schemas.authType import AuthType
-from core import MenuService
 
 def create_menu_service(rpc: RPC, auth_service: AuthService) -> MenuService:
     menu_service = MenuService(rpc, auth_service)
@@ -13,6 +12,9 @@ def create_menu_service(rpc: RPC, auth_service: AuthService) -> MenuService:
     menu_service.add_menu(name='auth:users', title='Users', url='/auth/users', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:auth:user', parent_name='auth')
     menu_service.add_menu(name='log', title='Log', url='#', auth_type=AuthType.ANYONE)
     menu_service.add_menu(name='log:activities', title='User Activities', url='/log/activities', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:log:activity', parent_name='log')
+    menu_service.add_menu(name='cms', title='CMS', url='#', auth_type=AuthType.ANYONE)
+    menu_service.add_menu(name='cms:contentTypes', title='ContentTypes', url='/cms/content-types', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:cms:contentType', parent_name='cms')
+    menu_service.add_menu(name='cms:contents', title='Contents', url='/cms/contents', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:cms:content', parent_name='cms')
     menu_service.add_menu(name='library', title='Library', url='#', auth_type=AuthType.ANYONE)
     menu_service.add_menu(name='library:books', title='Books', url='/library/books', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:library:book', parent_name='library')
     menu_service.add_menu(name='library:/', title='Home', url='/', auth_type=AuthType.ANYONE, parent_name='library')

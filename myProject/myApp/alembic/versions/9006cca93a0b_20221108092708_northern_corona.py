@@ -1,8 +1,8 @@
-"""20221106161142 snowy_haze
+"""20221108092708 northern_corona
 
-Revision ID: e768af779211
-Revises: 2c643d4333f3
-Create Date: 2022-11-06 16:11:43.271950
+Revision ID: 9006cca93a0b
+Revises: 3dc444e54106
+Create Date: 2022-11-08 09:27:09.458749
 
 """
 from alembic import op
@@ -11,8 +11,8 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'e768af779211'
-down_revision = '2c643d4333f3'
+revision = '9006cca93a0b'
+down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None
 

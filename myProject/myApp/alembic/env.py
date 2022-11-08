@@ -1,8 +1,9 @@
 from repos import Base
-from modules.library.book import BookService, DBBookRepo
-from modules.auth import DBRoleRepo
-from modules.auth import DBUserRepo
-from modules.log.activity import DBActivityRepo
+from modules.library.book import DBBookEntity
+from modules.auth import DBRoleEntity, DBUserEntity
+from modules.log.activity import DBActivityEntity
+from modules.cms.content import DBContentEntity, DBContentAttributeEntity
+from modules.cms.contentType import DBContentTypeEntity
 
 from logging.config import fileConfig
 

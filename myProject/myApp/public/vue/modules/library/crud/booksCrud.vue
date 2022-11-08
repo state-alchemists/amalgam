@@ -6,7 +6,7 @@
             <label for="input-keyword" class="col-form-label">Keyword</label>
         </div>
         <div class="col-auto">
-            <input type="text" id="input-keyword" class="form-control" v-model="keyword" @keyup.enter="applyFilter" @change="resetFilterApplied" @keyup="resetFilterApplied">
+            <input type="text" id="input-keyword" class="form-control" v-model="keyword" @keyup.enter="applyFilter" @change="resetFilterApplied" @keyup="resetFilterApplied" />
         </div>
         <div class="col-auto">
             <button id="btn-filter" class="btn btn-primary" @click="applyFilter" :disabled="isFilterApplied"><i class="bi bi-funnel"></i> Filter</button>
@@ -55,13 +55,13 @@
             <label for="input-page" class="col-form-label">Page</label>
         </div>
         <div class="col-auto">
-            <input type="number" id="input-page" class="form-control" min="1" :max="Math.ceil(result.count/limit)" v-model="page" @change="applyFilter">
+            <input type="number" id="input-page" class="form-control" min="1" :max="Math.ceil(result.count/limit)" v-model="page" @change="applyFilter" />
         </div>
         <div class="col-auto">
             <label for="input-limit" class="col-form-label">Result/Page</label>
         </div>
         <div class="col-auto">
-            <input type="number" id="input-limit" class="form-control" min="1" v-model="limit" @change="applyFilter">
+            <input type="number" id="input-limit" class="form-control" min="1" v-model="limit" @change="applyFilter" />
         </div>
     </div>
 
@@ -76,15 +76,15 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="form-input-title" class="col-form-label">Title:</label>
-                        <input type="text" class="form-control" id="form-input-title" v-model="formData.title">
+                        <input type="text" class="form-control" id="form-input-title" v-model="formData.title" />
                     </div>
                     <div class="mb-3">
                         <label for="form-input-author" class="col-form-label">Author:</label>
-                        <input type="text" class="form-control" id="form-input-author" v-model="formData.author">
+                        <input type="text" class="form-control" id="form-input-author" v-model="formData.author" />
                     </div>
                     <div class="mb-3">
                         <label for="form-input-synopsis" class="col-form-label">Synopsis:</label>
-                        <input type="text" class="form-control" id="form-input-synopsis" v-model="formData.synopsis">
+                        <input type="text" class="form-control" id="form-input-synopsis" v-model="formData.synopsis" />
                     </div>
                     <!-- Put form input here, Note: 💀 Don't delete this line, Zaruba use it for pattern matching -->
                 </div>

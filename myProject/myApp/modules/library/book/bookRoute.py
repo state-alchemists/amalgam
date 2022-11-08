@@ -118,7 +118,6 @@ def register_book_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_se
         Serving user interface for managing book.
         '''
         return page_template.TemplateResponse('default_crud.html', context={
-            'api_path': '/api/vi/ztp_app_crud_entities',
             'content_path': 'modules/library/crud/books.html',
             'request': request, 
             'context': context
