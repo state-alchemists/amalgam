@@ -1,8 +1,8 @@
-"""20221108092708 northern_corona
+"""20221110082752 reckless_weed
 
-Revision ID: 9006cca93a0b
+Revision ID: 92d29da2ba5e
 Revises: 3dc444e54106
-Create Date: 2022-11-08 09:27:09.458749
+Create Date: 2022-11-10 08:27:53.417126
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '9006cca93a0b'
+revision = '92d29da2ba5e'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None

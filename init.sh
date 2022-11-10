@@ -44,13 +44,13 @@ zaruba please addFastAppCrudField \
     appCrudEntity=books \
     appCrudField=synopsis
 
-# add simple homepage
-echo "👷 Add homepage"
+# add simple about pabe
+echo "👷 Add about page"
 zaruba please addFastAppPage \
     appDirectory=myApp \
     appModuleName=library \
     appHttpMethod=get \
-    appUrl=/
+    appUrl=/about
 
 echo "👷 Generate myAppMigration"
 zaruba please createMyAppMigration

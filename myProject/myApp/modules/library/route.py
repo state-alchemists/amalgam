@@ -29,16 +29,16 @@ def register_library_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
 # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
 def register_library_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_service: MenuService, page_template: Jinja2Templates):
 
-    @app.get('/', response_class=HTMLResponse)
-    async def get_(request: Request, context: MenuContext = Depends(menu_service.has_access('library:/'))) -> HTMLResponse:
+    @app.get('/about', response_class=HTMLResponse)
+    async def get_about(request: Request, context: MenuContext = Depends(menu_service.has_access('library:/about'))) -> HTMLResponse:
         '''
-        Handle (get) /
+        Handle (get) /about
         '''
         try:
             return page_template.TemplateResponse('default_page.html', context={
                 'request': request,
                 'context': context,
-                'content_path': 'modules/library/.html'
+                'content_path': 'modules/library/about.html'
             }, status_code=200)
         except:
             print(traceback.format_exc(), file=sys.stderr) 
