@@ -1,8 +1,8 @@
-"""20221112175308 quiet_solstice
+"""20221112181632 cosmic_wildflower
 
-Revision ID: 7d1fc4dc6b0d
+Revision ID: d8c5c796b344
 Revises: 3dc444e54106
-Create Date: 2022-11-12 17:53:08.756346
+Create Date: 2022-11-12 18:16:33.368339
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '7d1fc4dc6b0d'
+revision = 'd8c5c796b344'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None
