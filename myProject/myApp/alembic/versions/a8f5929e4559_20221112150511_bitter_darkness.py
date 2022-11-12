@@ -1,8 +1,8 @@
-"""20221112141828 broken_meadow
+"""20221112150511 bitter_darkness
 
-Revision ID: 0d273522bedf
+Revision ID: a8f5929e4559
 Revises: 3dc444e54106
-Create Date: 2022-11-12 14:18:29.470448
+Create Date: 2022-11-12 15:05:11.839583
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '0d273522bedf'
+revision = 'a8f5929e4559'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None

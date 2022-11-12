@@ -33,12 +33,12 @@ def register_library_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu
     # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
     menu_service.add_menu(name='library', title='Library', url='#', auth_type=AuthType.ANYONE)
     # register menu
-    menu_service.add_menu(name='library:/about', title='ABOUT', url='about', auth_type=AuthType.ANYONE, parent_name='library')
+    menu_service.add_menu(name='library:/about', title='About', url='/about', auth_type=AuthType.ANYONE, parent_name='library')
 
     @app.get('/about', response_class=HTMLResponse)
     async def get_about(request: Request, context: MenuContext = Depends(menu_service.has_access('library:/about'))) -> HTMLResponse:
         '''
-        Serve page: /about
+        Serve (get) /about
         '''
         try:
             return page_template.TemplateResponse('default_page.html', context={

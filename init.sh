@@ -50,7 +50,7 @@ zaruba please addFastAppPage \
     appDirectory=myApp \
     appModuleName=library \
     appHttpMethod=get \
-    appUrl=/about
+    appUrl="/about"
 
 echo "👷 Generate myAppMigration"
 zaruba please createMyAppMigration
