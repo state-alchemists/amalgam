@@ -51,7 +51,7 @@ envs:
       default: 1
     APP_ENABLE_CMS_MODULE:
       from: MY_FRONTEND_DEPLOYMENT_ENV_APP_ENABLE_CMS_MODULE
-      default: 1
+      default: 0
     APP_ENABLE_ERROR_PAGE:
       from: MY_FRONTEND_DEPLOYMENT_ENV_APP_ENABLE_ERROR_PAGE
       default: 1

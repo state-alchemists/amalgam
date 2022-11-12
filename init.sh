@@ -345,7 +345,6 @@ zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_ROUTE_HANDLER 0
 zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_UI 0
 zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_API 0
 zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_LIBRARY_MODULE 0
-zaruba task setEnv prepareMyAuthSvcDeployment APP_ENABLE_CMS_MODULE 0
 zaruba task setEnv prepareMyAuthSvcDeployment APP_RPC_TYPE rmq
 zaruba task setEnv prepareMyAuthSvcDeployment APP_MESSAGE_BUS_TYPE rmq
 zaruba task setEnv prepareMyAuthSvcDeployment APP_RABBITMQ_HOST rabbitmq

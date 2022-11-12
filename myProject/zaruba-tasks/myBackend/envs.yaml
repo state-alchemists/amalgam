@@ -50,7 +50,7 @@ envs:
       default: "1"
       from: MY_BACKEND_APP_ENABLE_AUTH_MODULE
     APP_ENABLE_CMS_MODULE:
-      default: "1"
+      default: "0"
       from: MY_BACKEND_APP_ENABLE_CMS_MODULE
     APP_ENABLE_ERROR_PAGE:
       default: "1"

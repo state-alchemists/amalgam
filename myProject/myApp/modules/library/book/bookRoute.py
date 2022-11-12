@@ -8,6 +8,7 @@ from fastapi.templating import Jinja2Templates
 from schemas.book import Book, BookData, BookResult
 from schemas.menuContext import MenuContext
 from schemas.user import User
+from schemas.authType import AuthType
 
 import traceback
 import sys
@@ -111,6 +112,9 @@ def register_book_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
 # -- 👓 User Interface
 ################################################
 def register_book_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_service: MenuService, page_template: Jinja2Templates):
+
+    # register menu
+    menu_service.add_menu(name='library:books', title='Books', url='/library/books', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:library:book', parent_name='library')
 
     @app.get('/library/books', response_class=HTMLResponse)
     async def manage_book(request: Request, context: MenuContext = Depends(menu_service.has_access('library:books'))):

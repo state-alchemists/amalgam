@@ -7,6 +7,7 @@ from core import AuthService, MenuService
 from transport import AppMessageBus, AppRPC
 from schemas.menuContext import MenuContext
 from schemas.user import User
+from schemas.authType import AuthType
 
 import traceback
 import sys
@@ -29,10 +30,15 @@ def register_library_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
 # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
 def register_library_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_service: MenuService, page_template: Jinja2Templates):
 
+    # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
+    menu_service.add_menu(name='library', title='Library', url='#', auth_type=AuthType.ANYONE)
+    # register menu
+    menu_service.add_menu(name='library:/about', title='ABOUT', url='about', auth_type=AuthType.ANYONE, parent_name='library')
+
     @app.get('/about', response_class=HTMLResponse)
     async def get_about(request: Request, context: MenuContext = Depends(menu_service.has_access('library:/about'))) -> HTMLResponse:
         '''
-        Handle (get) /about
+        Serve page: /about
         '''
         try:
             return page_template.TemplateResponse('default_page.html', context={

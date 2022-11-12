@@ -1,8 +1,8 @@
-"""20221110082752 reckless_weed
+"""20221112141828 broken_meadow
 
-Revision ID: 92d29da2ba5e
+Revision ID: 0d273522bedf
 Revises: 3dc444e54106
-Create Date: 2022-11-10 08:27:53.417126
+Create Date: 2022-11-12 14:18:29.470448
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '92d29da2ba5e'
+revision = '0d273522bedf'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None
