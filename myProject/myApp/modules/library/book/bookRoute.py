@@ -32,7 +32,7 @@ def register_book_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return BookResult.parse_obj(result)
 
 
@@ -50,7 +50,7 @@ def register_book_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return Book.parse_obj(book)
 
 
@@ -68,7 +68,7 @@ def register_book_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return Book.parse_obj(book)
 
 
@@ -86,7 +86,7 @@ def register_book_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return Book.parse_obj(book)
 
 
@@ -104,7 +104,7 @@ def register_book_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return Book.parse_obj(book)
 
 
@@ -113,9 +113,8 @@ def register_book_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
 ################################################
 def register_book_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_service: MenuService, page_template: Jinja2Templates):
 
-    # register menu
+    # Book CRUD page
     menu_service.add_menu(name='library:books', title='Books', url='/library/books', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:library:book', parent_name='library')
-
     @app.get('/library/books', response_class=HTMLResponse)
     async def manage_book(request: Request, context: MenuContext = Depends(menu_service.has_access('library:books'))):
         '''

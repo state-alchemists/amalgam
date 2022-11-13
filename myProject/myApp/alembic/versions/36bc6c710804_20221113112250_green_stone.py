@@ -1,8 +1,8 @@
-"""20221112181632 cosmic_wildflower
+"""20221113112250 green_stone
 
-Revision ID: d8c5c796b344
+Revision ID: 36bc6c710804
 Revises: 3dc444e54106
-Create Date: 2022-11-12 18:16:33.368339
+Create Date: 2022-11-13 11:22:50.947846
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'd8c5c796b344'
+revision = '36bc6c710804'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None

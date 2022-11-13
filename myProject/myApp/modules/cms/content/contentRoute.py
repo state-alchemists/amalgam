@@ -32,7 +32,7 @@ def register_content_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return ContentResult.parse_obj(result)
 
 
@@ -50,7 +50,7 @@ def register_content_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return Content.parse_obj(content)
 
 
@@ -68,7 +68,7 @@ def register_content_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return Content.parse_obj(content)
 
 
@@ -86,7 +86,7 @@ def register_content_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return Content.parse_obj(content)
 
 
@@ -104,7 +104,7 @@ def register_content_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return Content.parse_obj(content)
 
 
@@ -113,10 +113,8 @@ def register_content_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
 ################################################
 def register_content_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_service: MenuService, page_template: Jinja2Templates):
 
-    # register menu
+    # Content CRUD page
     menu_service.add_menu(name='cms:contents', title='Contents', url='/cms/contents', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:cms:content', parent_name='cms')
-
-
     @app.get('/cms/contents', response_class=HTMLResponse)
     async def manage_content(request: Request, context: MenuContext = Depends(menu_service.has_access('cms:contents'))):
         '''

@@ -73,7 +73,7 @@ class BookService():
         if book is None:
             raise HTTPException(
                 status_code=404, 
-                detail='Book id not found: {}'.format(id)
+                detail='book id not found: {}'.format(id)
             )
         return book
 
@@ -82,8 +82,8 @@ class BookService():
         # TODO: add your custom logic
         # Example: checking duplication
         # if book_data.some_field is not None:
-        #     user = self.user_repo.find_by_some_field(book_data.some_field)
-        #     if user is not None and (id is None or user.id != id):
+        #     book = self.book_repo.find_by_some_field(book_data.some_field)
+        #     if book is not None and (id is None or book.id != id):
         #         raise HTTPException(
         #             status_code=422, 
         #             detail='some_field already exist: {}'.format(book_data.some_field)

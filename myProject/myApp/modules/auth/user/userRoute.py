@@ -31,7 +31,7 @@ def register_user_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return UserResult.parse_obj(result)
 
 
@@ -49,7 +49,7 @@ def register_user_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return User.parse_obj(result)
 
 
@@ -67,7 +67,7 @@ def register_user_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return User.parse_obj(result)
 
 
@@ -85,7 +85,7 @@ def register_user_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return User.parse_obj(result)
 
 
@@ -103,7 +103,7 @@ def register_user_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
             raise http_exception
         except:
             print(traceback.format_exc(), file=sys.stderr) 
-            raise HTTPException(status_code=500, detail='Internal Server Error')
+            raise HTTPException(status_code=500, detail='internal Server Error')
         return User.parse_obj(result)
 
 
@@ -112,9 +112,8 @@ def register_user_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_s
 ################################################
 def register_user_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_service: MenuService, page_template: Jinja2Templates):
 
-    # register menu
+    # User CRUD page
     menu_service.add_menu(name='auth:users', title='Users', url='/auth/users', auth_type=AuthType.HAS_PERMISSION, permission_name='ui:auth:user', parent_name='auth')
-
     @app.get('/auth/users', response_class=HTMLResponse)
     async def manage_user(request: Request, context: MenuContext = Depends(menu_service.has_access('auth:users'))):
         '''

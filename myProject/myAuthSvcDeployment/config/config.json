@@ -10,7 +10,7 @@
     },
     {
       "name": "APP_ACCESS_TOKEN_SECRET_KEY",
-      "value": "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+      "value": "7fb00890-bbdd-400d-861b-69f177f78e3e"
     },
     {
       "name": "APP_ACTIVITY_EVENTS",
@@ -55,6 +55,10 @@
     {
       "name": "APP_DB_CREATE_ALL",
       "value": "1"
+    },
+    {
+      "name": "APP_DEFAULT_CONTENT_TYPE_NAME",
+      "value": "article"
     },
     {
       "name": "APP_ENABLE_API",
@@ -191,6 +195,10 @@
     {
       "name": "APP_RPC_TYPE",
       "value": "rmq"
+    },
+    {
+      "name": "APP_SEED_DEFAULT_CONTENT_TYPE",
+      "value": "1"
     },
     {
       "name": "APP_SEED_ROOT_USER",

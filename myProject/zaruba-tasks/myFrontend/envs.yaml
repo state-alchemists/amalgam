@@ -8,7 +8,7 @@ envs:
       default: "1800"
       from: MY_FRONTEND_APP_ACCESS_TOKEN_EXPIRE
     APP_ACCESS_TOKEN_SECRET_KEY:
-      default: 09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+      default: 7fb00890-bbdd-400d-861b-69f177f78e3e
       from: MY_FRONTEND_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'
@@ -43,6 +43,9 @@ envs:
     APP_DB_CREATE_ALL:
       default: "0"
       from: MY_FRONTEND_APP_DB_CREATE_ALL
+    APP_DEFAULT_CONTENT_TYPE_NAME:
+      default: article
+      from: MY_FRONTEND_APP_DEFAULT_CONTENT_TYPE_NAME
     APP_ENABLE_API:
       default: "0"
       from: MY_FRONTEND_APP_ENABLE_API
@@ -145,6 +148,9 @@ envs:
     APP_RPC_TYPE:
       default: rmq
       from: MY_FRONTEND_APP_RPC_TYPE
+    APP_SEED_DEFAULT_CONTENT_TYPE:
+      default: "1"
+      from: MY_FRONTEND_APP_SEED_DEFAULT_CONTENT_TYPE
     APP_SEED_ROOT_USER:
       default: "0"
       from: MY_FRONTEND_APP_SEED_ROOT_USER
