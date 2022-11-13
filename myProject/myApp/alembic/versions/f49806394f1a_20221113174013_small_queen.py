@@ -1,8 +1,8 @@
-"""20221113172701 wild_butterfly
+"""20221113174013 small_queen
 
-Revision ID: cf99a7ffbcbf
+Revision ID: f49806394f1a
 Revises: 3dc444e54106
-Create Date: 2022-11-13 17:27:01.967377
+Create Date: 2022-11-13 17:40:13.877167
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'cf99a7ffbcbf'
+revision = 'f49806394f1a'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None
