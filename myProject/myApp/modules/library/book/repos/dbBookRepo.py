@@ -32,7 +32,7 @@ class DBBookRepo(BookRepo):
 
 
     def find_by_id(self, id: str) -> Optional[Book]:
-        db = Session(self.engine)
+        db = Session(self.engine, expire_on_commit=False)
         book: Book
         try:
             db_book = db.query(DBBookEntity).filter(DBBookEntity.id == id).first()
@@ -45,7 +45,7 @@ class DBBookRepo(BookRepo):
 
 
     def find(self, keyword: str, limit: int, offset: int) -> List[Book]:
-        db = Session(self.engine)
+        db = Session(self.engine, expire_on_commit=False)
         books: List[Book] = []
         try:
             keyword_filter = self._get_keyword_filter(keyword)
@@ -57,7 +57,7 @@ class DBBookRepo(BookRepo):
 
 
     def count(self, keyword: str) -> int:
-        db = Session(self.engine)
+        db = Session(self.engine, expire_on_commit=False)
         book_count = 0
         try:
             keyword_filter = self._get_keyword_filter(keyword)
@@ -69,7 +69,7 @@ class DBBookRepo(BookRepo):
 
     # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
     def insert(self, book_data: BookData) -> Optional[Book]:
-        db = Session(self.engine)
+        db = Session(self.engine, expire_on_commit=False)
         book: Book
         try:
             new_book_id = str(uuid.uuid4())
@@ -94,7 +94,7 @@ class DBBookRepo(BookRepo):
 
     # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
     def update(self, id: str, book_data: BookData) -> Optional[Book]:
-        db = Session(self.engine)
+        db = Session(self.engine, expire_on_commit=False)
         book: Book
         try:
             db_book = db.query(DBBookEntity).filter(DBBookEntity.id == id).first()
@@ -115,7 +115,7 @@ class DBBookRepo(BookRepo):
 
 
     def delete(self, id: str) -> Optional[Book]:
-        db = Session(self.engine)
+        db = Session(self.engine, expire_on_commit=False)
         book: Book
         try:
             db_book = db.query(DBBookEntity).filter(DBBookEntity.id == id).first()

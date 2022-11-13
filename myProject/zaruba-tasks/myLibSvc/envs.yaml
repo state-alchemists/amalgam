@@ -8,7 +8,7 @@ envs:
       default: "1800"
       from: MY_LIB_SVC_APP_ACCESS_TOKEN_EXPIRE
     APP_ACCESS_TOKEN_SECRET_KEY:
-      default: 7fb00890-bbdd-400d-861b-69f177f78e3e
+      default: 7921d282-c06c-4d89-844d-233cb8a81a6f
       from: MY_LIB_SVC_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'

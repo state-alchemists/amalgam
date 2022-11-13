@@ -16,12 +16,13 @@ class BookService():
 
     def find(self, keyword: str, limit: int, offset: int, current_user: Optional[User] = None) -> BookResult:
         count = self.book_repo.count(keyword)
-        rows = self.book_repo.find(keyword, limit, offset)
+        rows = [self._fulfill(row) for row in self.book_repo.find(keyword, limit, offset)]
         return BookResult(count=count, rows=rows)
 
 
     def find_by_id(self, id: str, current_user: Optional[User] = None) -> Optional[Book]:
         book = self._find_by_id_or_error(id, current_user)
+        book = self._fulfill(book)
         return book
 
 
@@ -37,6 +38,7 @@ class BookService():
             row = new_book.dict(),
             row_id = new_book.id
         ))
+        new_book = self._fulfill(new_book)
         return new_book
 
 
@@ -52,6 +54,7 @@ class BookService():
             row = updated_book.dict(),
             row_id = updated_book.id
         ))
+        updated_book = self._fulfill(updated_book)
         return updated_book
 
 
@@ -65,6 +68,7 @@ class BookService():
             row = deleted_book.dict(),
             row_id = deleted_book.id
         ))
+        deleted_book = self._fulfill(deleted_book)
         return deleted_book
 
 
@@ -76,6 +80,11 @@ class BookService():
                 detail='book id not found: {}'.format(id)
             )
         return book
+
+
+    def _fulfill(self, content_type: Book) -> Book:
+        # TODO: add calculated field, etc
+        return content_type
 
 
     def _validate_data(self, book_data: BookData, id: Optional[str] = None) -> BookData:
