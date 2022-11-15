@@ -1,8 +1,8 @@
-"""20221113174728 northern_night
+"""20221115083501 ancestral_cosmos
 
-Revision ID: 692ee6e2137b
+Revision ID: 5baa13f380e9
 Revises: 3dc444e54106
-Create Date: 2022-11-13 17:47:29.200059
+Create Date: 2022-11-15 08:35:02.585197
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '692ee6e2137b'
+revision = '5baa13f380e9'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None

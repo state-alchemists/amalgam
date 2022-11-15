@@ -47,7 +47,6 @@ Containing configurations for `MyApp`.
 There are several important files in this directory:
 
 - `configs/appFactory.py`: Containing logics to create FastApi application. The application also handle readiness route, error handling, etc.
-- `configs/menuServiceFactory.py`: Containing menu structure of `MyApp`.
 - `configs/pageTemplateFactory.py`: Containing page (Jinja templates) configuration.
 - `configs/messagebusFactory.py` and `configs/rpcFactory.py`: Containing a function to create messagebus/RPC.
 - `configs/url.py`: Contaiing URL/path settings.
