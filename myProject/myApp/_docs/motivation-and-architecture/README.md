@@ -5,12 +5,12 @@
 
 Building software is like building a city. You __cannot plan everything right from the start__.
 
-<figure>
+When you build software, you usually __start with some basic requirements__. But your needs will grow over time, and so will your software.
+
+<center>
     <img src="./images/night-city.jpg" width="500px" alt="Night city from cyberpunk 2077" />
     <figcaption>A city grows over time, new buildings emerged, old ones abandoned and destroyed.</figcaption>
-</figure>
-
-When you build software, you usually __start with some basic requirements__. But your needs will grow over time, and so will your software.
+</center>
 
 If you are getting started with a project, monolith architecture is your safe bet. Monolith is easy to maintain/develop. Even though it won't scale very well.
 
@@ -24,13 +24,13 @@ Some companies __invest too much__ in Kubernetes or other expensive technologies
 
 So we need a middle ground. We need a __monolith application__ that is ready to be __deployed as microservices anytime__.
 
-<figure>
+<center>
     <img src="./images/palmon.gif" width="500px" alt="Animation of Digimon evolution" />
-    <figcaption>A good system can be scaled up/down at anytime. Like a digimon</figcaption>
-</figure>
+    <figcaption>A good system can be scaled up/down at any time. Like a digimon</figcaption>
+</center>
 
 
-We design `MyApp` with this consideration. With `MyApp` you will have a straightforward development experience like building a simple monolith. But you always now that `MyApp` is ready for microservices.
+We design `MyApp` with this consideration. With `MyApp` you will have a straightforward development experience like building a simple monolith. But you always know that `MyApp`` is ready for microservices.
 
 Let's see the following scenarios, and see what we can do in each phase:
 
@@ -53,10 +53,10 @@ Let's see how microservices and a monolith are different from each other.
 ## Microservices: The good and the bad
 
 
-<figure>
-    <img src="./images/individual-zords.jpg" width="500px" alt="Individual zords from mighty morphin power ranger" />
-    <figcaption>Individual zords from mighty morphin power ranger</figcaption>
-</figure>
+<center>
+    <img src="./images/individual-zords.jpg" width="500px" alt="Individual Zords from Mighty Morphin Power Rangers" />
+    <figcaption>Individual Zords from Mighty Morphin Power Rangers</figcaption>
+</center>
 
 
 Microservices architecture is good because:
@@ -73,10 +73,10 @@ Microservices architecture is bad because:
 
 ## Monolith: The good and the bad
 
-<figure>
-    <img src="./images/megazord.jpg" width="500px" alt="A megazord from mighty morphin power ranger" />
-    <figcaption>A megazord from mighty morphin power ranger</figcaption>
-</figure>
+<center>
+    <img src="./images/megazord.jpg" width="500px" alt="A Megazord from Mighty Morphin Power Rangers" />
+    <figcaption>A Megazord from Mighty Morphin Power Rangers</figcaption>
+</center>
 
 Monolith architecture is good because:
 
@@ -88,7 +88,7 @@ Monolith architecture is bad because:
 - When it is down, the entire system is down.
 - When you need to scale up/down, everything is scaled up/down
 
-# Microservices-ready monolith (aka: Modular Monolith)
+# Microservices-ready monolith (aka Modular Monolith)
 
 
 Many companies failed to refactor their monolith application into microservices, thus failing to support their business growth.
@@ -99,17 +99,17 @@ We can improve the situation by creating a __modular monolith application__. At 
 
 You can think of the __modular monolith application__ as a __super-soldier__ with much training and pieces of equipment. Alone, this super-soldier is already capable of many things. This super soldier can shoot, fight, drive a helicopter, and even hack a satellite.
 
-<figure>
+<center>
     <img src="./images/super-soldier-monolith.jpg" width="500px" alt="A super soldier with all equipments" />
     <figcaption>A single super monolith with every feature activated</figcaption>
-</figure>
+</center>
 
 But when you do a bigger mission, you cannot rely on a single super-soldier. A team consisting of multiple soldiers with less equipment and different specializations will do better.
 
-<figure>
+<center>
     <img src="./images/super-soldier-microservices.jpg" width="500px" alt="Multiple soldiers with a single feature for each soldier" />
     <figcaption>Multiple microservices with a very specific task</figcaption>
-</figure>
+</center>
 
 ## Microservices-ready monolith: The good and the bad
 
@@ -136,15 +136,18 @@ Suppose you have two modules in `MyApp`:
 - Library
 - Auth
 
-These module serves different domains.
+Those modules serve different domains.
 
 Let's start to deploy your application as a monolith:
 
-![Monolith mode](images/fastApp-monolith.png)
+<center>
+    <img src="images/fastApp-monolith.png" width="500px" alt="App diagram, monolith mode" />
+    <figcaption>Single instance of App with every feature enabled</figcaption>
+</center>
 
-At the beginning, you want to enable every feature flags. You can do this by setting all feature-flags environments into `1`.
+In the beginning, you want to enable every feature flag. You can do this by setting all feature-flags environments into `1`.
 
-You also want to use `LocalMessageBus` and `LocalRPC`, so you set `APP_MESSAGE_BUS_TYPE` and `APP_RPC_TYPE` into `local`. By setting your messagebus and RPC into local, the intermodule communication can be performed internally without any network overhead. This is a good thing because [network is not reliable](https://particular.net/blog/the-network-is-reliable)
+You also want to use `LocalMessageBus` and `LocalRPC`, so you set `APP_MESSAGE_BUS_TYPE` and `APP_RPC_TYPE` into `local`. By setting your message bus and RPC into local, the inter-module communication can be performed internally without any network overhead. This is a good thing because [network is not reliable](https://particular.net/blog/the-network-is-reliable)
 
 All good, now you can run everything locally.
 
@@ -154,14 +157,18 @@ Now you want to run `MyApp` as microservices.
 
 The good news is: You don't need to modify the source code at all. Instead, you just need to deploy the application with different feature flags (configurations).
 
-![Microservices mode](images/fastApp-microservices.png)
+<center>
+    <img src="images/fastApp-microservices.png" width="500px" alt="App diagram, microservices mode" />
+    <figcaption>Multiple instances of App with a different set of features for every instance</figcaption>
+</center>
+
 
 In this example, we want to have:
 
-- __Frontend.__ This service only serve the UI. It won't serve any API request, but it handle the UI of both `auth` and `library` module.
-- __Backend.__ This service only serve API request from `Frontend` or other external applications, and pass them into respective services.
-- __Auth Service.__ This service handle any event/RPC call for `auth` module. It also handle every database operation related to `auth` module.
-- __Library Service.__ This service handle any event/RPC call for `library` module. It also handle every database operation related to `library` module.
+- __Frontend.__ This service only serves the UI. It won't serve any API request, but it handles the UI of both `auth` and `library` modules.
+- __Backend.__ This service only serves API request from `Frontend` or other external applications, and pass them into respective services.
+- __Auth Service.__ This service handles any event/RPC call for `auth` module. It also handles every database operation related to `auth` module.
+- __Library Service.__ This service handles any event/RPC call for `library` module. It also handles every database operation related to the `library` module.
 
 # Next
 

@@ -9,12 +9,12 @@ Each layer component can talk to each other.
 
 Some layer components has the same interface, so that they can replace each others. For example, both `LocalRPC` and `RMQRPC` are having the same interface: `RPC`. Thus, in your application, you can choose the RPC layer without changing any other implementation.
 
-If you are into tokusatsu and kamen rider, you probably know about [Kamen rider W/double](https://www.youtube.com/watch?v=3uQdN5s4m6M). Unlike their previous predecessor, Kamen rider W has a belt that can combine different type of powers. By putting different gaia memories into their driver belt, they can use unique combination to defeat their enemies.
+If you are into tokusatsu and kamen rider, you probably know about [Kamen rider W/double](https://www.youtube.com/watch?v=3uQdN5s4m6M). Unlike their previous predecessor, Kamen rider W/double has a belt that can combine different type of powers. By putting different gaia memories into their driver belt, they can use unique combination of powers to defeat their enemies.
 
-<figure>
+<center>
     <img src="./images/kamen-rider-w-driver.jpeg" width="500px" />
     <figcaption>Kamen rider W/double: DX driver belt and Gaia Memories</figcaption>
-</figure>
+</center>
 
 You can see that all Gaia memories, despite of their different set of powers, has the same interface. Thus they can fit into the belt.
 
@@ -60,11 +60,11 @@ class Trigger(GaiaMemory):
 
 
 ###################################################################################
-# DX Driver implementation
+# W Belt driver implementation
 ###################################################################################
 
-# DX Driver
-class DXDriver():
+# W Belt Driver
+class WDriver():
 
     def __init__(self, left_gaia_memory: GaiaMemory, right_gaia_memory: GaiaMemory):
         self.left_gaia_memory = left_gaia_memory
@@ -81,7 +81,7 @@ class DXDriver():
 ###################################################################################
 cyclone = Cyclone()
 jocker = Jocker()
-belt = DXDriver(cyclone, jocker)
+belt = WDriver(cyclone, jocker)
 belt.henshin() # CYCLONE... JOKA... さあ お前の罪を数えろ！
 ```
 
@@ -107,7 +107,10 @@ For example, when you think about the business process (Service layer) you don't
 
 The business process should be agnostic about any other implementation.
 
-![image of available layer if fastApp](images/fastApp-layers.png)
+<center>
+    <img src="images/fastApp-layers.png" alt="image of available layer if fastApp" />
+    <figcaption>Communication between layers</figcaption>
+</center>
 
 Let's see the responsibility of each layers.
 
@@ -119,7 +122,7 @@ In most cases, route handler talk to RPC/event handler through message broker.
 Route handler usually located on:
 
 - `<module-name>/route.py`
-- `<module-name>/<entity>/<entity>Route.py`
+- `<module-name>/<entity>/<entity>_route.py`
 
 Here is an example of route handler layer:
 
@@ -152,15 +155,13 @@ This layer handle RPC call from message broker. An RPC call usually expect a rep
 RPC handler usually located on:
 
 - `<module-name>/rpc.py`
-- `<module-name>/<entity>/<entity>Rpc.py`
+- `<module-name>/<entity>/<entity>_rpc.py`
 
 Example:
 
 ```python
 
-def register_book_entity_rpc(rpc: RPC, book_repo: BookRepo):
-
-    book_service = BookService(book_repo)
+def register_book_entity_rpc(rpc: RPC, book_service: BookService):
 
     @rpc.handle('find_book')
     def find_books(keyword: str, limit: int, offset: int) -> Mapping[str, Any]:
@@ -199,6 +200,11 @@ def register_library_event_handler(mb: MessageBus):
 
 This layer handle your business logic. It is usually triggered by `RPC handler` or `Event handler`.
 
+Service usually located on:
+
+- `<module-name>/entity/entity_service.py`
+- `<module-name>/<some>_service.py`
+
 When a service need to retrive something from/store something into database, it usually need to talk to `Repo` layer. For example:
 
 ```python
@@ -221,8 +227,8 @@ This layer handle communication with database.
 
 Repo layer usually located on:
 
-- `<repos>/<entity>.py`
-- `<repos>/db<Entity>.py`
+- `<module-name>/<entity>/<repo>/<entity>.py`
+- `<module-name>/<entity>/<repo>/db_<entity>.py`
 
 
 Example:

@@ -1,9 +1,9 @@
-from repos import Base
-from modules.library.book import DBBookEntity
-from modules.auth import DBRoleEntity, DBUserEntity
-from modules.log.activity import DBActivityEntity
-from modules.cms.content import DBContentEntity, DBContentAttributeEntity
-from modules.cms.contentType import DBContentTypeEntity
+from repo import Base
+from module.library.book import DBBookEntity
+from module.auth import DBRoleEntity, DBUserEntity
+from module.log.activity import DBActivityEntity
+from module.cms.content import DBContentEntity, DBContentAttributeEntity
+from module.cms.content_type import DBContentTypeEntity
 
 from logging.config import fileConfig
 
