@@ -9,20 +9,20 @@ from repo import Base
 import uuid
 import datetime
 
-# Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
+# Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
 class DBBookEntity(Base):
     __tablename__ = "books"
     id = Column(String(36), primary_key=True, index=True)
     title = Column(String(255), index=True)
     author = Column(String(255), index=True)
     synopsis = Column(String(255), index=True)
-    created_at = Column(DateTime, default=datetime.datetime.utcnow) # Note: 💀 Don't delete this line, Zaruba use it for pattern matching
+    created_at = Column(DateTime, default=datetime.datetime.utcnow) # Note: 💀 Don't delete this line; Zaruba uses it for pattern matching
     created_by = Column(String(36), nullable=True)
     updated_at = Column(DateTime, nullable=True)
     updated_by = Column(String(36), nullable=True)
 
 
-# Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
+# Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
 class DBBookRepo(BookRepo):
 
     def __init__(self, engine: Engine, create_all: bool):
@@ -67,7 +67,7 @@ class DBBookRepo(BookRepo):
         return book_count
 
 
-    # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
+    # Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
     def insert(self, book_data: BookData) -> Optional[Book]:
         db = Session(self.engine, expire_on_commit=False)
         book: Book
@@ -78,7 +78,7 @@ class DBBookRepo(BookRepo):
                 title=book_data.title,
                 author=book_data.author,
                 synopsis=book_data.synopsis,
-                created_at=datetime.datetime.utcnow(), # Note: 💀 Don't delete this line, Zaruba use it for pattern matching
+                created_at=datetime.datetime.utcnow(), # Note: 💀 Don't delete this line; Zaruba uses it for pattern matching
                 created_by=book_data.created_by,
                 updated_at=datetime.datetime.utcnow(),
                 updated_by=book_data.updated_by,
@@ -92,7 +92,7 @@ class DBBookRepo(BookRepo):
         return book
 
 
-    # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
+    # Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
     def update(self, id: str, book_data: BookData) -> Optional[Book]:
         db = Session(self.engine, expire_on_commit=False)
         book: Book
@@ -103,7 +103,7 @@ class DBBookRepo(BookRepo):
             db_book.title = book_data.title
             db_book.author = book_data.author
             db_book.synopsis = book_data.synopsis
-            db_book.updated_at = datetime.datetime.utcnow() # Note: 💀 Don't delete this line, Zaruba use it for pattern matching
+            db_book.updated_at = datetime.datetime.utcnow() # Note: 💀 Don't delete this line; Zaruba uses it for pattern matching
             db_book.updated_by = book_data.updated_by
             db.add(db_book)
             db.commit()

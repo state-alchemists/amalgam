@@ -1,8 +1,8 @@
-"""20221116095716 ancestral_fire
+"""20221117093848 old_glade
 
-Revision ID: 6f53c6c84cbc
+Revision ID: 801fc6f06582
 Revises: 3dc444e54106
-Create Date: 2022-11-16 09:57:16.944411
+Create Date: 2022-11-17 09:38:49.609067
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '6f53c6c84cbc'
+revision = '801fc6f06582'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None

@@ -16,7 +16,7 @@ import sys
 ################################################
 # -- ⚙️ API
 ################################################
-# Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
+# Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
 def register_library_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, auth_service: AuthService):
 
     register_book_api_route(app, mb, rpc, auth_service)
@@ -27,10 +27,10 @@ def register_library_api_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, aut
 ################################################
 # -- 👓 User Interface
 ################################################
-# Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
+# Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
 def register_library_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_service: MenuService, page_template: Jinja2Templates):
 
-    # Note: 💀 Don't delete the following line, Zaruba use it for pattern matching
+    # Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
     menu_service.add_menu(name='library', title='Library', url='#', auth_type=AuthType.ANYONE)
     # About page
     menu_service.add_menu(name='library:/about', title='About', url='/about', auth_type=AuthType.ANYONE, parent_name='library')
