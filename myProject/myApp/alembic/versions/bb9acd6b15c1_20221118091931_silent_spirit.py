@@ -1,8 +1,8 @@
-"""20221118083830 wandering_storm
+"""20221118091931 silent_spirit
 
-Revision ID: b3e8b5948a77
+Revision ID: bb9acd6b15c1
 Revises: 3dc444e54106
-Create Date: 2022-11-18 08:38:31.263583
+Create Date: 2022-11-18 09:19:32.841089
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'b3e8b5948a77'
+revision = 'bb9acd6b15c1'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None
