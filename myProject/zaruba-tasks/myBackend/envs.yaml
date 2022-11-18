@@ -8,7 +8,7 @@ envs:
       default: "1800"
       from: MY_BACKEND_APP_ACCESS_TOKEN_EXPIRE
     APP_ACCESS_TOKEN_SECRET_KEY:
-      default: fe160a73-3d80-4be8-9e4d-8da9fac50612
+      default: 091bcdcf-dd0b-48dd-801c-90f7f33e392b
       from: MY_BACKEND_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'
