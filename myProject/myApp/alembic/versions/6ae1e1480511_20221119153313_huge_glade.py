@@ -1,8 +1,8 @@
-"""20221118091931 silent_spirit
+"""20221119153313 huge_glade
 
-Revision ID: bb9acd6b15c1
+Revision ID: 6ae1e1480511
 Revises: 3dc444e54106
-Create Date: 2022-11-18 09:19:32.841089
+Create Date: 2022-11-19 15:33:14.524918
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'bb9acd6b15c1'
+revision = '6ae1e1480511'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None
