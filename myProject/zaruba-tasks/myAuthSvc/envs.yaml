@@ -8,7 +8,7 @@ envs:
       default: "1800"
       from: MY_AUTH_SVC_APP_ACCESS_TOKEN_EXPIRE
     APP_ACCESS_TOKEN_SECRET_KEY:
-      default: 7edd83e2-04d1-49f6-99bd-379a83bd646a
+      default: e431ad93-f324-4349-b37c-d93128c40471
       from: MY_AUTH_SVC_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'

@@ -9,7 +9,7 @@ envs:
       default: 1800
     APP_ACCESS_TOKEN_SECRET_KEY:
       from: MY_BACKEND_DEPLOYMENT_ENV_APP_ACCESS_TOKEN_SECRET_KEY
-      default: 7edd83e2-04d1-49f6-99bd-379a83bd646a
+      default: e431ad93-f324-4349-b37c-d93128c40471
     APP_ACTIVITY_EVENTS:
       from: MY_BACKEND_DEPLOYMENT_ENV_APP_ACTIVITY_EVENTS
       default: '[]'
