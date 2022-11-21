@@ -9,6 +9,8 @@ configs:
     useImagePrefix: true
     imageName: my-app
     containerName: myLibSvc
+    escapedEnvs: |
+      APP_UI_BACKEND_URL
     localhost: host.docker.internal
     checkCommand: |
       echo "check myLibSvc"

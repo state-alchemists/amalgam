@@ -1,8 +1,8 @@
-"""20221121071020 quiet_elemental
+"""20221121210048 delicate_water
 
-Revision ID: b15a348308f5
+Revision ID: 350a39b569d6
 Revises: 3dc444e54106
-Create Date: 2022-11-21 07:10:21.058342
+Create Date: 2022-11-21 21:00:49.639041
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'b15a348308f5'
+revision = '350a39b569d6'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None
