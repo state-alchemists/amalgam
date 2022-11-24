@@ -8,7 +8,7 @@ envs:
       default: "1800"
       from: MY_LIB_SVC_APP_ACCESS_TOKEN_EXPIRE
     APP_ACCESS_TOKEN_SECRET_KEY:
-      default: c93162d9-a8f8-40c7-a593-3d0f30adab94
+      default: e7acac4a-70b5-4e21-a646-b40aae866709
       from: MY_LIB_SVC_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'
@@ -41,7 +41,7 @@ envs:
       default: /api/v1/create-oauth-access-token/
       from: MY_LIB_SVC_APP_CREATE_OAUTH_ACCESS_TOKEN
     APP_DB_CREATE_ALL:
-      default: "0"
+      default: "1"
       from: MY_LIB_SVC_APP_DB_CREATE_ALL
     APP_DEFAULT_CONTENT_TYPE_NAME:
       default: article
@@ -152,7 +152,7 @@ envs:
       default: "1"
       from: MY_LIB_SVC_APP_SEED_DEFAULT_CONTENT_TYPE
     APP_SEED_ROOT_USER:
-      default: "0"
+      default: "1"
       from: MY_LIB_SVC_APP_SEED_ROOT_USER
     APP_SQLALCHEMY_DATABASE_URL:
       default: mysql+pymysql://root:Alch3mist@localhost:3308/sample?charset=utf8mb4
@@ -211,7 +211,4 @@ envs:
     TEST_SQLALCHEMY_DATABASE_URL:
       default: sqlite:///test.db
       from: MY_LIB_SVC_TEST_SQLALCHEMY_DATABASE_URL
-    MIGRATION_RUN_ALL:
-      from: MY_LIB_SVC_MIGRATION_RUN_ALL
-      default: 0
 

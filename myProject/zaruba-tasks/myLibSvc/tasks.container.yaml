@@ -10,6 +10,7 @@ tasks:
       - buildMyLibSvcImage
       - startMyRabbitmqContainer
       - startMyLibSvcDbContainer
+      - migrateMyLibSvc
     configRefs:
       - myLibSvcContainer
       - myLibSvc

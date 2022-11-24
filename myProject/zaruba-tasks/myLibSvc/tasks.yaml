@@ -44,7 +44,7 @@ tasks:
     location: ../../myApp
     dependencies:
       - prepareMyLibSvc
-      - startMyLibSvcDb
+      - startMyLibSvcDbContainer
     configRefs:
       - migrateMyLibSvc
       - myLibSvc

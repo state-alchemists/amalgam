@@ -1,8 +1,8 @@
-"""20221121210048 delicate_water
+"""20221124071658 crimson_knight
 
-Revision ID: 350a39b569d6
+Revision ID: 615836036fca
 Revises: 3dc444e54106
-Create Date: 2022-11-21 21:00:49.639041
+Create Date: 2022-11-24 07:16:59.045869
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = '350a39b569d6'
+revision = '615836036fca'
 down_revision = '3dc444e54106'
 branch_labels = None
 depends_on = None

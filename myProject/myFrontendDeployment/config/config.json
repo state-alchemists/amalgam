@@ -10,7 +10,7 @@
     },
     {
       "name": "APP_ACCESS_TOKEN_SECRET_KEY",
-      "value": "c93162d9-a8f8-40c7-a593-3d0f30adab94"
+      "value": "e7acac4a-70b5-4e21-a646-b40aae866709"
     },
     {
       "name": "APP_ACTIVITY_EVENTS",
@@ -182,7 +182,7 @@
     },
     {
       "name": "APP_ROOT_INITIAL_PHONE_NUMBER",
-      "value": "621234567890"
+      "value": "+621234567890"
     },
     {
       "name": "APP_ROOT_PERMISSION",

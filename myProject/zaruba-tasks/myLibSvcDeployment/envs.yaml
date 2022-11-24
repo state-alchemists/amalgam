@@ -9,7 +9,7 @@ envs:
       default: 1800
     APP_ACCESS_TOKEN_SECRET_KEY:
       from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_ACCESS_TOKEN_SECRET_KEY
-      default: c93162d9-a8f8-40c7-a593-3d0f30adab94
+      default: e7acac4a-70b5-4e21-a646-b40aae866709
     APP_ACTIVITY_EVENTS:
       from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_ACTIVITY_EVENTS
       default: '[]'
