@@ -219,17 +219,16 @@ zaruba task setEnv startMyAuthSvc APP_RABBITMQ_USER root
 zaruba task setEnv startMyAuthSvc APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyAuthSvc APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyAuthSvc APP_SQLALCHEMY_DATABASE_URL 'mysql+pymysql://root:Alch3mist@localhost:3307/sample?charset=utf8mb4'
-zaruba task setEnv startMyAuthSvc APP_DB_CREATE_ALL 0
-zaruba task setEnv startMyAuthSvc MIGRATION_RUN_ALL 0
 
 zaruba task addDependencies prepareMyAuthSvc prepareMyApp
 zaruba task setConfig prepareMyAuthSvc start 'echo "Done"'
 
 zaruba task addDependencies startMyAuthSvc startMyRabbitmq
-zaruba task addDependencies startMyAuthSvcContainer startMyRabbitmqContainer
-zaruba task addDependencies migrateMyAuthSvc startMyAuthSvcDb
 zaruba task addDependencies startMyAuthSvc startMyAuthSvcDb
+zaruba task addDependencies migrateMyAuthSvc startMyAuthSvcDb
+zaruba task addDependencies startMyAuthSvcContainer startMyRabbitmqContainer
 zaruba task addDependencies startMyAuthSvcContainer startMyAuthSvcDbContainer
+zaruba task addDependencies startMyAuthSvcContainer migrateMyAuthSvc
 
 
 ################################################################################################
@@ -259,18 +258,16 @@ zaruba task setEnv startMyLibSvc APP_RABBITMQ_USER root
 zaruba task setEnv startMyLibSvc APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyLibSvc APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyLibSvc APP_SQLALCHEMY_DATABASE_URL 'mysql+pymysql://root:Alch3mist@localhost:3308/sample?charset=utf8mb4'
-zaruba task setEnv startMyLibSvc APP_SEED_ROOT_USER 0
-zaruba task setEnv startMyLibSvc APP_DB_CREATE_ALL 0
-zaruba task setEnv startMyLibSvc MIGRATION_RUN_ALL 0
 
 zaruba task addDependencies prepareMyLibSvc prepareMyApp
 zaruba task setConfig prepareMyLibSvc start 'echo "Done"'
 
 zaruba task addDependencies startMyLibSvc startMyRabbitmq
-zaruba task addDependencies migrateMyLibSvc startMyLibSvcDb
-zaruba task addDependencies startMyLibSvcContainer startMyRabbitmqContainer
 zaruba task addDependencies startMyLibSvc startMyLibSvcDb
+zaruba task addDependencies migrateMyLibSvc startMyLibSvcDbContainer
+zaruba task addDependencies startMyLibSvcContainer startMyRabbitmqContainer
 zaruba task addDependencies startMyLibSvcContainer startMyLibSvcDbContainer
+zaruba task addDependencies startMyLibSvcContainer migrateMyLibSvc
 
 ################################################################################################
 # Add microservice runner
