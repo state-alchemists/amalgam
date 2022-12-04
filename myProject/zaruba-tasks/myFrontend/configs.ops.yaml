@@ -2,4 +2,4 @@ configs:
 
   createMyFrontendMigration:
     start: |
-      . "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/createMigration.sh" }}"
+      . "{{ .GetProjectPath "zaruba-tasks/myFrontend/bash/run.sh" }}" "{{ .GetProjectPath "myFrontend/create-migration.sh" }}"

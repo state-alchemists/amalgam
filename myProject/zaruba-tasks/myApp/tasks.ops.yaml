@@ -10,8 +10,3 @@ tasks:
       - createMyAppMigration
       - myApp
     envRef: myApp
-    envs:
-      MIGRATION_RUN_ALL:
-        default: 1
-      IS_GENERATING_MIGRATION:
-        default: 1

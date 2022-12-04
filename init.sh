@@ -55,33 +55,6 @@ zaruba please addFastAppPage \
 echo "👷 Generate myAppMigration"
 zaruba please createMyAppMigration
 
-echo "👷 Update myAppMigration file"
-# Look for newly generated migration file and change:
-#   return os.getenv('MIGRATION_RUN_ALL', '0') != '0'
-# into:
-#   return os.getenv('MIGRATION_RUN_ALL', '0') != '0' or os.getenv('APP_ENABLE_LIBRARY_MODULE', '1') != '0'
-MIGRATION_PATH=myApp/alembic/versions
-for MIGRATION_FILE in $(zaruba file list "${MIGRATION_PATH}")
-do
-    if [ -f "${MIGRATION_PATH}/${MIGRATION_FILE}" ]
-    then
-        MATCH=$(zaruba str submatch "$(cat "${MIGRATION_PATH}/${MIGRATION_FILE}")" "op\.create_table\('books',")
-        if [ "${MATCH}" != "null" ]
-        then
-            MIGRATION_LINES=$(zaruba lines read "${MIGRATION_PATH}/${MIGRATION_FILE}")
-            LINE_INDEX=$(zaruba lines getIndex "${MIGRATION_LINES}" "(\w*)return os.getenv\('MIGRATION_RUN_ALL'")
-            if [ "${LINE_INDEX}" = -1 ]
-            then
-                echo "Pattern not found"
-                exit 1
-            fi
-            MIGRATION_LINES=$(zaruba lines replace "${MIGRATION_LINES}" "${LINE_INDEX}" "    return os.getenv('MIGRATION_RUN_ALL', '0') != '0' or os.getenv('APP_ENABLE_LIBRARY_MODULE', '1') != '0'")
-            zaruba lines write "${MIGRATION_PATH}/${MIGRATION_FILE}" "${MIGRATION_LINES}"
-            break
-        fi
-    fi
-done
-
 echo "👷 Synchronize environment"
 zaruba please syncEnv
 

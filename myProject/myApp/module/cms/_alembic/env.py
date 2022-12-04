@@ -1,7 +1,4 @@
 from repo import Base
-from module.library.book import DBBookEntity
-from module.auth import DBRoleEntity, DBUserEntity
-from module.log.activity import DBActivityEntity
 from module.cms.content import DBContentEntity, DBContentAttributeEntity
 from module.cms.content_type import DBContentTypeEntity
 
@@ -39,6 +36,18 @@ env_db_url = os.getenv('MIGRATION_SQLALCHEMY_DATABASE_URL', '') if is_generating
 if env_db_url != '':
     config.set_main_option('sqlalchemy.url', env_db_url)
 
+
+def include_object(object, name, type_, reflected, compare_to):
+    return not (type_ == "table" and reflected and compare_to is None)
+
+
+def process_revision_directives(context, revision, directives):
+        if config.cmd_opts.autogenerate:
+            script = directives[0]
+            if script.upgrade_ops.is_empty():
+                directives[:] = []
+
+
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
 
@@ -57,6 +66,9 @@ def run_migrations_offline() -> None:
         target_metadata=target_metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
+        include_object = include_object,
+        version_table='alembic_version_cms',
+        process_revision_directives=process_revision_directives,
     )
 
     with context.begin_transaction():
@@ -78,7 +90,11 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection,
+            target_metadata=target_metadata,
+            include_object = include_object,
+            version_table='alembic_version_cms',
+            process_revision_directives=process_revision_directives,
         )
 
         with context.begin_transaction():

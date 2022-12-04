@@ -2,4 +2,4 @@ configs:
 
   createMyAuthSvcMigration:
     start: |
-      . "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/run.sh" }}" "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/createMigration.sh" }}"
+      . "{{ .GetProjectPath "zaruba-tasks/myAuthSvc/bash/run.sh" }}" "{{ .GetProjectPath "myAuthSvc/create-migration.sh" }}"
