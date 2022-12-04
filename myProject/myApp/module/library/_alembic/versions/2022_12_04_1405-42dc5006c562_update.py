@@ -1,8 +1,8 @@
 """update
 
-Revision ID: fec3c2ed46e7
+Revision ID: 42dc5006c562
 Revises: 
-Create Date: 2022-12-04 13:38:40.480878
+Create Date: 2022-12-04 14:05:21.502675
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'fec3c2ed46e7'
+revision = '42dc5006c562'
 down_revision = None
 branch_labels = None
 depends_on = None

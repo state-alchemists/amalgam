@@ -9,7 +9,7 @@ envs:
       default: 1800
     APP_ACCESS_TOKEN_SECRET_KEY:
       from: MY_FRONTEND_DEPLOYMENT_ENV_APP_ACCESS_TOKEN_SECRET_KEY
-      default: 0196aaf6-39bf-42e7-ae9b-cf75d56e796b
+      default: bf1e0a74-0c5f-4589-8b47-a5d958714a30
     APP_ACTIVITY_EVENTS:
       from: MY_FRONTEND_DEPLOYMENT_ENV_APP_ACTIVITY_EVENTS
       default: '[]'
