@@ -8,7 +8,7 @@ envs:
       default: "1800"
       from: MY_FRONTEND_APP_ACCESS_TOKEN_EXPIRE
     APP_ACCESS_TOKEN_SECRET_KEY:
-      default: bf1e0a74-0c5f-4589-8b47-a5d958714a30
+      default: 3466fb6f-ff06-4a1b-b34e-446aeec83721
       from: MY_FRONTEND_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'
@@ -211,7 +211,4 @@ envs:
     TEST_SQLALCHEMY_DATABASE_URL:
       default: sqlite:///test.db
       from: MY_FRONTEND_TEST_SQLALCHEMY_DATABASE_URL
-    MIGRATION_RUN_ALL:
-      from: MY_FRONTEND_MIGRATION_RUN_ALL
-      default: 0
 

@@ -8,7 +8,7 @@ envs:
       default: "1800"
       from: MY_AUTH_SVC_APP_ACCESS_TOKEN_EXPIRE
     APP_ACCESS_TOKEN_SECRET_KEY:
-      default: bf1e0a74-0c5f-4589-8b47-a5d958714a30
+      default: 3466fb6f-ff06-4a1b-b34e-446aeec83721
       from: MY_AUTH_SVC_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'
@@ -41,7 +41,7 @@ envs:
       default: /api/v1/create-oauth-access-token/
       from: MY_AUTH_SVC_APP_CREATE_OAUTH_ACCESS_TOKEN
     APP_DB_CREATE_ALL:
-      default: "1"
+      default: "0"
       from: MY_AUTH_SVC_APP_DB_CREATE_ALL
     APP_DEFAULT_CONTENT_TYPE_NAME:
       default: article

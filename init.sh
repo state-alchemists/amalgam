@@ -120,7 +120,6 @@ zaruba task setEnv startMyFrontend APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyFrontend APP_UI_BACKEND_URL http://localhost:3002
 zaruba task setEnv startMyFrontend APP_SEED_ROOT_USER 0
 zaruba task setEnv startMyFrontend APP_DB_CREATE_ALL 0
-zaruba task setEnv startMyFrontend MIGRATION_RUN_ALL 0
 
 zaruba task addDependencies prepareMyFrontend prepareMyApp
 zaruba task setConfig prepareMyFrontend start 'echo "Done"'
@@ -155,7 +154,6 @@ zaruba task setEnv startMyBackend APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyBackend APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyBackend APP_SEED_ROOT_USER 0
 zaruba task setEnv startMyBackend APP_DB_CREATE_ALL 0
-zaruba task setEnv startMyBackend MIGRATION_RUN_ALL 0
 
 zaruba task addDependencies prepareMyBackend prepareMyApp
 zaruba task setConfig prepareMyBackend start 'echo "Done"'
@@ -192,6 +190,7 @@ zaruba task setEnv startMyAuthSvc APP_RABBITMQ_USER root
 zaruba task setEnv startMyAuthSvc APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyAuthSvc APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyAuthSvc APP_SQLALCHEMY_DATABASE_URL 'mysql+pymysql://root:Alch3mist@localhost:3307/sample?charset=utf8mb4'
+zaruba task setEnv startMyAuthSvc APP_DB_CREATE_ALL 0
 
 zaruba task addDependencies prepareMyAuthSvc prepareMyApp
 zaruba task setConfig prepareMyAuthSvc start 'echo "Done"'
@@ -231,6 +230,7 @@ zaruba task setEnv startMyLibSvc APP_RABBITMQ_USER root
 zaruba task setEnv startMyLibSvc APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyLibSvc APP_RABBITMQ_VHOST /
 zaruba task setEnv startMyLibSvc APP_SQLALCHEMY_DATABASE_URL 'mysql+pymysql://root:Alch3mist@localhost:3308/sample?charset=utf8mb4'
+zaruba task setEnv startMyLibSvc APP_DB_CREATE_ALL 0
 
 zaruba task addDependencies prepareMyLibSvc prepareMyApp
 zaruba task setConfig prepareMyLibSvc start 'echo "Done"'
