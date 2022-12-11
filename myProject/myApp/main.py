@@ -3,6 +3,7 @@ from module.library import (
     register_library_api_route, register_library_ui_route, register_library_event_handler, register_library_rpc_handler
 )
 from fastapi.security import OAuth2PasswordBearer
+from helper.config import get_boolean_env
 from sqlalchemy import create_engine
 from schema.user import UserData
 from schema.content_type import ContentTypeData
@@ -180,7 +181,7 @@ if enable_cms_module:
 ################################################
 # -- 🧩 Library module
 ################################################
-enable_library_module = os.getenv('APP_ENABLE_LIBRARY_MODULE', '1') != '0'
+enable_library_module = get_boolean_env('APP_ENABLE_LIBRARY_MODULE', True)
 # Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
 if enable_library_module:
     book_repo = DBBookRepo(engine=engine, create_all=db_create_all)

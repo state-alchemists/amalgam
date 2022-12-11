@@ -9,7 +9,7 @@ envs:
       default: 1800
     APP_ACCESS_TOKEN_SECRET_KEY:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_ACCESS_TOKEN_SECRET_KEY
-      default: 3466fb6f-ff06-4a1b-b34e-446aeec83721
+      default: e48179b5-f113-4492-87f1-2ee841c02834
     APP_ACTIVITY_EVENTS:
       from: MY_AUTH_SVC_DEPLOYMENT_ENV_APP_ACTIVITY_EVENTS
       default: '[]'
