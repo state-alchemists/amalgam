@@ -8,7 +8,7 @@ envs:
       default: "1800"
       from: MY_FRONTEND_APP_ACCESS_TOKEN_EXPIRE
     APP_ACCESS_TOKEN_SECRET_KEY:
-      default: e48179b5-f113-4492-87f1-2ee841c02834
+      default: a68f12de-88b1-4422-8679-28476307eadc
       from: MY_FRONTEND_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'

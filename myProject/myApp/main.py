@@ -178,6 +178,7 @@ if enable_cms_module:
         # Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
         register_cms_rpc_handler(mb, rpc, auth_service, content_type_service, content_service)
 
+
 ################################################
 # -- 🧩 Library module
 ################################################
