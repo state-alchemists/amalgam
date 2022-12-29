@@ -92,7 +92,7 @@ if enable_route_handler and enable_ui:
 ################################################
 # -- ✍️ Log module
 ################################################
-# Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
+# Note: 🤖 Don't delete the following line; Zaruba uses it for pattern matching
 if enable_log_module:
     activity_repo = DBActivityRepo(engine=engine, create_all=db_create_all)
     activity_service = ActivityService(mb, rpc, auth_service, activity_repo)
@@ -107,13 +107,13 @@ if enable_log_module:
         register_log_event_handler(mb, rpc, auth_service, activity_service)
     # serve RPC
     if enable_rpc_handler:
-        # Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
+        # Note: 🤖 Don't delete the following line; Zaruba uses it for pattern matching
         register_log_rpc_handler(mb, rpc, auth_service, activity_service)
 
 ################################################
 # -- 🔒 Auth module
 ################################################
-# Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
+# Note: 🤖 Don't delete the following line; Zaruba uses it for pattern matching
 if enable_auth_module:
     role_repo = DBRoleRepo(engine=engine, create_all=db_create_all)
     user_repo = DBUserRepo(engine=engine, create_all=db_create_all)
@@ -154,7 +154,7 @@ if enable_auth_module:
 ################################################
 # -- 📰 CMS module
 ################################################
-# Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
+# Note: 🤖 Don't delete the following line; Zaruba uses it for pattern matching
 if enable_cms_module:
     content_type_repo = DBContentTypeRepo(engine=engine, create_all=db_create_all)
     content_type_service = ContentTypeService(mb, rpc, content_type_repo)
@@ -175,7 +175,7 @@ if enable_cms_module:
         register_cms_event_handler(mb, rpc, auth_service)
     # serve RPC
     if enable_rpc_handler:
-        # Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
+        # Note: 🤖 Don't delete the following line; Zaruba uses it for pattern matching
         register_cms_rpc_handler(mb, rpc, auth_service, content_type_service, content_service)
 
 
@@ -183,7 +183,7 @@ if enable_cms_module:
 # -- 🧩 Library module
 ################################################
 enable_library_module = get_boolean_env('APP_ENABLE_LIBRARY_MODULE', True)
-# Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
+# Note: 🤖 Don't delete the following line; Zaruba uses it for pattern matching
 if enable_library_module:
     book_repo = DBBookRepo(engine=engine, create_all=db_create_all)
     book_service = BookService(mb, rpc, book_repo)
@@ -198,5 +198,5 @@ if enable_library_module:
         register_library_event_handler(mb, rpc, auth_service)
     # serve RPC
     if enable_rpc_handler:
-        # Note: 💀 Don't delete the following line; Zaruba uses it for pattern matching
+        # Note: 🤖 Don't delete the following line; Zaruba uses it for pattern matching
         register_library_rpc_handler(mb, rpc, auth_service, book_service)

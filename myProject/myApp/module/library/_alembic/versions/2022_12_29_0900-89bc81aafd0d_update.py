@@ -1,8 +1,8 @@
 """update
 
-Revision ID: b74568805198
+Revision ID: 89bc81aafd0d
 Revises: 
-Create Date: 2022-12-19 13:58:16.586777
+Create Date: 2022-12-29 09:00:15.680294
 
 """
 from alembic import op
@@ -11,7 +11,7 @@ import os
 
 
 # revision identifiers, used by Alembic.
-revision = 'b74568805198'
+revision = '89bc81aafd0d'
 down_revision = None
 branch_labels = None
 depends_on = None
