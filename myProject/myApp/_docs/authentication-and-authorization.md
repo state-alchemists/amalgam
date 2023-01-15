@@ -52,7 +52,7 @@ def find_books(keyword: str='', limit: int=100, offset: int=0, current_user: Opt
     result = {}
     try:
         result = rpc.call('find_book', keyword, limit, offset)
-    except:
+    except Exception:
         print(traceback.format_exc()) 
         raise HTTPException(status_code=500, detail='Internal Server Error')
     return BookResult.parse_obj(result)
@@ -107,6 +107,5 @@ def register_book_ui_route(app: FastAPI, mb: AppMessageBus, rpc: AppRPC, menu_se
 
 `menu_service.has_access` will return `MenuContext` that you can use to render jinja page template in `pages/modules/library/crud/books.html`.
 
-# Subtopics
 <!--startTocSubtopic-->
 <!--endTocSubtopic-->

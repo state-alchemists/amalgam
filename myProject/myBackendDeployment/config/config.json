@@ -1,20 +1,12 @@
 {
   "env": [
     {
-      "name": "APP_ACCESS_TOKEN_ALGORITHM",
-      "value": "HS256"
-    },
-    {
-      "name": "APP_ACCESS_TOKEN_EXPIRE",
-      "value": "1800"
-    },
-    {
-      "name": "APP_ACCESS_TOKEN_SECRET_KEY",
-      "value": "1b8a5558-9367-4add-915b-bdf0a6d259cb"
-    },
-    {
       "name": "APP_ACTIVITY_EVENTS",
       "value": "[]"
+    },
+    {
+      "name": "APP_BACKEND_ADDRESS",
+      "value": "http://localhost:3000"
     },
     {
       "name": "APP_CORS_ALLOW_CREDENTIALS",
@@ -45,12 +37,24 @@
       "value": "600"
     },
     {
-      "name": "APP_CREATE_ACCESS_TOKEN_URL_PATH",
-      "value": "/api/v1/create-access-token/"
+      "name": "APP_CREATE_CRED_TOKEN_URL",
+      "value": "/api/v1/create-cred-token"
     },
     {
-      "name": "APP_CREATE_OAUTH_ACCESS_TOKEN",
-      "value": "/api/v1/create-oauth-access-token/"
+      "name": "APP_CREATE_OAUTH_CRED_TOKEN",
+      "value": "/api/v1/create-oauth-cred-token"
+    },
+    {
+      "name": "APP_CRED_TOKEN_ALGORITHM",
+      "value": "HS256"
+    },
+    {
+      "name": "APP_CRED_TOKEN_EXPIRE",
+      "value": "1800"
+    },
+    {
+      "name": "APP_CRED_TOKEN_SECRET_KEY",
+      "value": "1aa3294d-b285-4c40-bf1f-357e23b8459a"
     },
     {
       "name": "APP_DB_CREATE_ALL",
@@ -133,6 +137,10 @@
       "value": "PLAINTEXT"
     },
     {
+      "name": "APP_LOG_LEVEL",
+      "value": "debug"
+    },
+    {
       "name": "APP_MESSAGE_BUS_TYPE",
       "value": "rmq"
     },
@@ -141,7 +149,7 @@
       "value": "public"
     },
     {
-      "name": "APP_PUBLIC_URL_PATH",
+      "name": "APP_PUBLIC_URL",
       "value": "/public"
     },
     {
@@ -161,12 +169,16 @@
       "value": "/"
     },
     {
-      "name": "APP_RENEW_ACCESS_TOKEN_INTERVAL",
+      "name": "APP_READINESS_URL",
+      "value": "/readiness"
+    },
+    {
+      "name": "APP_RENEW_CRED_TOKEN_INTERVAL",
       "value": "600"
     },
     {
-      "name": "APP_RENEW_ACCESS_TOKEN_URL_PATH",
-      "value": "/api/v1/renew-access-token/"
+      "name": "APP_RENEW_CRED_TOKEN_URL",
+      "value": "/api/v1/renew-cred-token"
     },
     {
       "name": "APP_ROOT_INITIAL_EMAIL",
@@ -207,10 +219,6 @@
     {
       "name": "APP_SQLALCHEMY_DATABASE_URL",
       "value": "sqlite:///database.db"
-    },
-    {
-      "name": "APP_UI_BACKEND_URL",
-      "value": "http://localhost:3000"
     },
     {
       "name": "APP_UI_FOOTER",

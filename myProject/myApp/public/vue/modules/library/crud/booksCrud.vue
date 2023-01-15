@@ -27,7 +27,7 @@
                 <th>Title</th>
                 <th>Author</th>
                 <th>Synopsis</th>
-                <!-- Put column header here, Note: 🤖 Don't delete this line; Zaruba uses it for pattern matching --> 
+                <!-- Put column header here, Note: 🤖 Don't delete this line --> 
                 <th id="th-action">Actions</th>
             </tr>
         </thead>
@@ -38,7 +38,7 @@
                 <td>{{ row.title }}</td>
                 <td>{{ row.author }}</td>
                 <td>{{ row.synopsis }}</td>
-                <!-- Put column value here, Note: 🤖 Don't delete this line; Zaruba uses it for pattern matching -->
+                <!-- Put column value here, Note: 🤖 Don't delete this line -->
                 <td id="td-action">
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         <button class="btn btn-warning" type="button" data-bs-toggle="modal" data-bs-target="#form-crud" @click="showUpdateForm(row.id)"><i class="bi bi-pencil-square"></i> Edit</button>
@@ -86,7 +86,7 @@
                         <label for="form-input-synopsis" class="col-form-label">Synopsis:</label>
                         <input type="text" class="form-control" id="form-input-synopsis" v-model="formData.synopsis" />
                     </div>
-                    <!-- Put form input here, Note: 🤖 Don't delete this line; Zaruba uses it for pattern matching -->
+                    <!-- Put form input here, Note: 🤖 Don't delete this line -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>

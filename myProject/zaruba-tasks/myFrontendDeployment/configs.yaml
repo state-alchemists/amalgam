@@ -16,5 +16,5 @@ configs:
       . '{{ .GetProjectPath "zaruba-tasks/myFrontendDeployment/bash/util.sh" }}'
       . '{{ .GetProjectPath "zaruba-tasks/myFrontendDeployment/bash/prepareVariables.sh" }}'
       echo "${_YELLOW}${_CONSTRUCTION_ICON} Deployment config:${_NORMAL} ${DEPLOYMENT_CONFIG}"
-      ${ZARUBA_BIN} json print "${DEPLOYMENT_CONFIG}" '{{ .GetProjectPath "myFrontendDeployment/config/config.json" }}'
+      "${ZARUBA_BIN}" json print "${DEPLOYMENT_CONFIG}" '{{ .GetProjectPath "myFrontendDeployment/config/config.json" }}'
       . '{{ .GetProjectPath "zaruba-tasks/myFrontendDeployment/bash/prepareChart.sh" }}'

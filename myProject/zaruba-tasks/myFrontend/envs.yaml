@@ -1,18 +1,12 @@
 envs:
 
   myFrontend:
-    APP_ACCESS_TOKEN_ALGORITHM:
-      default: HS256
-      from: MY_FRONTEND_APP_ACCESS_TOKEN_ALGORITHM
-    APP_ACCESS_TOKEN_EXPIRE:
-      default: "1800"
-      from: MY_FRONTEND_APP_ACCESS_TOKEN_EXPIRE
-    APP_ACCESS_TOKEN_SECRET_KEY:
-      default: 1b8a5558-9367-4add-915b-bdf0a6d259cb
-      from: MY_FRONTEND_APP_ACCESS_TOKEN_SECRET_KEY
     APP_ACTIVITY_EVENTS:
       default: '[]'
       from: MY_FRONTEND_APP_ACTIVITY_EVENTS
+    APP_BACKEND_ADDRESS:
+      default: http://localhost:3002
+      from: MY_FRONTEND_APP_BACKEND_ADDRESS
     APP_CORS_ALLOW_CREDENTIALS:
       default: "0"
       from: MY_FRONTEND_APP_CORS_ALLOW_CREDENTIALS
@@ -34,12 +28,21 @@ envs:
     APP_CORS_MAX_AGE:
       default: "600"
       from: MY_FRONTEND_APP_CORS_MAX_AGE
-    APP_CREATE_ACCESS_TOKEN_URL_PATH:
-      default: /api/v1/create-access-token/
-      from: MY_FRONTEND_APP_CREATE_ACCESS_TOKEN_URL_PATH
-    APP_CREATE_OAUTH_ACCESS_TOKEN:
-      default: /api/v1/create-oauth-access-token/
-      from: MY_FRONTEND_APP_CREATE_OAUTH_ACCESS_TOKEN
+    APP_CREATE_CRED_TOKEN_URL:
+      default: /api/v1/create-cred-token
+      from: MY_FRONTEND_APP_CREATE_CRED_TOKEN_URL
+    APP_CREATE_OAUTH_CRED_TOKEN:
+      default: /api/v1/create-oauth-cred-token
+      from: MY_FRONTEND_APP_CREATE_OAUTH_CRED_TOKEN
+    APP_CRED_TOKEN_ALGORITHM:
+      default: HS256
+      from: MY_FRONTEND_APP_CRED_TOKEN_ALGORITHM
+    APP_CRED_TOKEN_EXPIRE:
+      default: "1800"
+      from: MY_FRONTEND_APP_CRED_TOKEN_EXPIRE
+    APP_CRED_TOKEN_SECRET_KEY:
+      default: 1aa3294d-b285-4c40-bf1f-357e23b8459a
+      from: MY_FRONTEND_APP_CRED_TOKEN_SECRET_KEY
     APP_DB_CREATE_ALL:
       default: "0"
       from: MY_FRONTEND_APP_DB_CREATE_ALL
@@ -100,15 +103,18 @@ envs:
     APP_KAFKA_SECURITY_PROTOCOL:
       default: PLAINTEXT
       from: MY_FRONTEND_APP_KAFKA_SECURITY_PROTOCOL
+    APP_LOG_LEVEL:
+      default: debug
+      from: MY_FRONTEND_APP_LOG_LEVEL
     APP_MESSAGE_BUS_TYPE:
       default: rmq
       from: MY_FRONTEND_APP_MESSAGE_BUS_TYPE
     APP_PUBLIC_DIR:
       default: public
       from: MY_FRONTEND_APP_PUBLIC_DIR
-    APP_PUBLIC_URL_PATH:
+    APP_PUBLIC_URL:
       default: /public
-      from: MY_FRONTEND_APP_PUBLIC_URL_PATH
+      from: MY_FRONTEND_APP_PUBLIC_URL
     APP_RABBITMQ_HOST:
       default: localhost
       from: MY_FRONTEND_APP_RABBITMQ_HOST
@@ -121,12 +127,15 @@ envs:
     APP_RABBITMQ_VHOST:
       default: /
       from: MY_FRONTEND_APP_RABBITMQ_VHOST
-    APP_RENEW_ACCESS_TOKEN_INTERVAL:
+    APP_READINESS_URL:
+      default: /readiness
+      from: MY_FRONTEND_APP_READINESS_URL
+    APP_RENEW_CRED_TOKEN_INTERVAL:
       default: "600"
-      from: MY_FRONTEND_APP_RENEW_ACCESS_TOKEN_INTERVAL
-    APP_RENEW_ACCESS_TOKEN_URL_PATH:
-      default: /api/v1/renew-access-token/
-      from: MY_FRONTEND_APP_RENEW_ACCESS_TOKEN_URL_PATH
+      from: MY_FRONTEND_APP_RENEW_CRED_TOKEN_INTERVAL
+    APP_RENEW_CRED_TOKEN_URL:
+      default: /api/v1/renew-cred-token
+      from: MY_FRONTEND_APP_RENEW_CRED_TOKEN_URL
     APP_ROOT_INITIAL_EMAIL:
       default: root@innistrad.com
       from: MY_FRONTEND_APP_ROOT_INITIAL_EMAIL
@@ -157,9 +166,6 @@ envs:
     APP_SQLALCHEMY_DATABASE_URL:
       default: sqlite:///database.db
       from: MY_FRONTEND_APP_SQLALCHEMY_DATABASE_URL
-    APP_UI_BACKEND_URL:
-      default: http://localhost:3002
-      from: MY_FRONTEND_APP_UI_BACKEND_URL
     APP_UI_FOOTER:
       default: App &copy; 2022-now
       from: MY_FRONTEND_APP_UI_FOOTER

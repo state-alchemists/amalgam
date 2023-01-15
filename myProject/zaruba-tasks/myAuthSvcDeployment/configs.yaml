@@ -16,5 +16,5 @@ configs:
       . '{{ .GetProjectPath "zaruba-tasks/myAuthSvcDeployment/bash/util.sh" }}'
       . '{{ .GetProjectPath "zaruba-tasks/myAuthSvcDeployment/bash/prepareVariables.sh" }}'
       echo "${_YELLOW}${_CONSTRUCTION_ICON} Deployment config:${_NORMAL} ${DEPLOYMENT_CONFIG}"
-      ${ZARUBA_BIN} json print "${DEPLOYMENT_CONFIG}" '{{ .GetProjectPath "myAuthSvcDeployment/config/config.json" }}'
+      "${ZARUBA_BIN}" json print "${DEPLOYMENT_CONFIG}" '{{ .GetProjectPath "myAuthSvcDeployment/config/config.json" }}'
       . '{{ .GetProjectPath "zaruba-tasks/myAuthSvcDeployment/bash/prepareChart.sh" }}'

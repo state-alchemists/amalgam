@@ -117,7 +117,7 @@ zaruba task setEnv startMyFrontend APP_RABBITMQ_HOST localhost
 zaruba task setEnv startMyFrontend APP_RABBITMQ_USER root
 zaruba task setEnv startMyFrontend APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv startMyFrontend APP_RABBITMQ_VHOST /
-zaruba task setEnv startMyFrontend APP_UI_BACKEND_URL http://localhost:3002
+zaruba task setEnv startMyFrontend APP_BACKEND_ADDRESS http://localhost:3002
 zaruba task setEnv startMyFrontend APP_SEED_ROOT_USER 0
 zaruba task setEnv startMyFrontend APP_DB_CREATE_ALL 0
 
@@ -371,7 +371,7 @@ zaruba task setEnv prepareMyFrontendDeployment APP_RABBITMQ_HOST rabbitmq
 zaruba task setEnv prepareMyFrontendDeployment APP_RABBITMQ_USER root
 zaruba task setEnv prepareMyFrontendDeployment APP_RABBITMQ_PASS Alch3mist
 zaruba task setEnv prepareMyFrontendDeployment APP_RABBITMQ_VHOST /
-zaruba task setEnv prepareMyFrontendDeployment APP_UI_BACKEND_URL http://localhost:3002
+zaruba task setEnv prepareMyFrontendDeployment APP_BACKEND_ADDRESS http://localhost:3002
 zaruba task setEnv prepareMyFrontendDeployment APP_SEED_ROOT_USER 0
 
 echo "👷 Add backend deployment"

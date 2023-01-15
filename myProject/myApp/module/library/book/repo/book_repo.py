@@ -10,7 +10,9 @@ class BookRepo(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def find(self, keyword: str, limit: int, offset: int) -> List[Book]:
+    def find(
+        self, keyword: str, limit: int, offset: int
+    ) -> List[Book]:
         pass
 
     @abc.abstractmethod
@@ -18,11 +20,15 @@ class BookRepo(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def insert(self, book_data: BookData) -> Optional[Book]:
+    def insert(
+        self, book_data: BookData
+    ) -> Optional[Book]:
         pass
 
     @abc.abstractmethod
-    def update(self, id: str, book_data: BookData) -> Optional[Book]:
+    def update(
+        self, id: str, book_data: BookData
+    ) -> Optional[Book]:
         pass
 
     @abc.abstractmethod
