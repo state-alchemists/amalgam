@@ -54,7 +54,7 @@
     },
     {
       "name": "APP_CRED_TOKEN_SECRET_KEY",
-      "value": "1aa3294d-b285-4c40-bf1f-357e23b8459a"
+      "value": "6de7144c-d80f-4f97-a59a-749e82341f15"
     },
     {
       "name": "APP_DB_CREATE_ALL",
@@ -138,7 +138,7 @@
     },
     {
       "name": "APP_LOG_LEVEL",
-      "value": "debug"
+      "value": "info"
     },
     {
       "name": "APP_MESSAGE_BUS_TYPE",

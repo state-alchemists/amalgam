@@ -42,7 +42,7 @@ envs:
       default: 1800
     APP_CRED_TOKEN_SECRET_KEY:
       from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_CRED_TOKEN_SECRET_KEY
-      default: 1aa3294d-b285-4c40-bf1f-357e23b8459a
+      default: 6de7144c-d80f-4f97-a59a-749e82341f15
     APP_DB_CREATE_ALL:
       from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_DB_CREATE_ALL
       default: 1
@@ -105,7 +105,7 @@ envs:
       default: PLAINTEXT
     APP_LOG_LEVEL:
       from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_LOG_LEVEL
-      default: debug
+      default: info
     APP_MESSAGE_BUS_TYPE:
       from: MY_LIB_SVC_DEPLOYMENT_ENV_APP_MESSAGE_BUS_TYPE
       default: rmq

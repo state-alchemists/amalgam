@@ -41,7 +41,7 @@ envs:
       default: "1800"
       from: MY_BACKEND_APP_CRED_TOKEN_EXPIRE
     APP_CRED_TOKEN_SECRET_KEY:
-      default: 1aa3294d-b285-4c40-bf1f-357e23b8459a
+      default: 6de7144c-d80f-4f97-a59a-749e82341f15
       from: MY_BACKEND_APP_CRED_TOKEN_SECRET_KEY
     APP_DB_CREATE_ALL:
       default: "0"
@@ -104,7 +104,7 @@ envs:
       default: PLAINTEXT
       from: MY_BACKEND_APP_KAFKA_SECURITY_PROTOCOL
     APP_LOG_LEVEL:
-      default: debug
+      default: info
       from: MY_BACKEND_APP_LOG_LEVEL
     APP_MESSAGE_BUS_TYPE:
       default: rmq
