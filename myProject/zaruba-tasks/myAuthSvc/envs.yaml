@@ -41,7 +41,7 @@ envs:
       default: "1800"
       from: MY_AUTH_SVC_APP_CRED_TOKEN_EXPIRE
     APP_CRED_TOKEN_SECRET_KEY:
-      default: 6de7144c-d80f-4f97-a59a-749e82341f15
+      default: c658722f-a1c6-4e7b-942f-206364a8db3a
       from: MY_AUTH_SVC_APP_CRED_TOKEN_SECRET_KEY
     APP_DB_CREATE_ALL:
       default: "0"
