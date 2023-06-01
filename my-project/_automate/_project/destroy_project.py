@@ -1,11 +1,11 @@
 from zrb.builtin._group import project_group
 from zrb import Task, runner
-from ..fastapp.deployment import destroy_fastapp
+from ..myapp.deployment import destroy_myapp
 
 destroy_project = Task(
     name='destroy',
     group=project_group,
-    upstreams=[destroy_fastapp],
+    upstreams=[destroy_myapp],
     description='Remove project deployment',
     run=lambda *args, **kwargs: kwargs.get('_task').print_out('👌')
 )

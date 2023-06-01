@@ -41,7 +41,7 @@ You can run [init.sh](init.sh) to re-generate everything.
 Before running the command, make sure you have Docker and Dokcer-compose installed.
 
 ```bash
-zrb project start-fastapp
+zrb project start-myapp
 ```
 
 This will run FastApp along with RabbitMQ/RedPanda, and Postgresql.
@@ -54,7 +54,7 @@ You can choose to run Fastapp as a monolith/microservices
 Before running the command, make sure you have Docker and Dokcer-compose installed.
 
 ```bash
-zrb project start-fastapp-container
+zrb project start-myapp-container
 ```
 
 This will run FastApp along with RabbitMQ/RedPanda, and Postgresql.
@@ -67,7 +67,7 @@ You can choose to run Fastapp as a monolith/microservices.
 Before running the command, make sure you have Docker and Dokcer-compose installed. Also, make sure you can access your Kubernetes cluster. The easiest way to install everything is by installing Docker Desktop
 
 ```bash
-zrb project deploy-fastapp
+zrb project deploy-myapp
 ```
 
 This will deploy FastApp along with RabbitMQ/RedPanda, and Postgresql.

@@ -12,24 +12,18 @@ cd my-project
 rm -Rf .git
 
 echo "👷 Add fastapp"
-zrb project add fastapp --project-dir . --app-name "fastapp" --http-port 3000
+zrb project add fastapp --project-dir . --app-name "myapp" --http-port 3000
 
 echo "👷 Add library module"
-zrb project add fastapp-module --project-dir . --app-name "fastapp" --module-name "library"
+zrb project add fastapp-module --project-dir . --app-name "myapp" --module-name "library"
 
 echo "👷 Add book entity"
-zrb project add fastapp-crud --project-dir . --app-name "fastapp" --module-name "library" \
+zrb project add fastapp-crud --project-dir . --app-name "myapp" --module-name "library" \
     --entity-name "book" --plural-entity-name "books" --column-name "code"
 
 echo "👷 Add title field"
-zrb project add fastapp-field --project-dir . --app-name "fastapp" --module-name "library" \
+zrb project add fastapp-field --project-dir . --app-name "myapp" --module-name "library" \
     --entity-name "book" --column-name "title" --column-type "str"
 
 echo "👷 Start fastapp"
-zrb project start-fastapp
-
-# Run Fastapp as container
-zrb project start-fastapp-container
-
-# Deploy fastapp
-zrb project deploy-fastapp
+zrb project start-myapp

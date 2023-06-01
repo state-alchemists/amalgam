@@ -1,0 +1,288 @@
+version: '3'
+networks:
+  zrb:
+services:
+
+  redpanda:
+    image: docker.redpanda.com/redpandadata/redpanda:v22.3.11
+    container_name: myapp_redpanda
+    hostname: redpanda
+    # Redpanda docker configuration: https://docs.redpanda.com/docs/reference/docker-compose/#configure-redpanda-in-docker
+    # Redpanda node configuration example: https://docs.redpanda.com/docs/reference/node-configuration-sample/
+    command:
+    - redpanda
+    - start
+    - --kafka-addr PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092
+    - --advertise-kafka-addr PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092
+    - --pandaproxy-addr PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082
+    - --advertise-pandaproxy-addr PLAINTEXT://redpanda:28082,OUTSIDE://localhost:8082
+    - --rpc-addr 0.0.0.0:33145
+    - --advertise-rpc-addr redpanda:33145
+    - --smp 1
+    - --memory 1G
+    - --mode dev-container
+    - --default-log-level=warn
+    - --set sasl_mechanism=${KAFKA_SASL_MECHANISM}
+    - --set sasl_username=${KAFKA_SASL_USER}
+    - --set sasl_password=${KAFKA_SASL_PASS}
+    ports:
+    - 8082:8082
+    - ${KAFKA_OUTSIDE_HOST_PORT:-9092}:9092
+    - 28082:28082
+    - ${KAFKA_PLAINTEXT_HOST_PORT:-29092}:29092
+    environment:
+      KAFKA_SASL_MECHANISM: ${KAFKA_SASL_MECHANISM:-SCRAM-SHA-256}
+      KAFKA_SASL_USER: ${KAFKA_SASL_USER:-admin}
+      KAFKA_SASL_PASS: ${KAFKA_SASL_PASS:-admin}
+    restart: on-failure
+    profiles:
+    - kafka
+    healthcheck:
+      test: [CMD, redpanda, admin, check]
+      interval: 5s
+      timeout: 1s
+      retries: 30
+    networks:
+    - zrb
+
+
+  redpanda-console:
+    image: docker.redpanda.com/redpandadata/console:v2.2.2
+    container_name: myapp_redpanda_console
+    hostname: redpanda-console
+    ports:
+    - ${REDPANDA_CONSOLE_HOST_PORT:-9000}:8080
+    environment:
+      KAFKA_BROKERS: redpanda:29092
+    profiles:
+    - kafka
+    depends_on:
+    - redpanda
+    restart: on-failure
+    networks:
+    - zrb
+
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: myapp_rabbitmq
+    hostname: rabbitmq
+    ports:
+    - ${RABBITMQ_HOST_PORT:-5672}:5672
+    - ${RABBITMQ_MANAGEMENT_HOST_PORT:-15672}:15672
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:-guest}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:-guest}
+    restart: on-failure
+    profiles:
+    - rabbitmq
+    healthcheck:
+      test: [CMD, rabbitmqctl, status]
+      interval: 5s
+      timeout: 1s
+      retries: 30
+    networks:
+    - zrb
+
+
+  postgresql:
+    image: postgres:15.2
+    container_name: myapp_postgresql
+    hostname: postgresql
+    restart: on-failure
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-admin}
+      POSTGRES_DB: ${POSTGRES_DB:-myapp}
+    volumes:
+    - ./postgres-data:/var/lib/postgresql/data
+    ports:
+    - ${POSTGRES_HOST_PORT:-5432}:5432
+    networks:
+    - zrb
+
+
+  adminer:
+    image: adminer
+    container_name: myapp_adminer
+    hostname: adminer
+    restart: on-failure
+    ports:
+    - ${ADMINER_HOST_PORT:-9001}:8080
+    networks:
+    - zrb
+
+
+  myapp:
+    build:
+      dockerfile: Dockerfile
+      context: ./src
+    image: ${IMAGE:-myapp}
+    container_name: myapp
+    hostname: myapp
+    env_file:
+    - src/template.env
+    environment:
+      APP_NAME: ${APP_NAME:-myapp}
+      APP_PORT: ${APP_PORT:-8080}
+      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
+      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
+      APP_DB_CONNECTION: ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
+    ports:
+    - ${APP_HOST_PORT:-8080}:${APP_PORT:-8080}
+    restart: on-failure
+    profiles:
+    - monolith
+    healthcheck:
+      test: [CMD-SHELL, 'curl --fail http://localhost:${APP_PORT:-8080}/readiness
+          || exit 1']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+    - zrb
+
+
+  myapp-gateway:
+    build:
+      dockerfile: Dockerfile
+      context: ./src
+    image: ${IMAGE:-myapp}
+    container_name: myapp_gateway
+    hostname: myapp_gateway
+    env_file:
+    - src/template.env
+    - all-module-enabled.env
+    environment:
+      APP_NAME: ${APP_NAME:-myapp}-gateway
+      APP_PORT: ${APP_GATEWAY_PORT:-8080}
+      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
+      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
+      APP_DB_CONNECTION: ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
+      APP_ENABLE_MESSAGE_CONSUMER: false
+      APP_ENABLE_RPC_SERVER: false
+      APP_ENABLE_API: true
+      APP_ENABLE_FRONTEND: true
+      APP_DB_AUTO_MIGRATE: false
+    ports:
+    - ${APP_GATEWAY_HOST_PORT:-8080}:${APP_GATEWAY_PORT:-8080}
+    restart: on-failure
+    profiles:
+    - microservices
+    healthcheck:
+      test: [CMD-SHELL, 'curl --fail http://localhost:${APP_GATEWAY_PORT:-8080}/readiness
+          || exit 1']
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+    - zrb
+
+
+  myapp-auth:
+    build:
+      dockerfile: Dockerfile
+      context: ./src
+    image: ${IMAGE:-fastapp}
+    container_name: fastapp_auth
+    hostname: myapp_auth
+    env_file:
+    - src/template.env
+    - all-module-disabled.env
+    environment:
+      APP_NAME: ${APP_NAME:-fastapp}-auth-service
+      APP_PORT: ${APP_AUTH_MODULE_PORT:-8081}
+      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
+      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
+      APP_DB_CONNECTION: ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
+      APP_ENABLE_MESSAGE_CONSUMER: true
+      APP_ENABLE_RPC_SERVER: true
+      APP_ENABLE_API: false
+      APP_ENABLE_FRONTEND: false
+      APP_ENABLE_AUTH_MODULE: true
+    ports:
+    - ${APP_AUTH_HOST_MODULE_PORT:-8081}:${APP_AUTH_MODULE_PORT:-8081}
+    restart: on-failure
+    profiles:
+    - microservices
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail http://localhost:${APP_PORT:-8080}/readiness || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+    - zrb
+
+
+  myapp-log:
+    build:
+      dockerfile: Dockerfile
+      context: ./src
+    image: ${IMAGE:-fastapp}
+    container_name: fastapp_log
+    hostname: myapp_log
+    env_file:
+    - src/template.env
+    - all-module-disabled.env
+    environment:
+      APP_NAME: ${APP_NAME:-fastapp}-log-service
+      APP_PORT: ${APP_LOG_MODULE_PORT:-8083}
+      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
+      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
+      APP_DB_CONNECTION: ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/fastapp}
+      APP_ENABLE_MESSAGE_CONSUMER: 'true'
+      APP_ENABLE_RPC_SERVER: 'true'
+      APP_ENABLE_API: 'false'
+      APP_ENABLE_FRONTEND: 'false'
+      APP_ENABLE_LOG_MODULE: 'true'
+    ports:
+    - ${APP_LOG_HOST_MODULE_PORT:-8082}:${APP_LOG_MODULE_PORT:-8082}
+    restart: on-failure
+    profiles:
+    - microservices
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail http://localhost:${APP_PORT:-8080}/readiness || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+    - zrb
+  myapp-library-service:
+    build:
+      dockerfile: Dockerfile
+      context: ./src
+    image: ${IMAGE:-myapp}
+    container_name: myapp_library_service
+    hostname: snake_app_name_library
+    env_file:
+    - src/template.env
+    - all-module-disabled.env
+    environment:
+      APP_NAME: ${APP_NAME:-myapp}-library-service
+      APP_PORT: ${APP_LIBRARY_MODULE_PORT:-8083}
+      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
+      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
+      APP_DB_CONNECTION: ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
+      APP_ENABLE_MESSAGE_CONSUMER: 'true'
+      APP_ENABLE_RPC_SERVER: 'true'
+      APP_ENABLE_API: 'false'
+      APP_ENABLE_FRONTEND: 'false'
+      APP_ENABLE_LIBRARY_MODULE: 'true'
+    ports:
+    - ${APP_LIBRARY_HOST_MODULE_PORT:-8083}:${APP_LIBRARY_MODULE_PORT:-8083}
+    restart: on-failure
+    profiles:
+    - microservices
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - curl --fail http://localhost:${APP_PORT:-8080}/readiness || exit 1
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    networks:
+    - zrb

@@ -1,12 +1,12 @@
 import _automate._project as _project
-import _automate.fastapp.local as fastapp_local
-import _automate.fastapp.container as fastapp_container
-import _automate.fastapp.image as fastapp_image
-import _automate.fastapp.deployment as fastapp_deployment
-import _automate.fastapp.test as fastapp_test
+import _automate.myapp.local as myapp_local
+import _automate.myapp.container as myapp_container
+import _automate.myapp.image as myapp_image
+import _automate.myapp.deployment as myapp_deployment
+import _automate.myapp.test as myapp_test
 assert _project
-assert fastapp_local
-assert fastapp_container
-assert fastapp_image
-assert fastapp_deployment
-assert fastapp_test
+assert myapp_local
+assert myapp_container
+assert myapp_image
+assert myapp_deployment
+assert myapp_test
