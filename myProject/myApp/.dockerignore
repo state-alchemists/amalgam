@@ -1,7 +1,0 @@
-__pycache__
-venv
-database.db
-migration.db
-test.db
-htmlcov
-template.env

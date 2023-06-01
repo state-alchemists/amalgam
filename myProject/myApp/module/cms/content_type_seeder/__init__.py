@@ -1,1 +1,0 @@
-from module.cms.content_type_seeder.content_type_seeder_service import ContentTypeSeederService

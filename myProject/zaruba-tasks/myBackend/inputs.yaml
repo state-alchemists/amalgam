@@ -1,8 +1,0 @@
-inputs:
-
-  runMyBackendInLocal:
-    default: true
-    options: [true, false]
-    allowCustom: false
-    description: Whether to run myBackend locally
-    prompt: Run myBackend locally?

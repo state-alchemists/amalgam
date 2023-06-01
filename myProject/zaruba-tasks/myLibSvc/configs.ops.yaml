@@ -1,5 +1,0 @@
-configs:
-
-  createMyLibSvcMigration:
-    start: |
-      . "{{ .GetProjectPath "zaruba-tasks/myLibSvc/bash/run.sh" }}" "{{ .GetProjectPath "myLibSvc/create-migration.sh" }}"

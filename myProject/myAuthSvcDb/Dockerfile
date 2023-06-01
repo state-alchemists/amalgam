@@ -1,1 +1,0 @@
-FROM docker.io/bitnami/mysql:8.0.29

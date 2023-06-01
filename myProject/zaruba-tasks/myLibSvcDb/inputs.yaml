@@ -1,8 +1,0 @@
-inputs:
-
-  runMyLibSvcDbInLocal:
-    default: true
-    options: [true, false]
-    allowCustom: false
-    description: Whether to run myLibSvcDb locally
-    prompt: Run myLibSvcDb locally?

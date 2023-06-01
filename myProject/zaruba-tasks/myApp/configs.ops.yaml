@@ -1,5 +1,0 @@
-configs:
-
-  createMyAppMigration:
-    start: |
-      . "{{ .GetProjectPath "zaruba-tasks/myApp/bash/run.sh" }}" "{{ .GetProjectPath "myApp/create-migration.sh" }}"

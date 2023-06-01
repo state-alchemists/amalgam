@@ -1,8 +1,0 @@
-inputs:
-
-  runMyFrontendInLocal:
-    default: true
-    options: [true, false]
-    allowCustom: false
-    description: Whether to run myFrontend locally
-    prompt: Run myFrontend locally?

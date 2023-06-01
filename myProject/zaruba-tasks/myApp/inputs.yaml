@@ -1,8 +1,0 @@
-inputs:
-
-  runMyAppInLocal:
-    default: true
-    options: [true, false]
-    allowCustom: false
-    description: Whether to run myApp locally
-    prompt: Run myApp locally?
