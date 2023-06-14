@@ -118,8 +118,8 @@ app_local_checker = HTTPChecker(
 
 local_input = BoolInput(
     name='local-myapp',
-    description='Use "myapp" from local machine',
-    prompt='Use "myapp" from local machine?',
+    description='Use "myapp" on local machine',
+    prompt='Use "myapp" on local machine?',
     default=True
 )
 
@@ -166,6 +166,9 @@ pulumi_stack_input = StrInput(
 compose_env_file = EnvFile(
     env_file=os.path.join(CURRENT_DIR, 'config', 'docker-compose.env'),
     prefix='CONTAINER_MYAPP'
+)
+app_env_file = EnvFile(
+    env_file=APP_TEMPLATE_ENV_FILE_NAME, prefix='MYAPP'
 )
 
 ###############################################################################

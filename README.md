@@ -20,8 +20,6 @@ We can create a microservices-ready monolith by using:
 - Feature flags
 - Interface and layered architecture
 
-Please visit [myApp documentation](myProject/myApp/_docs/README.md) for more information.
-
 Microservices-ready monolith has all the advantages of a monolith app. One of those advantages is simplicity.
 
 When done correctly, you can split the monolith into independent microservices. You can even rewrite some modules with different technologies/programming languages.
