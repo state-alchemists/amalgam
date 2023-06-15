@@ -1,6 +1,5 @@
 from zrb import (
-    BoolInput, ChoiceInput, StrInput, Env, EnvFile,
-    HTTPChecker, PortChecker
+    BoolInput, ChoiceInput, StrInput, Env, HTTPChecker, PortChecker
 )
 import jsons
 import os
@@ -30,13 +29,13 @@ SKIP_SUPPORT_CONTAINER_EXECUTION = ' '.join([
 SKIP_LOCAL_MONOLITH_EXECUTION = ' '.join([
     '{{',
     'not input.local_myapp',
-    'or input.myapp_mode == "microservices"',
+    'or input.myapp_run_mode == "microservices"',
     '}}',
 ])
 SKIP_LOCAL_MICROSERVICES_EXECUTION = ' '.join([
     '{{',
     'not input.local_myapp',
-    'or input.myapp_mode == "monolith"',
+    'or input.myapp_run_mode == "monolith"',
     '}}',
 ])
 
@@ -123,10 +122,10 @@ local_input = BoolInput(
     default=True
 )
 
-mode_input = ChoiceInput(
-    name='myapp-mode',
-    description='"myapp" mode',
-    prompt='Do you want to run "myapp" as monolith or microservices?',
+run_mode_input = ChoiceInput(
+    name='myapp-run-mode',
+    description='"myapp" run mode (monolith/microservices)',
+    prompt='Run "myapp" as a monolith or microservices?',
     choices=['monolith', 'microservices'],
     default='monolith'
 )
@@ -145,53 +144,13 @@ host_input = StrInput(
     default='localhost'
 )
 
-image_input = StrInput(
-    name='myapp-image',
-    description='Image name of "myapp"',
-    prompt='Image name of "myapp"',
-    default='docker.io/gofrendi/myapp:latest'
-)
-
-pulumi_stack_input = StrInput(
-    name='myapp-pulumi-stack',
-    description='Pulumi stack name for "myapp"',
-    prompt='Pulumi stack name for "myapp"',
-    default=os.getenv('ZRB_ENV', 'dev')
-)
-
 ###############################################################################
 # Env file Definitions
 ###############################################################################
 
-compose_env_file = EnvFile(
-    env_file=os.path.join(CURRENT_DIR, 'config', 'docker-compose.env'),
-    prefix='CONTAINER_MYAPP'
-)
-app_env_file = EnvFile(
-    env_file=APP_TEMPLATE_ENV_FILE_NAME, prefix='MYAPP'
-)
-
 ###############################################################################
-# Env Definitions
+# Env fDefinitions
 ###############################################################################
-
-image_env = Env(
-    name='IMAGE',
-    os_name='CONTAINER_MYAPP_IMAGE',
-    default='{{input.myapp_image}}'
-)
-
-pulumi_backend_url_env = Env(
-    name='PULUMI_BACKEND_URL',
-    os_name='PULUMI_MYAPP_BACKEND_URL',
-    default=f'file://{DEPLOYMENT_DIR}/state'
-)
-
-pulumi_config_passphrase_env = Env(
-    name='PULUMI_CONFIG_PASSPHRASE',
-    os_name='PULUMI_MYAPP_CONFIG_PASSPHRASE',
-    default='secret'
-)
 
 local_app_port_env = Env(
     name='APP_PORT',

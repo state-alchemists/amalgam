@@ -1,23 +1,32 @@
-from zrb import CmdTask, DockerComposeTask, Task, Env, runner
+from zrb import CmdTask, DockerComposeTask, Task, Env, EnvFile, runner
 from zrb.builtin._group import project_group
 from ._common import (
-    CURRENT_DIR, APP_DIR, RESOURCE_DIR, SKIP_SUPPORT_CONTAINER_EXECUTION,
-    SKIP_LOCAL_MONOLITH_EXECUTION, SKIP_LOCAL_MICROSERVICES_EXECUTION,
+    CURRENT_DIR, APP_DIR, APP_TEMPLATE_ENV_FILE_NAME, RESOURCE_DIR,
+    SKIP_SUPPORT_CONTAINER_EXECUTION, SKIP_LOCAL_MONOLITH_EXECUTION,
+    SKIP_LOCAL_MICROSERVICES_EXECUTION,
     rabbitmq_checker, rabbitmq_management_checker,
     redpanda_console_checker, kafka_outside_checker,
     kafka_plaintext_checker, pandaproxy_outside_checker,
     pandaproxy_plaintext_checker, app_local_checker,
-    local_input, mode_input, host_input, https_input, image_input,
-    local_app_port_env, local_app_broker_type_env, app_env_file
+    local_input, run_mode_input, host_input, https_input,
+    local_app_port_env, local_app_broker_type_env
 )
-from .image import build_myapp_image
+from .image import build_myapp_image, image_input
 from .frontend import build_myapp_frontend
 from .container import remove_myapp_container
 from .local_microservices import get_start_microservices
 import os
 
-support_compose_env_prefix = 'CONTAINER_MYAPP'
 start_broker_compose_profile = '{{env.get("APP_BROKER_TYPE", "rabbitmq")}}'
+
+
+###############################################################################
+# Env file Definitions
+###############################################################################
+
+app_env_file = EnvFile(
+    env_file=APP_TEMPLATE_ENV_FILE_NAME, prefix='MYAPP'
+)
 
 ###############################################################################
 # Task Definitions
@@ -41,7 +50,7 @@ start_myapp_support_container = DockerComposeTask(
     cwd=RESOURCE_DIR,
     setup_cmd=f'export COMPOSE_PROFILES={start_broker_compose_profile}',
     compose_cmd='up',
-    compose_env_prefix=support_compose_env_prefix,
+    compose_env_prefix='CONTAINER_MYAPP',
     envs=[
         local_app_broker_type_env,
         local_app_port_env,
@@ -72,7 +81,7 @@ start_monolith_myapp = CmdTask(
     name='start-monolith-myapp',
     inputs=[
         local_input,
-        mode_input,
+        run_mode_input,
         host_input,
         https_input
     ],
@@ -99,7 +108,7 @@ start_myapp_gateway = CmdTask(
     name='start-myapp-gateway',
     inputs=[
         local_input,
-        mode_input,
+        run_mode_input,
         host_input,
         https_input
     ],

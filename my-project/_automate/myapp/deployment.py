@@ -1,15 +1,53 @@
-from typing import List
-from zrb import CmdTask, Env, EnvFile, runner
+from zrb import CmdTask, Env, EnvFile, StrInput, ChoiceInput, runner
 from zrb.builtin._group import project_group
 from .image import push_myapp_image
 from ._common import (
     CURRENT_DIR, DEPLOYMENT_DIR, APP_TEMPLATE_ENV_FILE_NAME,
-    DEPLOYMENT_TEMPLATE_ENV_FILE_NAME, MODULES, image_input,
-    pulumi_stack_input, mode_input, image_env, pulumi_backend_url_env,
-    pulumi_config_passphrase_env
+    DEPLOYMENT_TEMPLATE_ENV_FILE_NAME, MODULES
 )
+from .image import image_input, image_env
 import os
 import jsons
+
+
+###############################################################################
+# Input Definitions
+###############################################################################
+
+deploy_mode_input = ChoiceInput(
+    name='myapp-deploy-mode',
+    description='"myapp" deploy mode (monolith/microservices)',
+    prompt='Deploy "myapp" as a monolith or microservices?',
+    choices=['monolith', 'microservices'],
+    default='monolith'
+)
+
+pulumi_stack_input = StrInput(
+    name='myapp-pulumi-stack',
+    description='Pulumi stack name for "myapp"',
+    prompt='Pulumi stack name for "myapp"',
+    default=os.getenv('ZRB_ENV', 'dev')
+)
+
+###############################################################################
+# Env Definitions
+###############################################################################
+
+pulumi_backend_url_env = Env(
+    name='PULUMI_BACKEND_URL',
+    os_name='PULUMI_MYAPP_BACKEND_URL',
+    default=f'file://{DEPLOYMENT_DIR}/state'
+)
+
+pulumi_config_passphrase_env = Env(
+    name='PULUMI_CONFIG_PASSPHRASE',
+    os_name='PULUMI_MYAPP_CONFIG_PASSPHRASE',
+    default='secret'
+)
+
+###############################################################################
+# Env File Definitions
+###############################################################################
 
 deployment_app_env_file = EnvFile(
     env_file=APP_TEMPLATE_ENV_FILE_NAME,
@@ -26,19 +64,11 @@ deployment_modules_env = Env(
     default=jsons.dumps(MODULES)
 )
 
-deployment_envs: List[Env] = [
-    pulumi_backend_url_env,
-    pulumi_config_passphrase_env,
-    image_env,
-    deployment_modules_env
-]
-
 deployment_mode_env = Env(
     name='MODE',
     os_name='DEPLOYMENT_CONFIG_MYAPP_MODE',
-    default='{{input.myapp_mode}}'
+    default='{{input.myapp_deploy_mode}}'
 )
-
 
 ###############################################################################
 # Task Definitions
@@ -52,7 +82,7 @@ deploy_myapp = CmdTask(
     inputs=[
         image_input,
         pulumi_stack_input,
-        mode_input,
+        deploy_mode_input,
     ],
     upstreams=[push_myapp_image],
     cwd=DEPLOYMENT_DIR,
@@ -60,7 +90,11 @@ deploy_myapp = CmdTask(
         deployment_env_file,
         deployment_app_env_file,
     ],
-    envs=deployment_envs + [
+    envs=[
+        pulumi_backend_url_env,
+        pulumi_config_passphrase_env,
+        image_env,
+        deployment_modules_env,
         deployment_mode_env,
     ],
     cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'pulumi-up.sh'),
@@ -80,7 +114,12 @@ destroy_myapp = CmdTask(
         deployment_env_file,
         deployment_app_env_file,
     ],
-    envs=deployment_envs,
+    envs=[
+        pulumi_backend_url_env,
+        pulumi_config_passphrase_env,
+        image_env,
+        deployment_modules_env,
+    ],
     cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'pulumi-destroy.sh'),
 )
 runner.register(destroy_myapp)
