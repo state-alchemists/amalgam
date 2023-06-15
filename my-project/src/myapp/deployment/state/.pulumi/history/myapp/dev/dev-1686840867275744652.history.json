@@ -1,0 +1,32 @@
+{
+    "kind": "update",
+    "startTime": 1686840817,
+    "message": "update to newest version of zrb",
+    "environment": {
+        "exec.kind": "cli",
+        "git.author": "goFrendi",
+        "git.author.email": "gofrendiasgard@gmail.com",
+        "git.committer": "goFrendi",
+        "git.committer.email": "gofrendiasgard@gmail.com",
+        "git.dirty": "true",
+        "git.head": "c7869c19c3ee741bb5fcc1fd4b2e010eefae88e0",
+        "git.headName": "refs/heads/master",
+        "pulumi.arch": "amd64",
+        "pulumi.env.PULUMI_BACKEND_URL": "set",
+        "pulumi.env.PULUMI_CONFIG_PASSPHRASE": "set",
+        "pulumi.flag.skip-preview": "true",
+        "pulumi.os": "linux",
+        "pulumi.version": "v3.71.0",
+        "updatePlan": "false",
+        "vcs.kind": "github.com",
+        "vcs.owner": "state-alchemists",
+        "vcs.repo": "amalgam"
+    },
+    "config": {},
+    "version": 0,
+    "result": "succeeded",
+    "endTime": 1686840867,
+    "resourceChanges": {
+        "create": 17
+    }
+}

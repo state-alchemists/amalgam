@@ -9,6 +9,7 @@ fi
 echo "👷 Crete my-project"
 zrb project create --project-dir my-project --project-name "My Project"
 cd my-project
+source project.sh
 rm -Rf .git
 
 echo "👷 Add fastapp"
@@ -26,4 +27,4 @@ zrb project add fastapp-field --project-dir . --app-name "myapp" --module-name "
     --entity-name "book" --column-name "title" --column-type "str"
 
 echo "👷 Start fastapp"
-zrb project start-myapp
+zrb project start-myapp --myapp-run-mode "monolith"
