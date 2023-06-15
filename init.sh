@@ -9,7 +9,6 @@ fi
 echo "👷 Crete my-project"
 zrb project create --project-dir my-project --project-name "My Project"
 cd my-project
-source project.sh
 rm -Rf .git
 
 echo "👷 Add fastapp"
