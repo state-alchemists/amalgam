@@ -187,6 +187,7 @@ For this demo, we are using docker desktop with kubernetes enabled.
 Once your kubernetes cluster is running, you can invoke the following command:
 
 ```bash
+docker login
 zrb project deploy-myapp --myapp-deploy-mode microservices
 ```
 

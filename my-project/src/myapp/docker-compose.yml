@@ -185,7 +185,7 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-fastapp}
-    container_name: fastapp_auth
+    container_name: myapp_auth
     hostname: myapp_auth
     env_file:
     - src/template.env
@@ -222,7 +222,7 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-fastapp}
-    container_name: fastapp_log
+    container_name: myapp_log
     hostname: myapp_log
     env_file:
     - src/template.env

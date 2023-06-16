@@ -65,6 +65,31 @@ remove_myapp_container = DockerComposeTask(
 )
 runner.register(remove_myapp_container)
 
+init_myapp_container = DockerComposeTask(
+    icon='🔥',
+    name='init-myapp-container',
+    group=project_group,
+    inputs=[
+        local_input,
+        run_mode_input,
+        host_input,
+        image_input,
+    ],
+    skip_execution=SKIP_CONTAINER_EXECUTION,
+    upstreams=[
+        build_myapp_image,
+        remove_myapp_container
+    ],
+    cwd=RESOURCE_DIR,
+    setup_cmd=f'export COMPOSE_PROFILES={start_compose_profiles}',
+    compose_cmd='up',
+    compose_flags=['-d'],
+    compose_env_prefix='CONTAINER_MYAPP',
+    compose_service_configs=service_configs,
+    envs=[image_env],
+    env_files=[compose_env_file],
+)
+
 start_myapp_container = DockerComposeTask(
     icon='🐳',
     name='start-myapp-container',
@@ -78,13 +103,11 @@ start_myapp_container = DockerComposeTask(
         image_input,
     ],
     skip_execution=SKIP_CONTAINER_EXECUTION,
-    upstreams=[
-        build_myapp_image,
-        remove_myapp_container
-    ],
+    upstreams=[init_myapp_container],
     cwd=RESOURCE_DIR,
     setup_cmd=f'export COMPOSE_PROFILES={start_compose_profiles}',
-    compose_cmd='up',
+    compose_cmd='logs',
+    compose_flags=['-f'],
     compose_env_prefix='CONTAINER_MYAPP',
     compose_service_configs=service_configs,
     envs=[image_env],

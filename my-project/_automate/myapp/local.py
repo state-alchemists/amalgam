@@ -32,6 +32,30 @@ app_env_file = EnvFile(
 # Task Definitions
 ###############################################################################
 
+init_myapp_support_container = DockerComposeTask(
+    icon='🔥',
+    name='init-myapp-support-container',
+    inputs=[
+        local_input,
+        host_input,
+        image_input,
+    ],
+    skip_execution=SKIP_SUPPORT_CONTAINER_EXECUTION,
+    upstreams=[
+        build_myapp_image,
+        remove_myapp_container
+    ],
+    cwd=RESOURCE_DIR,
+    setup_cmd=f'export COMPOSE_PROFILES={start_broker_compose_profile}',
+    compose_cmd='up',
+    compose_flags=['-d'],
+    compose_env_prefix='CONTAINER_MYAPP',
+    envs=[
+        local_app_broker_type_env,
+        local_app_port_env,
+    ],
+)
+
 start_myapp_support_container = DockerComposeTask(
     icon='🐳',
     name='start-myapp-support-container',
@@ -43,13 +67,11 @@ start_myapp_support_container = DockerComposeTask(
         image_input,
     ],
     skip_execution=SKIP_SUPPORT_CONTAINER_EXECUTION,
-    upstreams=[
-        build_myapp_image,
-        remove_myapp_container
-    ],
+    upstreams=[init_myapp_support_container],
     cwd=RESOURCE_DIR,
     setup_cmd=f'export COMPOSE_PROFILES={start_broker_compose_profile}',
-    compose_cmd='up',
+    compose_cmd='logs',
+    compose_flags=['-f'],
     compose_env_prefix='CONTAINER_MYAPP',
     envs=[
         local_app_broker_type_env,
