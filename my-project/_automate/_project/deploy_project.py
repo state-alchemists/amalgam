@@ -7,6 +7,6 @@ deploy_project = Task(
     group=project_group,
     upstreams=[deploy_myapp],
     description='Deploy project',
-    run=lambda *args, **kwargs: kwargs.get('_task').print_out('👌')
+    run=lambda *args, **kwargs: kwargs.get('_task').print_out('🆗')
 )
 runner.register(deploy_project)

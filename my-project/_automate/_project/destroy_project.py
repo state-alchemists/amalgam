@@ -7,6 +7,6 @@ destroy_project = Task(
     group=project_group,
     upstreams=[destroy_myapp],
     description='Remove project deployment',
-    run=lambda *args, **kwargs: kwargs.get('_task').print_out('👌')
+    run=lambda *args, **kwargs: kwargs.get('_task').print_out('🆗')
 )
 runner.register(destroy_project)

@@ -7,6 +7,6 @@ stop_project_containers = Task(
     group=project_group,
     upstreams=[stop_myapp_container],
     description='Stop project containers',
-    run=lambda *args, **kwargs: kwargs.get('_task').print_out('👌')
+    run=lambda *args, **kwargs: kwargs.get('_task').print_out('🆗')
 )
 runner.register(stop_project_containers)

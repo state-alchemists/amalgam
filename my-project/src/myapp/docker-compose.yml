@@ -103,17 +103,6 @@ services:
     - zrb
 
 
-  adminer:
-    image: adminer
-    container_name: myapp_adminer
-    hostname: adminer
-    restart: unless-stopped
-    ports:
-    - ${ADMINER_HOST_PORT:-9001}:8080
-    networks:
-    - zrb
-
-
   myapp:
     build:
       dockerfile: Dockerfile

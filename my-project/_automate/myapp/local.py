@@ -42,7 +42,6 @@ init_myapp_support_container = DockerComposeTask(
     ],
     skip_execution=SKIP_SUPPORT_CONTAINER_EXECUTION,
     upstreams=[
-        build_myapp_image,
         remove_myapp_container
     ],
     cwd=RESOURCE_DIR,
@@ -173,6 +172,6 @@ start_myapp = Task(
         start_monolith_myapp,
         start_myapp_gateway,
     ] + start_microservices,
-    run=lambda *args, **kwargs: kwargs.get('_task').print_out('👌')
+    run=lambda *args, **kwargs: kwargs.get('_task').print_out('🆗')
 )
 runner.register(start_myapp)

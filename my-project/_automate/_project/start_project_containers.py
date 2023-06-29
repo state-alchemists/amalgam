@@ -7,6 +7,6 @@ start_project_containers = Task(
     group=project_group,
     upstreams=[start_myapp_container],
     description='Start as containers',
-    run=lambda *args, **kwargs: kwargs.get('_task').print_out('👌')
+    run=lambda *args, **kwargs: kwargs.get('_task').print_out('🆗')
 )
 runner.register(start_project_containers)
