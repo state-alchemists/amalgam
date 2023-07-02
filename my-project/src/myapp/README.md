@@ -12,6 +12,7 @@ The purpose of Myapp is to:
 - Give you a good experience while developing/testing things locally.
 - Assure you that your application is always ready to be deployed as microservices.
 
+You can learn more about Myapp's modular monolith concept in our [documentation](docs/modular-monolith/README.md).
 
 # Run Myapp as a monolith
 
@@ -54,10 +55,60 @@ You can change the default username and password by providing `MYAPP_APP_AUTH_AD
 
 Furthermore, you can also visit `http://localhost:3000/docs` to access the API specification.
 
+# Deploying to Kubernetes
+
+To deploy Myapp to Kubernetes, you need to have [Pulumi](https://www.pulumi.com/) installed. You also need access to a container registry like [Docker Hub](https://hub.docker.com/) and to the Kubernetes cluster itself.
+
+The easiest way to set up Kubernetes on your local computer is by installing [Docker Desktop](https://www.docker.com/products/docker-desktop/). Once you installed Docker Desktop, you can go to `setting | Kubernetes` to enable your local Kubernetes cluster.
+
+Finally, you can invoke the following command:
+
+```bash
+# Deploy Myapp to Kubernetes as a monolith
+zrb project deploy-myapp --myapp monolith
+
+# Deploy Myapp to Kubernetes as a microservices
+zrb project deploy-myapp --myapp microservices
+```
 
 # Configuration
 
 You can see all available configurations on [`template.env`](src/template.env). If you need to override the configuration, you can provide environment variables with `MYAPP_` prefix to the ones specified in the `template.env`.
+
+There are several configurations you need to know.
+
+Auth related config
+
+- `MYAPP_APP_AUTH_ADMIN_ACTIVE`: determine whether there is an admin user or not
+    - default value: `true`
+- `MYAPP_ADMIN_USERNAME`: Admin username
+    - default value: `root`
+- `MYAPP_ADMIN_PASSWORD`: Admin password
+    - default value: `toor`
+- `MYAPP_APP_PORT`: Application port
+    - default value: `3000`
+
+Messaging config:
+
+- `MYAPP_APP_BROKER_TYPE`: Messaging platform to be used (i.e., `rabbitmq`, `kafka`, or `mock`)
+    - default value: `rabbitmq`
+
+Feature flags:
+
+- `MYAPP_APP_ENABLE_EVENT_HANDLER`: Whether enable event handler or not
+    - default value: `true`
+- `MYAPP_APP_ENABLE_RPC_SERVER`: Whether enable RPC server or not
+    - default value: `true`
+- `MYAPP_APP_ENABLE_FRONTEND`: Whether enable Frontend or not
+    - default value: `true`
+- `MYAPP_APP_ENABLE_API`: Whether enable API or not
+    - default value: `true`
+- `MYAPP_APP_ENABLE_AUTH_MODULE`: Whether enable Auth module or not
+    - default value: `true`
+- `MYAPP_APP_ENABLE_LOG_MODULE`: Whether enable Log module or not
+    - default value: `true`
+- `MYAPP_APP_ENABLE_<MODULE_NAME>_MODULE`: Whether enable `<MODULE_NAME>` module or not
+    - default value: `true`
 
 
 # Adding modules, entities, or fields
@@ -130,29 +181,45 @@ You will also need `Pulumi` if you want to deploy Myapp into your Kubernetes clu
                     - `repo.py`
             - `schema/`: Pydantic schemas for the current module.
 - `test/`: Test scripts.
-    - `<modules-name>/`
-    - `test_*.py`
+    - `<modules-name>/`: Test scripts for modules.
+    - `test_*.py`: Core test scripts.
 
 
-# Constraints
+# Decisions and Constraints
 
+## Frontend
 - Myapp's Frontend is served as static files and is built before runtime (not SSR/Server Side Rendering). That's mean.
     - The SEO is probably not good.
     - The page load is sensibly good.
+- We use Svelte for Frontend because it is easier to read/learn compared to React, Vue, or Angular.
 - At the moment, the frontend use:
     - Sveltekit
     - TailwindCSS
     - DaisyUI
-- Currently Myapp supports some messaging platforms:
+
+## Database
+
+- Myapp uses SQLAlchemy to handle
+    - Database connection
+    - Database migration
+    - Data manipulation
+- To create a custom database implementation, you need to create an implementation that complies with `core.repo.Repo`.
+
+## Messaging
+
+- Currently, Myapp supports some messaging platforms:
     - Rabbitmq (default):
         - `APP_BROKER_TYPE=rabbitmq`
     - Kafka/Redpanda
         - `APP_BROKER_TYPE=kafka`
-    - No messaging platform
+    - No messaging platform, a.k.a: in memory. This will only work properly if you run Myapp as a monolith.
         - `APP_BROKER_TYPE=mock`
 - To create custom event handlers, you need to implement two interfaces:
     - `core.messagebus.Publisher`
     - `core.messagebus.Server`
+
+## RPC
+
 - Currently, RPC implementation depends on the messaging platforms. It is possible to override this behavior by creating you custom implementation. There are two interfaces you need to override:
     - `core.rpc.Caller`
     - `core.rpc.Server`

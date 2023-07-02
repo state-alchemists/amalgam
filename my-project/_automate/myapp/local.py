@@ -11,7 +11,7 @@ from ._common import (
     local_input, run_mode_input, host_input, https_input,
     local_app_port_env, local_app_broker_type_env
 )
-from .image import build_myapp_image, image_input
+from .image import image_input
 from .frontend import build_myapp_frontend
 from .container import remove_myapp_container
 from .local_microservices import get_start_microservices
@@ -145,7 +145,7 @@ start_myapp_gateway = CmdTask(
         local_app_broker_type_env,
         local_app_port_env,
         Env(name='APP_DB_AUTO_MIGRATE', default='false', os_name=''),
-        Env(name='APP_ENABLE_MESSAGE_CONSUMER', default='false', os_name=''),
+        Env(name='APP_ENABLE_EVENT_HANDLER', default='false', os_name=''),
         Env(name='APP_ENABLE_RPC_SERVER', default='false', os_name=''),
     ],
     cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'start.sh'),
@@ -153,7 +153,6 @@ start_myapp_gateway = CmdTask(
         app_local_checker,
     ]
 )
-runner.register(start_myapp_gateway)
 
 start_microservices = get_start_microservices(
     upstreams=[

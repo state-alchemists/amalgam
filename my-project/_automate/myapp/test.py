@@ -21,7 +21,9 @@ app_env_file = EnvFile(
 
 
 @python_task(
+    icon='🧪',
     name='remove-myapp-test-db',
+    group=project_group,
     runner=runner
 )
 def remove_myapp_test_db(*args, **kwargs):
@@ -33,6 +35,7 @@ def remove_myapp_test_db(*args, **kwargs):
 test_myapp = CmdTask(
     icon='🚤',
     name='test-myapp',
+    group=project_group,
     inputs=[
         StrInput(
             name='myapp-test',
@@ -46,7 +49,6 @@ test_myapp = CmdTask(
         prepare_myapp_backend,
         remove_myapp_test_db,
     ],
-    group=project_group,
     cwd=RESOURCE_DIR,
     env_files=[app_env_file],
     envs=[
