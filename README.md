@@ -1,8 +1,8 @@
 # Amalgam
 
-In this demo, you will see how you can use [zrb](https://pypi.org/project/zrb) to:
+In this demo, you will see how you can use [Zrb](https://pypi.org/project/zrb) to:
 
-- Create a CRUD application.
+- Create a modular-monolith CRUD application.
 - Add some entities/fields.
 - Run the application as monolith/microservices.
 - Containerize your application.
@@ -85,23 +85,23 @@ zrb project start-myapp --myapp-run-mode "monolith"
 
 # Checking the process
 
-Currently, `myapp` is running as a single process in your local computer.
+Currently, `myapp` is running as a single process on your local computer.
 
-Let's confirm this by openning a new terminal and invoking the following command:
+Let's confirm this by opening a new terminal and invoking the following command:
 
 ```bash
 pgrep uvicorn -a
 ```
 
-You should see a single process to this:
+You should see a single process like this:
 
 ```
 4001 ... main:app --host 0.0.0.0 --port 3000 --reload --reload-include index.html
 ```
 
-# Run Myapp as microservices
+# Run Myapp as Microservices
 
-Now let's go back to your first terminal, so that you can kill `my-app` process by pressing `ctrl + c`.
+Now let's go back to your first terminal; so that you can kill `my-app` process by pressing `ctrl + c`.
 
 Stay in your first terminal, and try to invoke the following command:
 
@@ -109,7 +109,7 @@ Stay in your first terminal, and try to invoke the following command:
 zrb project start-myapp --myapp-run-mode "microservices"
 ```
 
-Once started, you will be able to access [http://localhost:3000](http://localhost:3000) as what you have done previously.
+Once started, you will be able to access [http://localhost:3000](http://localhost:3000) as you have done previously.
 
 Now let's invoke the following command on your second terminal:
 
@@ -126,23 +126,23 @@ pgrep uvicorn -a
 
 You can see that now you have multiple processes.
 
-Each processes handle different aspect of the application:
+Each process handles different aspect of the application:
 
 - `myapp-gateway` (port: 3000)
-    - Handle HTTP request from user
-    - Send RPC request to other services
-    - Consume RPC reply from other services
+    - Handle HTTP requests from user
+    - Send RPC requests to other services
+    - Consume RPC replies from other services
 - `myapp-auth-service` (port: 3001)
-    - Handle RPC request related to authentication/authorization
-    - Send RPC response to gateway
+    - Handle RPC requests related to authentication/authorization
+    - Send RPC responses to Gateway
 - `myapp-log-service` (port: 3002)
-    - Handle RPC request related to user activity/entities change history
-    - Send RPC response to gateway
+    - Handle RPC requests related to user activities/entities change history
+    - Send RPC responses to Gateway
 - `myapp-library-service` (port: 3002)
-    - Handle RPC request related to book management
-    - Send RPC response to gateway
+    - Handle RPC requests related to book management
+    - Send RPC response to Gateway
 
-You can see that you can run `myapp` as either microservices as monolith. When in doubt, start with monolith.
+You can see that you can run `myapp` as either microservices or as a Monolith.
 
 # Run Myapp as containers
 
@@ -222,4 +222,10 @@ And as always you you can access [http://localhost:3000](http://localhost:3000).
 
 # Conclusion
 
-You have see how you can create, run, and deploy application quickly.
+With Zrb, you can develop and deploy your application easily.
+
+# Further reading
+
+- [Zrb documentation](https://github.com/state-alchemists/zrb/blob/main/docs/README.md)
+- [MyApp documentation](my-project/src/myapp/README.md)
+    - [Modular monolith concept](my-project/src/myapp/docs/modular-monolith/README.md)
