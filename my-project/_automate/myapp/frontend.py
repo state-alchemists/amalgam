@@ -39,7 +39,6 @@ build_myapp_frontend_once = CmdTask(
     icon='🚤',
     name='build-myapp-frontend_once',
     description='Build frontend for myapp',
-    group=project_group,
     cwd=APP_FRONTEND_DIR,
     cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'build-frontend.sh'),
     checkers=[
