@@ -6,7 +6,7 @@ then
     sudo rm -Rf my-project
 fi
 
-echo "👷 Crete my-project"
+echo "👷 Create my-project"
 zrb project create --project-dir my-project --project-name "My Project"
 cd my-project
 rm -Rf .git
