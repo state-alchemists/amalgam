@@ -4,8 +4,8 @@ from zrb.helper.util import to_snake_case, to_kebab_case
 from ._common import (
     CURRENT_DIR, APP_DIR, skip_local_microservices_execution,
     APP_TEMPLATE_ENV_FILE_NAME, MODULES,
-    local_app_broker_type_env, local_input, run_mode_input, host_input,
-    https_input, enable_monitoring_input, app_enable_otel_env
+    local_input, run_mode_input, host_input, https_input,
+    enable_monitoring_input, app_enable_otel_env
 )
 import os
 
@@ -55,6 +55,11 @@ def _get_service_envs(
     snake_module_name = to_snake_case(module_name)
     upper_snake_module_name = snake_module_name.upper()
     # Define service env
+    app_broker_type_env = Env(
+        name='APP_BROKER_TYPE',
+        os_name=f'MYAPP_{upper_snake_module_name}_APP_BROKER_TYPE',
+        default='rabbitmq'
+    )
     app_port_env = Env(
         name='APP_PORT',
         os_name=f'MYAPP_{upper_snake_module_name}_APP_PORT',
@@ -65,16 +70,16 @@ def _get_service_envs(
         os_name='',
         default='true'
     )
-    app_name_env = Env(
+    zrb_app_name_env = Env(
         name='APP_NAME',
         os_name=f'MYAPP_{upper_snake_module_name}_APP_NAME',
         default=f'myapp-{kebab_module_name}-service'
     )
     return [
-        local_app_broker_type_env,
+        app_broker_type_env,
         app_enable_otel_env,
         app_port_env,
-        app_name_env,
+        zrb_app_name_env,
         enable_module_env,
     ]
 

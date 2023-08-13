@@ -79,7 +79,7 @@
 <form class="max-w-md mx-auto bg-gray-100 p-6 rounded-md mt-5 mb-5">
   <h2 class="text-xl font-bold mb-4">Update Book</h2>
     <div class="mb-4">
-        <label class="block text-gray-700 font-bold mb-2" for="code">Code</label>
+        <label class="block text-gray-700 font-bold mb-2" for="code">Human zrb readable column name</label>
         <input type="text" class="input w-full" id="code" placeholder="Code" bind:value={row.code} />
     </div>
     <div class="mb-4">

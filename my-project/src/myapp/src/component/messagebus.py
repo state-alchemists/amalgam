@@ -1,5 +1,5 @@
 from config import (
-    app_name, app_broker_type, app_rmq_connection_string,
+    zrb_app_name, app_broker_type, app_rmq_connection_string,
     app_kafka_bootstrap_servers, app_kafka_security_protocol,
     app_kafka_sasl_mechanism, app_kafka_sasl_user, app_kafka_sasl_pass
 )
@@ -80,7 +80,7 @@ def init_consumer(
             sasl_mechanism=app_kafka_sasl_mechanism,
             sasl_plain_username=app_kafka_sasl_user,
             sasl_plain_password=app_kafka_sasl_pass,
-            group_id=app_name,
+            group_id=zrb_app_name,
             serializer=serializer,
             kafka_admin=admin
         )

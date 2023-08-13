@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from config import (
-    app_name, app_enable_event_handler, app_enable_rpc_server,
+    zrb_app_name, app_enable_event_handler, app_enable_rpc_server,
     app_enable_frontend, app_db_auto_migrate
 )
 from config import app_src_dir
@@ -17,7 +17,7 @@ import os
 
 @asynccontextmanager
 async def app_lifespan(app: FastAPI):
-    logger.info(f'{app_name} started')
+    logger.info(f'{zrb_app_name} started')
     if app_db_auto_migrate:
         await migrate()
     app_state.set_liveness(True)
@@ -33,8 +33,8 @@ async def app_lifespan(app: FastAPI):
             name='frontend-static-resources'
         )
     app_state.set_readiness(True)
-    logger.info(f'{app_name} started')
+    logger.info(f'{zrb_app_name} started')
     yield
     if app_enable_event_handler:
         await consumer.stop()
-    logger.info(f'{app_name} closed')
+    logger.info(f'{zrb_app_name} closed')

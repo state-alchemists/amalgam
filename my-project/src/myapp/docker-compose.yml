@@ -10,7 +10,7 @@ services:
 
   redpanda:
     image: docker.redpanda.com/redpandadata/redpanda:v22.3.11
-    container_name: myapp_redpanda
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-redpanda
     hostname: redpanda
     # Redpanda docker configuration: https://docs.redpanda.com/docs/reference/docker-compose/#configure-redpanda-in-docker
     # Redpanda node configuration example: https://docs.redpanda.com/docs/reference/node-configuration-sample/
@@ -53,7 +53,7 @@ services:
 
   redpanda-console:
     image: docker.redpanda.com/redpandadata/console:v2.2.2
-    container_name: myapp_redpanda_console
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-redpanda-console
     hostname: redpanda-console
     ports:
     - ${REDPANDA_CONSOLE_HOST_PORT:-9000}:8080
@@ -70,7 +70,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
-    container_name: myapp_rabbitmq
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-rabbitmq
     hostname: rabbitmq
     ports:
     - ${RABBITMQ_HOST_PORT:-5672}:5672
@@ -95,7 +95,7 @@ services:
 
   postgresql:
     image: postgres:15.2
-    container_name: myapp_postgresql
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-postgresql
     hostname: postgresql
     restart: unless-stopped
     environment:
@@ -117,7 +117,7 @@ services:
 
   zookeeper:
     image: bitnami/zookeeper:3.7.1
-    container_name: myapp_zookeeper
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-zookeeper
     hostname: zookeeper
     restart: unless-stopped
     profiles:
@@ -137,7 +137,7 @@ services:
 
   clickhouse:
     image: clickhouse/clickhouse-server:22.8.8-alpine
-    container_name: myapp_clickhouse
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-clickhouse
     hostname: clickhouse
     restart: unless-stopped
     profiles:
@@ -177,7 +177,7 @@ services:
 
   alertmanager:
     image: signoz/alertmanager:0.23.1
-    container_name: myapp_monitoring_alertmanager
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-alertmanager
     hostname: alertmanager
     restart: unless-stopped
     profiles:
@@ -196,15 +196,15 @@ services:
 
   query-service:
     image: signoz/query-service:0.23.0
-    container_name: myapp_monitoring_query_service
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-query-service
     hostname: query-service
     restart: unless-stopped
     profiles:
     - monitoring
     command: [-config=/root/config/prometheus.yml]
-    # ports:
-    #   - "6060:6060"     # pprof port
-    #   - "8080:8080"     # query-service port
+    ports:
+    - 0:6060         # pprof port
+    - 0:8080         # query-service port
     volumes:
     - ./monitoring/query-service/prometheus.yml:/root/config/prometheus.yml
     - ./monitoring/query-service/dashboards:/root/config/dashboards
@@ -232,7 +232,7 @@ services:
 
   frontend:
     image: signoz/frontend:0.23.0
-    container_name: myapp_monitoring_frontend
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-frontend
     hostname: frontend
     restart: unless-stopped
     profiles:
@@ -250,7 +250,7 @@ services:
 
   otel-collector:
     image: signoz/signoz-otel-collector:0.79.2
-    container_name: myapp_monitoring_otel_collector
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-otel-collector
     hostname: otel-collector
     restart: unless-stopped
     profiles:
@@ -265,17 +265,17 @@ services:
     - DOCKER_MULTI_NODE_CLUSTER=false
     - LOW_CARDINAL_EXCEPTION_GROUPING=false
     ports:
-    # - "1777:1777"     # pprof extension
+    - 1777:1777       # pprof extension
     - ${OTEL_COLLECTOR_GRPC_HOST_PORT:-4317}:4317       # OTLP gRPC receiver
     - ${OTEL_COLLECTOR_HTTP_HOST_PORT:-4318}:4318       # OTLP HTTP receiver
-    # - "8888:8888"     # OtelCollector internal metrics
-    # - "8889:8889"     # signoz spanmetrics exposed by the agent
-    # - "9411:9411"     # Zipkin port
-    # - "13133:13133"   # health check extension
-    # - "14250:14250"   # Jaeger gRPC
-    # - "14268:14268"   # Jaeger thrift HTTP
-    # - "55678:55678"   # OpenCensus receiver
-    # - "55679:55679"   # zPages extension
+    - 0:8888       # OtelCollector internal metrics
+    - 0:8889       # signoz spanmetrics exposed by the agent
+    - 0:9411       # Zipkin port
+    - 0:13133     # health check extension
+    - 0:14250     # Jaeger gRPC
+    - 0:14268     # Jaeger thrift HTTP
+    - 0:55678     # OpenCensus receiver
+    - 0:55679     # zPages extension
     depends_on:
       clickhouse:
         condition: service_healthy
@@ -285,7 +285,7 @@ services:
 
   otel-collector-metrics:
     image: signoz/signoz-otel-collector:0.79.2
-    container_name: myapp_monitoring_otel_collector_metrics
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-otel-collector-metrics
     hostname: otel_collector_metrics
     restart: unless-stopped
     profiles:
@@ -293,11 +293,11 @@ services:
     command: [--config=/etc/otel-collector-metrics-config.yaml, --feature-gates=-pkg.translator.prometheus.NormalizeName]
     volumes:
     - ./monitoring/otel-collector-metrics/otel-collector-metrics-config.yaml:/etc/otel-collector-metrics-config.yaml
-    # ports:
-    #   - "1777:1777"     # pprof extension
-    #   - "8888:8888"     # OtelCollector internal metrics
-    #   - "13133:13133"   # Health check extension
-    #   - "55679:55679"   # zPages extension
+    ports:
+    - 0:1777       # pprof extension
+    - 0:8888       # OtelCollector internal metrics
+    - 0:13133     # Health check extension
+    - 0:55679     # zPages extension
     depends_on:
       clickhouse:
         condition: service_healthy
@@ -314,17 +314,13 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-myapp}
-    container_name: myapp
+    container_name: ${CONTAINER_PREFIX:-my}-myapp
     hostname: myapp
     env_file:
     - src/template.env
     environment:
       APP_NAME: ${APP_NAME:-myapp}
       APP_PORT: ${APP_PORT:-8080}
-      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
-      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
-      APP_DB_CONNECTION: 
-        ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
     ports:
     - ${APP_HOST_PORT:-8080}:${APP_PORT:-8080}
     restart: unless-stopped
@@ -349,18 +345,14 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-myapp}
-    container_name: myapp_gateway
-    hostname: myapp_gateway
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-gateway
+    hostname: myapp-gateway
     env_file:
     - src/template.env
     - all-module-enabled.env
     environment:
       APP_NAME: ${APP_NAME:-myapp}-gateway
       APP_PORT: ${APP_GATEWAY_PORT:-8080}
-      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
-      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
-      APP_DB_CONNECTION: 
-        ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
       APP_ENABLE_EVENT_HANDLER: false
       APP_ENABLE_RPC_SERVER: false
       APP_ENABLE_API: true
@@ -381,23 +373,19 @@ services:
     - zrb
 
 
-  myapp-auth:
+  myapp-auth-service:
     build:
       dockerfile: Dockerfile
       context: ./src
-    image: ${IMAGE:-fastapp}
-    container_name: myapp_auth
-    hostname: myapp_auth
+    image: ${IMAGE:-myapp}
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-auth-service
+    hostname: myapp-auth-service
     env_file:
     - src/template.env
     - all-module-disabled.env
     environment:
       APP_NAME: ${APP_NAME:-fastapp}-auth-service
       APP_PORT: ${APP_AUTH_MODULE_PORT:-8081}
-      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
-      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
-      APP_DB_CONNECTION: 
-        ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
       APP_ENABLE_EVENT_HANDLER: true
       APP_ENABLE_RPC_SERVER: true
       APP_ENABLE_API: false
@@ -411,7 +399,8 @@ services:
     healthcheck:
       test:
       - CMD-SHELL
-      - curl --fail http://localhost:${APP_PORT:-8080}/readiness || exit 1
+      - curl --fail http://localhost:${APP_AUTH_MODULE_PORT:-8081}/readiness || exit
+        1
       interval: 5s
       timeout: 3s
       retries: 10
@@ -419,23 +408,19 @@ services:
     - zrb
 
 
-  myapp-log:
+  myapp-log-service:
     build:
       dockerfile: Dockerfile
       context: ./src
-    image: ${IMAGE:-fastapp}
-    container_name: myapp_log
-    hostname: myapp_log
+    image: ${IMAGE:-myapp}
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-log-service
+    hostname: myapp-log-service
     env_file:
     - src/template.env
     - all-module-disabled.env
     environment:
       APP_NAME: ${APP_NAME:-fastapp}-log-service
-      APP_PORT: ${APP_LOG_MODULE_PORT:-8083}
-      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
-      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
-      APP_DB_CONNECTION: 
-        ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
+      APP_PORT: ${APP_LOG_MODULE_PORT:-8082}
       APP_ENABLE_EVENT_HANDLER: 'true'
       APP_ENABLE_RPC_SERVER: 'true'
       APP_ENABLE_API: 'false'
@@ -449,7 +434,8 @@ services:
     healthcheck:
       test:
       - CMD-SHELL
-      - curl --fail http://localhost:${APP_PORT:-8080}/readiness || exit 1
+      - curl --fail http://localhost:${APP_LOG_MODULE_PORT:-8082}/readiness || exit
+        1
       interval: 5s
       timeout: 3s
       retries: 10
@@ -460,18 +446,14 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-myapp}
-    container_name: myapp_library_service
-    hostname: myapp_library
+    container_name: ${CONTAINER_PREFIX:-my}-myapp-library-service
+    hostname: myapp-library-service
     env_file:
     - src/template.env
     - all-module-disabled.env
     environment:
       APP_NAME: ${APP_NAME:-myapp}-library-service
       APP_PORT: ${APP_LIBRARY_MODULE_PORT:-8083}
-      APP_RMQ_CONNECTION: ${APP_CONTAINER_RMQ_CONNECTION:-amqp://guest:guest@rabbitmq/}
-      APP_KAFKA_BOOTSTRAP_SERVERS: ${APP_CONTAINER_KAFKA_BOOTSTRAP_SERVERS:-redpanda:9092}
-      APP_DB_CONNECTION: 
-        ${APP_CONTAINER_DB_CONNECTION:-postgresql+psycopg2://postgres:admin@postgresql:5432/myapp}
       APP_ENABLE_EVENT_HANDLER: 'true'
       APP_ENABLE_RPC_SERVER: 'true'
       APP_ENABLE_API: 'false'
@@ -485,7 +467,8 @@ services:
     healthcheck:
       test:
       - CMD-SHELL
-      - curl --fail http://localhost:${APP_PORT:-8080}/readiness || exit 1
+      - curl --fail http://localhost:${APP_LIBRARY_MODULE_PORT:-8083}/readiness ||
+        exit 1
       interval: 5s
       timeout: 3s
       retries: 10

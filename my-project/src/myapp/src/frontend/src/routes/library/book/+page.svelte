@@ -31,17 +31,17 @@
 
     async function loadAuthorization() {
         const authorization = await getAuthorization([
-            'library:book:get',
-            'library:book:get_by_id',
-            'library:book:insert',
-            'library:book:update',
-            'library:book:delete'
+            'snake_module_name:book:get',
+            'snake_module_name:book:get_by_id',
+            'snake_module_name:book:insert',
+            'snake_module_name:book:update',
+            'snake_module_name:book:delete'
         ]);
-        allowGet = authorization['library:book:get'] || false;
-        allowGetById = authorization['library:book:get_by_id'] || false;
-        allowInsert = authorization['library:book:insert'] || false;
-        allowUpdate = authorization['library:book:update'] || false;
-        allowDelete = authorization['library:book:delete'] || false;
+        allowGet = authorization['snake_module_name:book:get'] || false;
+        allowGetById = authorization['snake_module_name:book:get_by_id'] || false;
+        allowInsert = authorization['snake_module_name:book:insert'] || false;
+        allowUpdate = authorization['snake_module_name:book:update'] || false;
+        allowDelete = authorization['snake_module_name:book:delete'] || false;
     }
 
     async function loadRows() {

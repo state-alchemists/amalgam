@@ -1,5 +1,6 @@
-from typing import Mapping, Any
+from typing import Mapping, Any, List
 from zrb import DockerComposeTask, Env, ServiceConfig, EnvFile, runner, Task
+from zrb.helper.util import to_kebab_case
 from zrb.builtin._group import project_group
 from ._common import (
     APP_TEMPLATE_ENV_FILE_NAME, RESOURCE_DIR, MODULES, app_container_checker,
@@ -11,6 +12,10 @@ from ._common import (
 from .image import build_myapp_image, image_input, image_env
 import os
 
+DOCKER_COMPOSE_APP_ENV_FILE_NAME = os.path.join(
+    RESOURCE_DIR, 'docker-compose-app.env'
+)
+
 ###############################################################################
 # Functions
 ###############################################################################
@@ -19,10 +24,12 @@ import os
 def setup_runtime_compose_profile(*args: Any, **kwargs: Any) -> str:
     task: Task = kwargs.get('_task')
     env_map = task.get_env_map()
-    compose_profiles = [
-        env_map.get('APP_PBROKER_TYPE', 'rabbitmq'),
+    compose_profiles: List[str] = [
         kwargs.get('myapp_run_mode', 'monolith'),
     ]
+    broker_type = env_map.get('APP_BROKER_TYPE', 'rabbitmq')
+    if broker_type in ['rabbitmq', 'kafka']:
+        compose_profiles.append(broker_type)
     if kwargs.get('enable_myapp_monitoring', False):
         compose_profiles.append('monitoring')
     compose_profile_str = ','.join(compose_profiles)
@@ -59,13 +66,18 @@ compose_env_file = EnvFile(
 ###############################################################################
 
 service_configs: Mapping[str, ServiceConfig] = {}
-for suffix in ['', 'gateway'] + MODULES:
+service_names = [to_kebab_case(module) + '-service' for module in MODULES]
+for suffix in ['', 'gateway'] + service_names:
     service_suffix = '-' + suffix if suffix != '' else ''
     service_name = f'myapp{service_suffix}'
     service_configs[service_name] = ServiceConfig(
         env_files=[
             EnvFile(
                 env_file=APP_TEMPLATE_ENV_FILE_NAME,
+                prefix='CONTAINER_MYAPP'
+            ),
+            EnvFile(
+                env_file=DOCKER_COMPOSE_APP_ENV_FILE_NAME,
                 prefix='CONTAINER_MYAPP'
             )
         ],
@@ -85,7 +97,7 @@ for suffix in ['', 'gateway'] + MODULES:
 remove_myapp_container = DockerComposeTask(
     icon='💨',
     name='remove-myapp-container',
-    description='Rumove myapp container',
+    description='Remove myapp container',
     group=project_group,
     cwd=RESOURCE_DIR,
     setup_cmd=setup_all_compose_profile,

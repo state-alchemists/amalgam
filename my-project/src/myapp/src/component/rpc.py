@@ -5,7 +5,7 @@ from component.messagebus import (
 )
 from component.log import logger
 from config import (
-    app_name, app_broker_type, app_rmq_connection_string,
+    zrb_app_name, app_broker_type, app_rmq_connection_string,
     app_kafka_bootstrap_servers
 )
 from ulid import ULID
@@ -22,7 +22,7 @@ def create_consumer():
         )
     if app_broker_type == 'kafka':
         random_uuid = str(ULID())
-        group_id = f'{app_name}-reply-{random_uuid}'
+        group_id = f'{zrb_app_name}-reply-{random_uuid}'
         return KafkaConsumer(
             logger=logger,
             bootstrap_servers=app_kafka_bootstrap_servers,

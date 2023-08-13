@@ -146,18 +146,6 @@ host_input = StrInput(
 # Env fDefinitions
 ###############################################################################
 
-local_app_port_env = Env(
-    name='APP_PORT',
-    os_name='MYAPP_APP_PORT',
-    default='3000'
-)
-
-local_app_broker_type_env = Env(
-    name='APP_BROKER_TYPE',
-    os_name='MYAPP_APP_BROKER_TYPE',
-    default='rabbitmq'
-)
-
 app_enable_otel_env = Env(
     name='APP_ENABLE_OTEL',
     default='{{ "1" if input.enable_myapp_monitoring else "0" }}'

@@ -1,6 +1,6 @@
 from typing import AsyncIterator
 from httpx import AsyncClient
-from src.config import app_name
+from src.config import zrb_app_name
 import pytest
 
 
@@ -11,7 +11,7 @@ async def test_get_liveness(
     async for client in test_client_generator:
         response = await client.get("/liveness")
         assert response.status_code == 200
-        assert response.json() == {'app': app_name, 'alive': True}
+        assert response.json() == {'app': zrb_app_name, 'alive': True}
 
 
 @pytest.mark.asyncio
@@ -30,7 +30,7 @@ async def test_get_readiness(
     async for client in test_client_generator:
         response = await client.get("/readiness")
         assert response.status_code == 200
-        assert response.json() == {'app': app_name, 'ready': True}
+        assert response.json() == {'app': zrb_app_name, 'ready': True}
 
 
 @pytest.mark.asyncio

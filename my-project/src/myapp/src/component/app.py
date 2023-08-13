@@ -2,7 +2,7 @@ from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from config import (
-    app_name, app_enable_frontend, app_cors_allow_credentials,
+    zrb_app_name, app_enable_frontend, app_cors_allow_credentials,
     app_cors_allow_headers, app_cors_allow_methods,
     app_cors_allow_origin_regex, app_cors_allow_origins,
     app_cors_expose_headers, app_cors_max_age, public_brand,
@@ -14,7 +14,7 @@ from component.app_lifespan import app_state
 from component.app_lifespan import app_lifespan
 from component.frontend_index import frontend_index_response
 
-app = FastAPI(title=app_name, lifespan=app_lifespan)
+app = FastAPI(title=zrb_app_name, lifespan=app_lifespan)
 
 if app_enable_frontend:
     @app.middleware("http")
@@ -52,7 +52,7 @@ def get_application_liveness_status():
     '''
     if app_state.get_liveness():
         return JSONResponse(
-            content={'app': app_name, 'alive': True},
+            content={'app': zrb_app_name, 'alive': True},
             status_code=status.HTTP_200_OK
         )
     return JSONResponse(
@@ -74,7 +74,7 @@ def get_application_readiness_status():
     '''
     if app_state.get_readiness():
         return JSONResponse(
-            content={'app': app_name, 'ready': True},
+            content={'app': zrb_app_name, 'ready': True},
             status_code=status.HTTP_200_OK
         )
     return JSONResponse(

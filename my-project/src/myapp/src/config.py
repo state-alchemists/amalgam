@@ -5,7 +5,7 @@ import json
 
 app_src_dir = os.path.dirname(__file__)
 
-app_name = os.getenv('APP_NAME', 'app')
+zrb_app_name = os.getenv('APP_NAME', 'app')
 app_logging_level = str_to_logging_level(
     os.getenv('APP_LOGGING_LEVEL', 'INFO')
 )
