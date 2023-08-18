@@ -1,6 +1,6 @@
 from zrb.builtin._group import project_group
 from zrb import Task, runner
-from ..myapp.local import start_myapp
+from _automate.myapp.local import start_myapp
 
 start_project = Task(
     name='start',

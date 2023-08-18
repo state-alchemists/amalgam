@@ -16,7 +16,7 @@ build_myapp_frontend = CmdTask(
     description='Build frontend for myapp',
     group=project_group,
     cwd=APP_FRONTEND_DIR,
-    cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'build-frontend.sh'),
+    cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'app-build-frontend.sh'),
     checkers=[
         PathChecker(
             name='check-myapp-frontend-build',
@@ -39,7 +39,7 @@ build_myapp_frontend_once = CmdTask(
     name='build-myapp-frontend_once',
     description='Build frontend for myapp',
     cwd=APP_FRONTEND_DIR,
-    cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'build-frontend.sh'),
+    cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'app-build-frontend.sh'),
     checkers=[
         PathChecker(
             name='check-myapp-frontend-build',

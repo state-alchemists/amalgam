@@ -1,6 +1,6 @@
 from zrb.builtin._group import project_group
 from zrb import Task, runner
-from ..myapp.deployment import destroy_myapp
+from _automate.myapp.deployment import destroy_myapp
 
 destroy_project = Task(
     name='destroy',

@@ -1,6 +1,6 @@
 from zrb.builtin._group import project_group
 from zrb import Task, runner
-from ..myapp.deployment import deploy_myapp
+from _automate.myapp.deployment import deploy_myapp
 
 deploy_project = Task(
     name='deploy',

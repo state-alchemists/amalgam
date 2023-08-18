@@ -1,6 +1,6 @@
 from zrb.builtin._group import project_group
 from zrb import Task, runner
-from ..myapp.container import start_myapp_container
+from _automate.myapp.container import start_myapp_container
 
 start_project_containers = Task(
     name='start-containers',

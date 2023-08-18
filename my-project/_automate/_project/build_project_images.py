@@ -1,6 +1,6 @@
 from zrb.builtin._group import project_group
 from zrb import Task, runner
-from ..myapp.image import build_myapp_image
+from _automate.myapp.image import build_myapp_image
 
 build_project_images = Task(
     name='build-images',

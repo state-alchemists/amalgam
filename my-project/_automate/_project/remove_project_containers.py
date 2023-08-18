@@ -1,6 +1,6 @@
 from zrb.builtin._group import project_group
 from zrb import Task, runner
-from ..myapp.container import remove_myapp_container
+from _automate.myapp.container import remove_myapp_container
 
 remove_project_containers = Task(
     name='remove-containers',

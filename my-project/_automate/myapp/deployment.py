@@ -106,7 +106,10 @@ deploy_myapp = CmdTask(
         deployment_mode_env,
         deployment_enable_monitoring_env,
     ],
-    cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'pulumi-up.sh'),
+    cmd_path=[
+        os.path.join(CURRENT_DIR, 'cmd', 'pulumi-init-stack.sh'),
+        os.path.join(CURRENT_DIR, 'cmd', 'pulumi-destroy.sh'),
+    ]
 )
 runner.register(deploy_myapp)
 
@@ -129,6 +132,9 @@ destroy_myapp = CmdTask(
         image_env,
         deployment_modules_env,
     ],
-    cmd_path=os.path.join(CURRENT_DIR, 'cmd', 'pulumi-destroy.sh'),
+    cmd_path=[
+        os.path.join(CURRENT_DIR, 'cmd', 'pulumi-init-stack.sh'),
+        os.path.join(CURRENT_DIR, 'cmd', 'pulumi-destroy.sh'),
+    ]
 )
 runner.register(destroy_myapp)
