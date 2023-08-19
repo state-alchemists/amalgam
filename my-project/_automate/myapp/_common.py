@@ -33,7 +33,8 @@ MODULES = jsons.loads(MODULE_JSON_STR)
 def skip_local_microservices_execution(*args: Any, **kwargs: Any) -> bool:
     if not kwargs.get('local_myapp', True):
         return True
-    return kwargs.get('myapp_run_mode', 'monolith') != 'microservices'
+    run_mode = kwargs.get('myapp_run_mode', 'monolith')
+    return run_mode != 'microservices'
 
 
 ###############################################################################

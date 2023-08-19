@@ -1,4 +1,4 @@
-from zrb.builtin._group import project_group
+from zrb.builtin.group import project_group
 from zrb import Task, runner
 from _automate.myapp.image import build_myapp_image
 
