@@ -1,7 +1,14 @@
 version: '3'
+x-logging: &default-logging
+  options:
+    max-size: 100m
+    max-file: '5'
+  driver: json-file
+
 networks:
   zrb:
     name: zrb
+
 services:
 
   #############################################################################
@@ -10,6 +17,7 @@ services:
 
   redpanda:
     image: docker.redpanda.com/redpandadata/redpanda:v22.3.11
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-redpanda
     hostname: redpanda
     # Redpanda docker configuration: https://docs.redpanda.com/docs/reference/docker-compose/#configure-redpanda-in-docker
@@ -53,6 +61,7 @@ services:
 
   redpanda-console:
     image: docker.redpanda.com/redpandadata/console:v2.2.2
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-redpanda-console
     hostname: redpanda-console
     ports:
@@ -70,6 +79,7 @@ services:
 
   rabbitmq:
     image: rabbitmq:3-management
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-rabbitmq
     hostname: rabbitmq
     ports:
@@ -95,6 +105,7 @@ services:
 
   postgresql:
     image: postgres:15.2
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-postgresql
     hostname: postgresql
     restart: unless-stopped
@@ -117,6 +128,7 @@ services:
 
   zookeeper:
     image: bitnami/zookeeper:3.7.1
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-zookeeper
     hostname: zookeeper
     restart: unless-stopped
@@ -137,6 +149,7 @@ services:
 
   clickhouse:
     image: clickhouse/clickhouse-server:22.8.8-alpine
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-clickhouse
     hostname: clickhouse
     restart: unless-stopped
@@ -145,10 +158,6 @@ services:
     tty: true
     depends_on:
     - zookeeper
-    logging:
-      options:
-        max-size: 50m
-        max-file: '3'
     healthcheck:
       # "clickhouse", "client", "-u ${CLICKHOUSE_USER}", "--password ${CLICKHOUSE_PASSWORD}", "-q 'SELECT 1'"
       test: [CMD, wget, --spider, -q, localhost:8123/ping]
@@ -177,6 +186,7 @@ services:
 
   alertmanager:
     image: signoz/alertmanager:0.23.1
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-alertmanager
     hostname: alertmanager
     restart: unless-stopped
@@ -196,6 +206,7 @@ services:
 
   query-service:
     image: signoz/query-service:0.23.0
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-query-service
     hostname: query-service
     restart: unless-stopped
@@ -232,6 +243,7 @@ services:
 
   frontend:
     image: signoz/frontend:0.23.0
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-frontend
     hostname: frontend
     restart: unless-stopped
@@ -250,6 +262,7 @@ services:
 
   otel-collector:
     image: signoz/signoz-otel-collector:0.79.2
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-otel-collector
     hostname: otel-collector
     restart: unless-stopped
@@ -285,6 +298,7 @@ services:
 
   otel-collector-metrics:
     image: signoz/signoz-otel-collector:0.79.2
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-monitoring-otel-collector-metrics
     hostname: otel_collector_metrics
     restart: unless-stopped
@@ -314,6 +328,7 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-myapp}
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp
     hostname: myapp
     env_file:
@@ -345,6 +360,7 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-myapp}
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-gateway
     hostname: myapp-gateway
     env_file:
@@ -378,6 +394,7 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-myapp}
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-auth-service
     hostname: myapp-auth-service
     env_file:
@@ -413,6 +430,7 @@ services:
       dockerfile: Dockerfile
       context: ./src
     image: ${IMAGE:-myapp}
+    logging: *default-logging
     container_name: ${CONTAINER_PREFIX:-my}-myapp-log-service
     hostname: myapp-log-service
     env_file:
