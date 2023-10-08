@@ -54,10 +54,15 @@ deployment_app_env_file = EnvFile(
     env_file=APP_TEMPLATE_ENV_FILE_NAME,
     prefix='DEPLOYMENT_APP_MYAPP'
 )
-deployment_env_file = EnvFile(
+
+deployment_config_env_file = EnvFile(
     env_file=DEPLOYMENT_TEMPLATE_ENV_FILE_NAME,
     prefix='DEPLOYMENT_CONFIG_MYAPP'
 )
+
+###############################################################################
+# Env Definitions
+###############################################################################
 
 deployment_modules_env = Env(
     name='MODULES',
@@ -95,7 +100,7 @@ deploy_myapp = CmdTask(
     upstreams=[push_myapp_image],
     cwd=DEPLOYMENT_DIR,
     env_files=[
-        deployment_env_file,
+        deployment_config_env_file,
         deployment_app_env_file,
     ],
     envs=[
@@ -108,7 +113,7 @@ deploy_myapp = CmdTask(
     ],
     cmd_path=[
         os.path.join(CURRENT_DIR, 'cmd', 'pulumi-init-stack.sh'),
-        os.path.join(CURRENT_DIR, 'cmd', 'pulumi-destroy.sh'),
+        os.path.join(CURRENT_DIR, 'cmd', 'pulumi-up.sh'),
     ]
 )
 runner.register(deploy_myapp)
@@ -123,7 +128,7 @@ destroy_myapp = CmdTask(
     ],
     cwd=DEPLOYMENT_DIR,
     env_files=[
-        deployment_env_file,
+        deployment_config_env_file,
         deployment_app_env_file,
     ],
     envs=[
