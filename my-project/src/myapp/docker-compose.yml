@@ -8,6 +8,7 @@ x-logging: &default-logging
 networks:
   zrb:
     name: zrb
+    external: true
 
 services:
 
