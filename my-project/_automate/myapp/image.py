@@ -37,7 +37,7 @@ build_myapp_image = DockerComposeTask(
         image_input,
     ],
     envs=[image_env],
-    skip_execution='{{not input.local_myapp}}',
+    should_execute='{{ input.local_myapp}}',
     cwd=RESOURCE_DIR,
     compose_cmd='build',
     compose_args=[
