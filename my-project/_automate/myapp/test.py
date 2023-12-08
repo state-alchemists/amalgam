@@ -10,7 +10,7 @@ import os
 ###############################################################################
 
 app_env_file = EnvFile(
-    env_file=APP_TEMPLATE_ENV_FILE_NAME, prefix='TEST_MYAPP'
+    path=APP_TEMPLATE_ENV_FILE_NAME, prefix='TEST_MYAPP'
 )
 
 ###############################################################################

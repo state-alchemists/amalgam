@@ -25,7 +25,7 @@ build_myapp_frontend = CmdTask(
     ],
     env_files=[
         EnvFile(
-            env_file=APP_TEMPLATE_ENV_FILE_NAME, prefix='MYAPP'
+            path=APP_TEMPLATE_ENV_FILE_NAME, prefix='MYAPP'
         ),
     ],
     envs=[
@@ -48,7 +48,7 @@ build_myapp_frontend_once = CmdTask(
     ],
     env_files=[
         EnvFile(
-            env_file=APP_TEMPLATE_ENV_FILE_NAME, prefix='MYAPP'
+            path=APP_TEMPLATE_ENV_FILE_NAME, prefix='MYAPP'
         ),
     ],
     envs=[
