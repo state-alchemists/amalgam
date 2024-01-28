@@ -1,7 +1,7 @@
-from sqlalchemy import Column, Integer, Table, ForeignKey
 from module.log.component.base import Base
+from sqlalchemy import Column, ForeignKey, Integer, Table
 
-'''
+"""
 You should put any "many-to-many" table declarations in this file.
 For example:
 ```
@@ -15,7 +15,7 @@ user_permission = Table(
 ```
 
 Remove the following assertions:
-'''
+"""
 assert Column
 assert Integer
 assert Table

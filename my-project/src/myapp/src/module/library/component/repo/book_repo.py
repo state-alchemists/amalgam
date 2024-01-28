@@ -1,7 +1,8 @@
-from component.log import logger
 from component.db_connection import engine
+from component.log import logger
 from module.library.entity.book.repo import (
-    BookRepo, BookDBRepo
+    BookDBRepo,
+    BookRepo,
 )
 
 book_repo: BookRepo = BookDBRepo(

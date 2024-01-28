@@ -1,12 +1,17 @@
-from sqlalchemy import Column, String
-from core.repo import Repo, DBEntityMixin, DBRepo
-from module.library.schema.book import (
-    Book, BookData
-)
+from core.repo import DBEntityMixin, DBRepo, Repo
 from module.library.component import Base
+from module.library.schema.book import (
+    Book,
+    BookData,
+)
+from sqlalchemy import Column, String
 
 
 class DBEntityBook(Base, DBEntityMixin):
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
     __tablename__ = "books"
     code = Column(String)
     title: Column = Column(String)

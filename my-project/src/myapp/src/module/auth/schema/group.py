@@ -1,5 +1,6 @@
 from typing import List
-from core.schema import BaseDateTimeSchema, BaseCountSchema
+
+from core.schema import BaseCountSchema, BaseDateTimeSchema
 from module.auth.schema.permission import Permission
 
 
@@ -13,11 +14,12 @@ class GroupData(GroupBase):
 
 
 class Group(GroupBase):
-    id: str
-    permissions: List[Permission] = []
-
     class Config:
         orm_mode = True
+        from_attributes = True
+
+    id: str
+    permissions: List[Permission] = []
 
 
 class GroupResult(BaseCountSchema):

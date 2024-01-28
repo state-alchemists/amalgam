@@ -1,4 +1,4 @@
-PYTHONUNBUFFERED=1
+export PYTHONUNBUFFERED=1
 echo "Start load test"
 locust {%if input.myapp_load_test_headless %}--headless{% endif %} \
     --web-port {{ input.myapp_load_test_port }} \

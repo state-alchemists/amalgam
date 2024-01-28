@@ -1,11 +1,13 @@
-from config import (
-    app_enable_rpc_server, app_enable_event_handler, app_enable_api,
-    app_enable_library_module
-)
-from component.log import logger
 from component.app import app
+from component.log import logger
 from component.messagebus import consumer, publisher
 from component.rpc import rpc_caller, rpc_server
+from config import (
+    app_enable_api,
+    app_enable_event_handler,
+    app_enable_rpc_server,
+    app_enable_library_module,
+)
 from module.auth.component import authorizer
 from module.library.api import register_api
 from module.library.event import register_event
@@ -22,19 +24,16 @@ def register_library():
             app=app,
             authorizer=authorizer,
             rpc_caller=rpc_caller,
-            publisher=publisher
+            publisher=publisher,
         )
     if app_enable_event_handler:
         register_event(
-            logger=logger,
-            consumer=consumer,
-            rpc_caller=rpc_caller,
-            publisher=publisher
+            logger=logger, consumer=consumer, rpc_caller=rpc_caller, publisher=publisher
         )
     if app_enable_rpc_server:
         register_rpc(
             logger=logger,
             rpc_server=rpc_server,
             rpc_caller=rpc_caller,
-            publisher=publisher
+            publisher=publisher,
         )

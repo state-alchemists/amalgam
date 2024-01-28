@@ -1,9 +1,10 @@
-from component.log import logger
-from config import app_max_not_ready
 import asyncio
 
+from component.log import logger
+from config import app_max_not_ready
 
-class AppState():
+
+class AppState:
     __instance = None
 
     def __new__(cls):

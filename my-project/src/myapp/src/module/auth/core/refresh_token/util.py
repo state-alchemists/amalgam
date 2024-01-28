@@ -1,14 +1,13 @@
 from abc import ABC, abstractmethod
-from core.error import HTTPAPIException
-from module.auth.schema.token import RefreshTokenData
 from datetime import datetime, timedelta
-from jose import jwt
 
 import jsons
+from core.error import HTTPAPIException
+from jose import jwt
+from module.auth.schema.token import RefreshTokenData
 
 
 class RefreshTokenUtil(ABC):
-
     @abstractmethod
     def encode(self, token_data: RefreshTokenData) -> str:
         pass
@@ -19,20 +18,15 @@ class RefreshTokenUtil(ABC):
 
 
 class JWTRefreshTokenUtil(RefreshTokenUtil):
-
-    def __init__(self, secret_key: str, algorithm: str = 'HS256'):
+    def __init__(self, secret_key: str, algorithm: str = "HS256"):
         self.secret_key = secret_key
         self.algorithm = algorithm
 
     def encode(self, data: RefreshTokenData) -> str:
-        expire_time = datetime.utcnow() + timedelta(
-            seconds=data.expire_seconds
-        )
-        sub = jsons.dumps(data.dict())
-        data_dict = {'sub': sub, 'exp': expire_time}
-        encoded_jwt = jwt.encode(
-            data_dict, self.secret_key, algorithm=self.algorithm
-        )
+        expire_time = datetime.utcnow() + timedelta(seconds=data.expire_seconds)
+        sub = jsons.dumps(data.model_dump())
+        data_dict = {"sub": sub, "exp": expire_time}
+        encoded_jwt = jwt.encode(data_dict, self.secret_key, algorithm=self.algorithm)
         return encoded_jwt
 
     def decode(self, token: str) -> RefreshTokenData:
@@ -40,14 +34,14 @@ class JWTRefreshTokenUtil(RefreshTokenUtil):
             decoded_data = jwt.decode(
                 token, self.secret_key, algorithms=[self.algorithm]
             )
-            sub = jsons.loads(decoded_data['sub'])
-            token_data = RefreshTokenData.parse_obj(sub)
-            expire_time = decoded_data['exp']
-            token_data.expire_seconds = ((
+            sub = jsons.loads(decoded_data["sub"])
+            token_data = RefreshTokenData.model_validate(sub)
+            expire_time = decoded_data["exp"]
+            token_data.expire_seconds = (
                 datetime.fromtimestamp(expire_time) - datetime.utcnow()
-            ).total_seconds())
+            ).total_seconds()
             if token_data.expire_seconds < 0:
-                raise HTTPAPIException(422, 'Expired token')
+                raise HTTPAPIException(422, "Expired token")
             return token_data
         except jwt.JWTError:
-            raise HTTPAPIException(422, 'Invalid token')
+            raise HTTPAPIException(422, "Invalid token")

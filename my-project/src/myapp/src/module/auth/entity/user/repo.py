@@ -1,34 +1,32 @@
-from typing import Any, List, Mapping
-from abc import ABC, abstractmethod
-from sqlalchemy import Column, String, or_
-from sqlalchemy.orm import Session, relationship
-from sqlalchemy.engine import Engine
-from core.repo import Repo, DBEntityMixin, DBRepo
-from module.auth.schema.user import User, UserData, UserLogin
-from module.auth.core import PasswordHasher
-from module.auth.component import Base
-from module.auth.entity.table import user_group, user_permission
-from module.auth.entity.permission.repo import DBEntityPermission
-from module.auth.entity.group.repo import DBEntityGroup
-
 import logging
+from abc import ABC, abstractmethod
+from typing import Any, List, Mapping
+
+from core.repo import DBEntityMixin, DBRepo, Repo
+from module.auth.component import Base
+from module.auth.core import PasswordHasher
+from module.auth.entity.group.repo import DBEntityGroup
+from module.auth.entity.permission.repo import DBEntityPermission
+from module.auth.entity.table import user_group, user_permission
+from module.auth.schema.user import User, UserData, UserLogin
+from sqlalchemy import Column, String, or_
+from sqlalchemy.engine import Engine
+from sqlalchemy.orm import Session, relationship
 
 
 class DBEntityUser(Base, DBEntityMixin):
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
     __tablename__ = "users"
     username = Column(String)
     phone = Column(String)
     email = Column(String)
     description = Column(String)
     hashed_password = Column(String)
-    permissions = relationship(
-        "DBEntityPermission",
-        secondary=user_permission
-    )
-    groups = relationship(
-        "DBEntityGroup",
-        secondary=user_group
-    )
+    permissions = relationship("DBEntityPermission", secondary=user_permission)
+    groups = relationship("DBEntityGroup", secondary=user_group)
 
 
 class UserRepo(Repo[User, UserData], ABC):
@@ -37,17 +35,12 @@ class UserRepo(Repo[User, UserData], ABC):
         pass
 
 
-class UserDBRepo(
-    DBRepo[User, UserData], UserRepo
-):
+class UserDBRepo(DBRepo[User, UserData], UserRepo):
     schema_cls = User
     db_entity_cls = DBEntityUser
 
     def __init__(
-        self,
-        logger: logging.Logger,
-        engine: Engine,
-        password_hasher: PasswordHasher
+        self, logger: logging.Logger, engine: Engine, password_hasher: PasswordHasher
     ):
         super().__init__(logger, engine)
         self.password_hasher = password_hasher
@@ -59,7 +52,7 @@ class UserDBRepo(
             search_filter = or_(
                 DBEntityUser.username == user_login.identity,
                 DBEntityUser.phone == user_login.identity,
-                DBEntityUser.email == user_login.identity
+                DBEntityUser.email == user_login.identity,
             )
             db_users = [
                 db_user
@@ -69,7 +62,7 @@ class UserDBRepo(
                 )
             ]
             if len(db_users) == 0:
-                raise ValueError('Not found: Cannot find any user')
+                raise ValueError("Not found: Cannot find any user")
             return self._db_entity_to_schema(db, db_users[0])
         finally:
             db.close()
@@ -79,16 +72,20 @@ class UserDBRepo(
     ) -> Mapping[str, Any]:
         db_entity_map = super()._schema_data_to_db_entity_map(db, user_data)
         # Transform permissions
-        db_entity_map['permissions'] = db.query(DBEntityPermission).filter(
-            DBEntityPermission.id.in_(user_data.permissions)
-        ).all()
+        db_entity_map["permissions"] = (
+            db.query(DBEntityPermission)
+            .filter(DBEntityPermission.id.in_(user_data.permissions))
+            .all()
+        )
         # Transform groups
-        db_entity_map['groups'] = db.query(DBEntityGroup).filter(
-            DBEntityGroup.id.in_(user_data.groups)
-        ).all()
+        db_entity_map["groups"] = (
+            db.query(DBEntityGroup).filter(DBEntityGroup.id.in_(user_data.groups)).all()
+        )
         # add hashed password if necessary
-        if user_data.password != '':
-            db_entity_map['hashed_password'] = self.password_hasher.hash_password( # noqa
+        if user_data.password != "":
+            db_entity_map[
+                "hashed_password"
+            ] = self.password_hasher.hash_password(  # noqa
                 user_data.password
             )
         return db_entity_map

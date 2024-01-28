@@ -1,6 +1,4 @@
-from core.serializer.serializer import (
-    Serializer, CustomSerializer, JsonSerializer
-)
+from core.serializer.serializer import CustomSerializer, JsonSerializer, Serializer
 
 assert Serializer
 assert CustomSerializer

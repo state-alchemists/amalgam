@@ -1,7 +1,8 @@
-from fastapi import FastAPI
 from logging import Logger
+
 from core.messagebus import Publisher
 from core.rpc import Caller
+from fastapi import FastAPI
 from module.auth.core import Authorizer
 from module.library.entity.book.api import register_api as register_book_api
 
@@ -11,7 +12,7 @@ def register_api(
     app: FastAPI,
     authorizer: Authorizer,
     rpc_caller: Caller,
-    publisher: Publisher
+    publisher: Publisher,
 ):
     logger.info('🥪 Register API for "library"')
     register_book_api(logger, app, authorizer, rpc_caller, publisher)

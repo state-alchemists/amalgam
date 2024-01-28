@@ -1,5 +1,6 @@
 from typing import List
-from core.schema import BaseDateTimeSchema, BaseCountSchema
+
+from core.schema import BaseCountSchema, BaseDateTimeSchema
 
 
 class ActivityData(BaseDateTimeSchema):
@@ -13,6 +14,7 @@ class Activity(ActivityData):
 
     class Config:
         orm_mode = True
+        from_attributes = True
 
 
 class ActivityResult(BaseCountSchema):

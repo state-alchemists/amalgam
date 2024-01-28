@@ -1,11 +1,16 @@
 from abc import ABC, abstractmethod
-from sqlalchemy import Column, String
-from core.repo import Repo, DBEntityMixin, DBRepo
-from module.auth.schema.permission import Permission, PermissionData
+
+from core.repo import DBEntityMixin, DBRepo, Repo
 from module.auth.component import Base
+from module.auth.schema.permission import Permission, PermissionData
+from sqlalchemy import Column, String
 
 
 class DBEntityPermission(Base, DBEntityMixin):
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
     __tablename__ = "permissions"
     name = Column(String)
     description = Column(String)
@@ -17,16 +22,14 @@ class PermissionRepo(Repo[Permission, PermissionData], ABC):
         pass
 
 
-class PermissionDBRepo(
-    DBRepo[Permission, PermissionData], PermissionRepo
-):
+class PermissionDBRepo(DBRepo[Permission, PermissionData], PermissionRepo):
     schema_cls = Permission
     db_entity_cls = DBEntityPermission
 
     async def get_by_name(self, name: str) -> Permission:
-        '''
+        """
         Find permission by name.
-        '''
+        """
         db = self._get_db_session()
         try:
             search_filter = DBEntityPermission.name == name
