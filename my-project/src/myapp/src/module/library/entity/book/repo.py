@@ -1,5 +1,5 @@
-from core.repo import DBEntityMixin, DBRepo, Repo
-from module.library.component import Base
+from component.repo import DBEntityMixin, DBRepo, Repo
+from module.library.integration import Base
 from module.library.schema.book import (
     Book,
     BookData,

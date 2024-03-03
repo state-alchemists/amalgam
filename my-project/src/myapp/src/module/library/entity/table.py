@@ -1,4 +1,4 @@
-from module.library.component.base import Base
+from module.library.integration.base import Base
 from sqlalchemy import Column, ForeignKey, Integer, Table
 
 """

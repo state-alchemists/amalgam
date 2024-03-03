@@ -1,8 +1,8 @@
-from component.db_connection import engine
-from component.log import logger
 from config import app_enable_library_module
 from helper.migration import migrate
-from module.library.component import Base
+from integration.db_connection import engine
+from integration.log import logger
+from module.library.integration import Base
 
 
 async def migrate_library():

@@ -1,11 +1,11 @@
 from logging import Logger
 from typing import Any, Mapping
 
-from core.messagebus import Publisher
-from core.repo import SearchFilter
-from core.rpc import Caller, Server
+from component.messagebus import Publisher
+from component.repo import SearchFilter
+from component.rpc import Caller, Server
 from module.auth.schema.token import AccessTokenData
-from module.library.component.model.book_model import (
+from module.library.integration.model.book_model import (
     book_model,
 )
 from module.library.schema.book import (

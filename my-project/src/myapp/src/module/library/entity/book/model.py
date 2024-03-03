@@ -1,4 +1,4 @@
-from module.log.core.historical_repo_model import HistoricalRepoModel
+from module.log.component.historical_repo_model import HistoricalRepoModel
 from module.library.schema.book import (
     Book,
     BookData,
