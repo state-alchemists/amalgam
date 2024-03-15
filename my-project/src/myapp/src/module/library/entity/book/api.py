@@ -12,6 +12,9 @@ from module.library.schema.book import (
     BookData,
     BookResult,
 )
+from opentelemetry import trace
+
+tracer = trace.get_tracer(__name__)
 
 
 def register_api(
@@ -33,20 +36,25 @@ def register_api(
         offset: int = 0,
         user_token_data: AccessTokenData = Depends(access_token_scheme),
     ):
-        if not await authorizer.is_having_permission(
-            user_token_data.user_id, "library:book:get"
-        ):
-            raise HTTPAPIException(403, "Unauthorized")
+        with tracer.start_as_current_span("authorizer.is_having_permission"):
+            if not await authorizer.is_having_permission(
+                user_token_data.user_id,
+                "library:book:get",
+            ):
+                raise HTTPAPIException(403, "Unauthorized")
         try:
-            result_dict = await rpc_caller.call(
-                "library_get_book",
-                keyword=keyword,
-                criterion={},
-                limit=limit,
-                offset=offset,
-                user_token_data=user_token_data.model_dump(),
-            )
-            return BookResult(**result_dict)
+            with tracer.start_as_current_span(
+                "library.rpc.library_get_book"  # noqa
+            ):
+                result_dict = await rpc_caller.call(
+                    "library_get_book",
+                    keyword=keyword,
+                    criterion={},
+                    limit=limit,
+                    offset=offset,
+                    user_token_data=user_token_data.model_dump(),
+                )
+                return BookResult(**result_dict)
         except Exception as e:
             raise HTTPAPIException(error=e)
 
@@ -57,18 +65,22 @@ def register_api(
     async def get_book_by_id(
         id: str, user_token_data: AccessTokenData = Depends(access_token_scheme)
     ):
-        if not await authorizer.is_having_permission(
-            user_token_data.user_id,
-            "library:book:get_by_id",
-        ):
-            raise HTTPAPIException(403, "Unauthorized")
+        with tracer.start_as_current_span("authorizer.is_having_permission"):
+            if not await authorizer.is_having_permission(
+                user_token_data.user_id,
+                "library:book:get_by_id",
+            ):
+                raise HTTPAPIException(403, "Unauthorized")
         try:
-            result_dict = await rpc_caller.call(
-                "library_get_book_by_id",
-                id=id,
-                user_token_data=user_token_data.model_dump(),
-            )
-            return Book(**result_dict)
+            with tracer.start_as_current_span(
+                "library.rpc.library_get_book_by_id"  # noqa
+            ):
+                result_dict = await rpc_caller.call(
+                    "library_get_book_by_id",
+                    id=id,
+                    user_token_data=user_token_data.model_dump(),
+                )
+                return Book(**result_dict)
         except Exception as e:
             raise HTTPAPIException(error=e)
 
@@ -80,18 +92,22 @@ def register_api(
         data: BookData,
         user_token_data: AccessTokenData = Depends(access_token_scheme),
     ):
-        if not await authorizer.is_having_permission(
-            user_token_data.user_id,
-            "library:book:insert",
-        ):
-            raise HTTPAPIException(403, "Unauthorized")
+        with tracer.start_as_current_span("authorizer.is_having_permission"):
+            if not await authorizer.is_having_permission(
+                user_token_data.user_id,
+                "library:book:insert",
+            ):
+                raise HTTPAPIException(403, "Unauthorized")
         try:
-            result_dict = await rpc_caller.call(
-                "library_insert_book",
-                data=data.model_dump(),
-                user_token_data=user_token_data.model_dump(),
-            )
-            return Book(**result_dict)
+            with tracer.start_as_current_span(
+                "library.rpc.library_insert_book"  # noqa
+            ):
+                result_dict = await rpc_caller.call(
+                    "library_insert_book",
+                    data=data.model_dump(),
+                    user_token_data=user_token_data.model_dump(),
+                )
+                return Book(**result_dict)
         except Exception as e:
             raise HTTPAPIException(error=e)
 
@@ -104,19 +120,23 @@ def register_api(
         data: BookData,
         user_token_data: AccessTokenData = Depends(access_token_scheme),
     ):
-        if not await authorizer.is_having_permission(
-            user_token_data.user_id,
-            "library:book:update",
-        ):
-            raise HTTPAPIException(403, "Unauthorized")
+        with tracer.start_as_current_span("authorizer.is_having_permission"):
+            if not await authorizer.is_having_permission(
+                user_token_data.user_id,
+                "library:book:update",
+            ):
+                raise HTTPAPIException(403, "Unauthorized")
         try:
-            result_dict = await rpc_caller.call(
-                "library_update_book",
-                id=id,
-                data=data.model_dump(),
-                user_token_data=user_token_data.model_dump(),
-            )
-            return Book(**result_dict)
+            with tracer.start_as_current_span(
+                "library.rpc.library_update_book"  # noqa
+            ):
+                result_dict = await rpc_caller.call(
+                    "library_update_book",
+                    id=id,
+                    data=data.model_dump(),
+                    user_token_data=user_token_data.model_dump(),
+                )
+                return Book(**result_dict)
         except Exception as e:
             raise HTTPAPIException(error=e)
 
@@ -127,17 +147,21 @@ def register_api(
     async def delete_book(
         id: str, user_token_data: AccessTokenData = Depends(access_token_scheme)
     ):
-        if not await authorizer.is_having_permission(
-            user_token_data.user_id,
-            "library:book:delete",
-        ):
-            raise HTTPAPIException(403, "Unauthorized")
+        with tracer.start_as_current_span("authorizer.is_having_permission"):
+            if not await authorizer.is_having_permission(
+                user_token_data.user_id,
+                "library:book:delete",
+            ):
+                raise HTTPAPIException(403, "Unauthorized")
         try:
-            result_dict = await rpc_caller.call(
-                "library_delete_book",
-                id=id,
-                user_token_data=user_token_data.model_dump(),
-            )
-            return Book(**result_dict)
+            with tracer.start_as_current_span(
+                "library.rpc.library_delete_book"  # noqa
+            ):
+                result_dict = await rpc_caller.call(
+                    "library_delete_book",
+                    id=id,
+                    user_token_data=user_token_data.model_dump(),
+                )
+                return Book(**result_dict)
         except Exception as e:
             raise HTTPAPIException(error=e)

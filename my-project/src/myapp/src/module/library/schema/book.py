@@ -1,18 +1,17 @@
-from typing import List
+from typing import List, Optional
 
 from component.schema import BaseCountSchema, BaseDateTimeSchema
 
 
 class BookData(BaseDateTimeSchema):
     code: str
-    title: str
+    title: Optional[str]
 
 
 class Book(BookData):
     id: str
 
     class Config:
-        orm_mode = True
         from_attributes = True
 
 
