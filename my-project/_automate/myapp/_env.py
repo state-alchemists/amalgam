@@ -1,18 +1,33 @@
 import jsons
 
-from zrb import Env
+from zrb import Env, EnvFile
 
-from ._config import DEPLOYMENT_DIR, MODULES
+from ._constant import (
+    APP_TEMPLATE_ENV_FILE_NAME,
+    DEPLOYMENT_DIR,
+    DEPLOYMENT_TEMPLATE_ENV_FILE_NAME,
+    MODULES,
+)
+
+app_env_file = EnvFile(path=APP_TEMPLATE_ENV_FILE_NAME, prefix="MYAPP")
 
 app_enable_otel_env = Env(
     name="APP_ENABLE_OTEL",
     default='{{ "1" if input.enable_myapp_monitoring else "0" }}',
 )
 
-image_env = Env(
-    name="IMAGE",
-    os_name="CONTAINER_MYAPP_IMAGE",
-    default="{{input.myapp_image}}",
+deployment_app_env_file = EnvFile(
+    path=APP_TEMPLATE_ENV_FILE_NAME, prefix="DEPLOYMENT_APP_MYAPP"
+)
+
+deployment_config_env_file = EnvFile(
+    path=DEPLOYMENT_TEMPLATE_ENV_FILE_NAME, prefix="DEPLOYMENT_CONFIG_MYAPP"
+)
+
+deployment_enable_monitoring_env = Env(
+    name="ENABLE_MONITORING",
+    os_name="DEPLOYMENT_CONFIG_MYAPP_ENABLE_MONITORING",
+    default="{{ 1 if input.enable_myapp_monitoring else 0 }}",
 )
 
 pulumi_backend_url_env = Env(
@@ -33,14 +48,8 @@ deployment_modules_env = Env(
     default=jsons.dumps(MODULES),
 )
 
-deployment_mode_env = Env(
-    name="MODE",
-    os_name="DEPLOYMENT_CONFIG_MYAPP_MODE",
-    default="{{input.myapp_deploy_mode}}",
-)
-
-deployment_enable_monitoring_env = Env(
-    name="ENABLE_MONITORING",
-    os_name="DEPLOYMENT_CONFIG_MYAPP_ENABLE_MONITORING",
-    default="{{ 1 if input.enable_myapp_monitoring else 0 }}",
+deployment_modules_env = Env(
+    name="MODULES",
+    os_name="DEPLOYMENT_CONFIG_MYAPP_MODULES",
+    default=jsons.dumps(MODULES),
 )

@@ -1,0 +1,7 @@
+from ._group import myapp_frontend_group
+from .build import build_myapp_frontend
+from .build_once import build_myapp_frontend_once
+
+assert myapp_frontend_group
+assert build_myapp_frontend
+assert build_myapp_frontend_once

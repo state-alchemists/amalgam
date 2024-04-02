@@ -1,7 +1,5 @@
 from zrb import HTTPChecker, PortChecker
 
-from ._helper import should_start_local_microservices
-
 rabbitmq_management_checker = HTTPChecker(
     name="check-rabbitmq-management",
     port='{{env.get("RABBITMQ_MANAGEMENT_HOST_PORT", "15672")}}',
@@ -53,13 +51,14 @@ app_container_checker = HTTPChecker(
     url="/readiness",
     port='{{env.get("HOST_PORT", "3000")}}',
     is_https="{{input.myapp_https}}",
+    should_execute="{{ input.local_myapp}}",
 )
 
 app_local_checker = HTTPChecker(
     name="check-myapp",
     host="{{input.myapp_host}}",
     url="/readiness",
-    port="{{env.APP_PORT}}",
+    port='{{env.get("APP_PORT", "3000")}}',
     is_https="{{input.myapp_https}}",
-    should_execute=should_start_local_microservices,
+    should_execute="{{ input.local_myapp}}",
 )

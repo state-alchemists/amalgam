@@ -1,27 +1,12 @@
 import os
 
-from zrb import BoolInput, ChoiceInput, StrInput
-
-enable_monitoring_input = BoolInput(
-    name="enable-myapp-monitoring",
-    description='Enable "myapp" monitoring',
-    prompt='Enable "myapp" monitoring?',
-    default=False,
-)
+from zrb import BoolInput, IntInput, StrInput
 
 local_input = BoolInput(
     name="local-myapp",
     description='Use "myapp" on local machine',
     prompt='Use "myapp" on local machine?',
     default=True,
-)
-
-run_mode_input = ChoiceInput(
-    name="myapp-run-mode",
-    description='"myapp" run mode (monolith/microservices)',
-    prompt='Run "myapp" as a monolith or microservices?',
-    choices=["monolith", "microservices"],
-    default="monolith",
 )
 
 https_input = BoolInput(
@@ -38,19 +23,11 @@ host_input = StrInput(
     default="localhost",
 )
 
-image_input = StrInput(
-    name="myapp-image",
-    description='Image name of "myapp"',
-    prompt='Image name of "myapp"',
-    default="docker.io/gofrendi/myapp:latest",
-)
-
-deploy_mode_input = ChoiceInput(
-    name="myapp-deploy-mode",
-    description='"myapp" deploy mode (monolith/microservices)',
-    prompt='Deploy "myapp" as a monolith or microservices?',
-    choices=["monolith", "microservices"],
-    default="monolith",
+replica_input = IntInput(
+    name="myapp-replica",
+    description='Replica of "myapp"',
+    prompt='Replica of "myapp"',
+    default=1,
 )
 
 pulumi_stack_input = StrInput(

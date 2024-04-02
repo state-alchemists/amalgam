@@ -1,21 +1,19 @@
 import os
 
 from zrb import CmdTask, Env, EnvFile, StrInput, python_task, runner
-from zrb.builtin.group import project_group
 
-from ._config import APP_TEMPLATE_ENV_FILE_NAME, CURRENT_DIR, RESOURCE_DIR
+from ._constant import APP_TEMPLATE_ENV_FILE_NAME, RESOURCE_DIR
+from ._group import myapp_group
+from .backend import prepare_myapp_backend
 from .frontend import build_myapp_frontend_once
-from .local import prepare_myapp_backend
 
-###############################################################################
-# ⚙️ remove-kebab-zrb-task-name-test-db
-###############################################################################
+CURRENT_DIR = os.path.dirname(__file__)
 
 
 @python_task(
     icon="🧪",
-    name="remove-myapp-test-db",
-    group=project_group,
+    name="remove-test-db",
+    group=myapp_group,
     runner=runner,
 )
 def remove_myapp_test_db(*args, **kwargs):
@@ -24,14 +22,10 @@ def remove_myapp_test_db(*args, **kwargs):
         os.remove(test_db_file_path)
 
 
-###############################################################################
-# ⚙️ test-kebab-zrb-task-name
-###############################################################################
-
 test_myapp = CmdTask(
     icon="🚤",
-    name="test-myapp",
-    group=project_group,
+    name="test",
+    group=myapp_group,
     inputs=[
         StrInput(
             name="myapp-test",
@@ -57,7 +51,7 @@ test_myapp = CmdTask(
         Env(name="APP_AUTH_ADMIN_ACTIVE", os_name="", default="true"),
         Env(name="APP", os_name="APP_ENABLE_OTEL", default="false"),
     ],
-    cmd_path=os.path.join(CURRENT_DIR, "cmd", "app-test.sh"),
+    cmd_path=os.path.join(CURRENT_DIR, "test.sh"),
     retry=0,
 )
 runner.register(test_myapp)

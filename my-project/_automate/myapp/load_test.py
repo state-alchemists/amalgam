@@ -1,19 +1,17 @@
 import os
 
 from zrb import BoolInput, CmdTask, EnvFile, IntInput, StrInput, runner
-from zrb.builtin.group import project_group
 
-from ._config import CURRENT_DIR, LOAD_TEST_DIR, LOAD_TEST_TEMPLATE_ENV_FILE_NAME
+from ._constant import LOAD_TEST_DIR, LOAD_TEST_TEMPLATE_ENV_FILE_NAME
+from ._group import myapp_group
 
-###############################################################################
-# ⚙️ prepare-kebab-zrb-task-name-load-test
-###############################################################################
+CURRENT_DIR = os.path.dirname(__file__)
 
 prepare_myapp_load_test = CmdTask(
     icon="🚤",
-    name="prepare-myapp-load-test",
+    name="prepare-load-test",
     description="Prepare load test for myapp",
-    group=project_group,
+    group=myapp_group,
     cwd=LOAD_TEST_DIR,
     cmd_path=[
         os.path.join(CURRENT_DIR, "cmd", "activate-venv.sh"),
@@ -22,15 +20,12 @@ prepare_myapp_load_test = CmdTask(
 )
 runner.register(prepare_myapp_load_test)
 
-###############################################################################
-# ⚙️ load-test-kebab-zrb-task-name
-###############################################################################
 
-load_test_myapp_load_test = CmdTask(
+load_test_myapp = CmdTask(
     icon="🧪",
-    name="load-test-myapp",
+    name="load-test",
     description="Load test myapp",
-    group=project_group,
+    group=myapp_group,
     upstreams=[prepare_myapp_load_test],
     inputs=[
         BoolInput(
@@ -71,8 +66,8 @@ load_test_myapp_load_test = CmdTask(
         )
     ],
     cmd_path=[
-        os.path.join(CURRENT_DIR, "cmd", "activate-venv.sh"),
-        os.path.join(CURRENT_DIR, "cmd", "app-load-test.sh"),
+        os.path.join(CURRENT_DIR, "activate-venv.sh"),
+        os.path.join(CURRENT_DIR, "app-load-test.sh"),
     ],
 )
-runner.register(load_test_myapp_load_test)
+runner.register(load_test_myapp)

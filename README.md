@@ -35,21 +35,21 @@ cd my-project
 source project.sh
 
 echo "👷 Add fastapp"
-zrb project add fastapp --project-dir . --app-name "myapp" --http-port 3000
+zrb project add fastapp app --project-dir . --app-name "myapp" --http-port 3000
 
 echo "👷 Add library module"
-zrb project add fastapp-module --project-dir . --app-name "myapp" --module-name "library"
+zrb project add fastapp module --project-dir . --app-name "myapp" --module-name "library"
 
 echo "👷 Add book entity"
-zrb project add fastapp-crud --project-dir . --app-name "myapp" --module-name "library" \
+zrb project add fastapp crud --project-dir . --app-name "myapp" --module-name "library" \
     --entity-name "book" --plural-entity-name "books" --column-name "code"
 
 echo "👷 Add title field"
-zrb project add fastapp-field --project-dir . --app-name "myapp" --module-name "library" \
+zrb project add fastapp field --project-dir . --app-name "myapp" --module-name "library" \
     --entity-name "book" --column-name "title" --column-type "str"
 
 echo "👷 Start fastapp"
-zrb project start-myapp --myapp-run-mode "monolith"
+zrb project myapp monolith start
 ```
 
 The commands will give you:
@@ -80,7 +80,7 @@ You can override the system username and password by setting some environment va
 # press ctrl + c to stop the application
 export MYAPP_APP_AUTH_ADMIN_USERNAME=gofrendi
 export MYAPP_APP_AUTH_ADMIN_PASSWORD=aVeryStrongPassword73
-zrb project start-myapp --myapp-run-mode "monolith"
+zrb project myapp monolith start 
 ```
 
 # Checking the process
@@ -106,7 +106,7 @@ Now let's go back to your first terminal; so that you can kill `my-app` process 
 Stay in your first terminal, and try to invoke the following command:
 
 ```bash
-zrb project start-myapp --myapp-run-mode "microservices"
+zrb project myapp microservices start
 ```
 
 Once started, you will be able to access [http://localhost:3000](http://localhost:3000) as you have done previously.
@@ -153,10 +153,10 @@ Let's go back to your first terminal, and kill the running process by pressing `
 To run `myapp` as containers you can invoke:
 
 ```bash
-zrb project start-myapp-container --myapp-run-mode microservices
+zrb project myapp container microservices start
 ```
 
-> __Note:__ You can also run the container as a monolith if you want to. Just invoke `zrb project start-myapp-container --myapp-run-mode monolith`
+> __Note:__ You can also run the container as a monolith if you want to. Just invoke `zrb project myapp container monolith start`
 
 Now let's see how things look like by invoking:
 
@@ -191,7 +191,7 @@ Once your kubernetes cluster is running, you can invoke the following command:
 
 ```bash
 docker login
-zrb project deploy-myapp --myapp-deploy-mode microservices
+zrb project myapp microservices deploy
 ```
 
 Now let's invoke `kubectl get pods` and see how the pods are running
