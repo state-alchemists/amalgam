@@ -19,13 +19,13 @@ You can learn more about Myapp's modular monolith concept in our [documentation]
 To run Myapp as a monolith, you can invoke the following command:
 
 ```bash
-zrb project start-myapp --myapp-run-mode monolith
+zrb project myapp monolith start
 ```
 
 You can also run Myapp as a docker container by invoking the following command:
 
 ```bash
-zrb project start-myapp-container --myapp-run-mode monolith
+zrb project myapp-container container monolith start
 ```
 
 # Run Myapp as a microservices
@@ -33,13 +33,13 @@ zrb project start-myapp-container --myapp-run-mode monolith
 To run Myapp as a microservices, you can invoke the following command:
 
 ```bash
-zrb project start-myapp --myapp-run-mode microservices
+zrb project myapp microservices start
 ```
 
 You can also run Myapp as a docker container by invoking the following command:
 
 ```bash
-zrb project start-myapp-container --myapp-run-mode microservices
+zrb project myapp-container microservices start
 ```
 
 # Accessing the web interface
@@ -65,10 +65,10 @@ Finally, you can invoke the following command:
 
 ```bash
 # Deploy Myapp to Kubernetes as a monolith
-zrb project deploy-myapp --myapp monolith
+zrb project myapp monolith deploy
 
 # Deploy Myapp to Kubernetes as a microservices
-zrb project deploy-myapp --myapp microservices
+zrb project myapp microservices deploy
 ```
 
 # Configuration

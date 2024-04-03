@@ -94,22 +94,22 @@ By using [Zrb](https://pypi.org/project/zrb), you will be able to run Myapp as e
 
 ```bash
 # Run Myapp as a monolith
-zrb project start-myapp --myapp-run-mode monolith
+zrb project myapp monolith start
 
 # Run Myapp as a monolith inside a container
-zrb project start-myapp-container --myapp-run-mode monolith
+zrb project myapp container monolith start
 
 # Run Myapp as microservices
-zrb project start-myapp --myapp-run-mode microservices
+zrb project myapp microservices start
 
 # Run Myapp as microservices inside containers
-zrb project start-myapp-container --myapp-run-mode microservices
+zrb project myapp container microservices start
 
 # Deploy Myapp to Kubernetes as a monolith
-zrb project deploy-myapp --myapp monolith
+zrb project myapp monolith deploy
 
 # Deploy Myapp to Kubernetes as a microservices
-zrb project deploy-myapp --myapp microservices
+zrb project myapp microservices deploy
 ```
 
 Hopefully this will make your development/deployment process easier.
