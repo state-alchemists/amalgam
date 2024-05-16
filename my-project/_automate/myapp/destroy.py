@@ -15,7 +15,7 @@ from ._group import myapp_group
 from ._input import pulumi_stack_input
 from .image._env import image_env
 
-CURRENT_DIR = os.path.dirname(__file__)
+_CURRENT_DIR = os.path.dirname(__file__)
 
 destroy_myapp = CmdTask(
     icon="💨",
@@ -37,8 +37,8 @@ destroy_myapp = CmdTask(
         deployment_modules_env,
     ],
     cmd_path=[
-        os.path.join(CURRENT_DIR, "init-pulumi-stack.sh"),
-        os.path.join(CURRENT_DIR, "destroy.sh"),
+        os.path.join(_CURRENT_DIR, "init-pulumi-stack.sh"),
+        os.path.join(_CURRENT_DIR, "destroy.sh"),
     ],
 )
 
