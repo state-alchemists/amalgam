@@ -7,7 +7,7 @@ from ._group import myapp_group
 from .backend import prepare_myapp_backend
 from .frontend import build_myapp_frontend_once
 
-CURRENT_DIR = os.path.dirname(__file__)
+_CURRENT_DIR = os.path.dirname(__file__)
 
 
 @python_task(
@@ -51,7 +51,8 @@ test_myapp = CmdTask(
         Env(name="APP_AUTH_ADMIN_ACTIVE", os_name="", default="true"),
         Env(name="APP", os_name="APP_ENABLE_OTEL", default="false"),
     ],
-    cmd_path=os.path.join(CURRENT_DIR, "test.sh"),
+    cmd_path=os.path.join(_CURRENT_DIR, "test.sh"),
+    should_print_cmd_result=False,
     retry=0,
 )
 runner.register(test_myapp)

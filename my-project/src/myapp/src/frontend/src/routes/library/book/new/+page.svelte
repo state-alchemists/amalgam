@@ -62,7 +62,7 @@
     </div>
     <div class="mb-4">
         <label class="block text-gray-700 font-bold mb-2" for="title">Title</label>
-        <input type="text" class="input w-full" id="title" placeholder="Title" bind:value={row.title} />
+        <input type="text" class="input w-full" id="title" placeholder="Title" bind:value="{row.title}" />
     </div>
     <!-- DON'T DELETE: insert new field here-->
     <a href="#top" class="btn btn-primary {isSaving ? 'btn-disabled': '' }" on:click={onSaveClick}>Save</a>

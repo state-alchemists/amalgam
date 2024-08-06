@@ -7,10 +7,6 @@ from ._env import compose_env_file, host_port_env
 from ._group import myapp_container_group
 from ._service_config import myapp_service_configs
 
-###############################################################################
-# ⚙️ kebab-zrb-task-name
-###############################################################################
-
 stop_myapp_container = DockerComposeTask(
     icon="⛔",
     name="stop",
