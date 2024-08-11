@@ -61,6 +61,22 @@
         <label class="block text-gray-700 font-bold mb-2" for="title">Title</label>
         <span id="title">{row.title}</span>
     </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="page-number">Page number</label>
+        <span id="page-number">{row.page_number}</span>
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="purchase-date">Purchase date</label>
+        <span id="purchase-date">{row.purchase_date}</span>
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="available">Available</label>
+        <span id="available">{row.available}</span>
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="synopsis">Synopsis</label>
+        <span id="synopsis">{row.synopsis}</span>
+    </div>
     <!-- DON'T DELETE: insert new field here-->
     <a href="../../" class="btn btn-primary">Show others</a>
 

@@ -86,6 +86,22 @@
         <label class="block text-gray-700 font-bold mb-2" for="title">Title</label>
         <input type="text" class="input w-full" id="title" placeholder="Title" bind:value="{row.title}" />
     </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="page-number">Page number</label>
+        <input type="number" class="input w-full" id="page-number" placeholder="Page number" bind:value="{row.page_number}" />
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="purchase-date">Purchase date</label>
+        <input type="date" class="input w-full" id="purchase-date" placeholder="Purchase date" bind:value="{row.purchase_date}" />
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="available">Available</label>
+        <input type="checkbox" class="checkbox" id="available" bind:checked="{row.available}" />
+    </div>
+    <div class="mb-4">
+        <label class="block text-gray-700 font-bold mb-2" for="synopsis">Synopsis</label>
+        <textarea class="textarea w-full" id="synopsis" placeholder="Synopsis" bind:value="{row.synopsis}"></textarea>
+    </div>
     <!-- DON'T DELETE: insert new field here-->
     <a href="#top" class="btn btn-primary {isSaving ? 'btn-disabled': '' }" on:click={onSaveClick}>Save</a>
     <a href="../../" class="btn">Cancel</a>

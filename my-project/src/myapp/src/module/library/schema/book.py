@@ -1,3 +1,4 @@
+from datetime import date, datetime, time
 from typing import List, Optional
 
 from component.schema import BaseCountSchema, BaseDateTimeSchema
@@ -6,6 +7,10 @@ from component.schema import BaseCountSchema, BaseDateTimeSchema
 class BookData(BaseDateTimeSchema):
     code: str
     title: Optional[str]
+    page_number: Optional[int]
+    purchase_date: Optional[date]
+    available: Optional[bool]
+    synopsis: Optional[str]
 
 
 class Book(BookData):

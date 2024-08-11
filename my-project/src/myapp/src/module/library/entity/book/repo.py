@@ -4,7 +4,18 @@ from module.library.schema.book import (
     Book,
     BookData,
 )
-from sqlalchemy import Column, String
+from sqlalchemy import (
+    Boolean,
+    Column,
+    Date,
+    DateTime,
+    Double,
+    Float,
+    Integer,
+    String,
+    Text,
+    Time,
+)
 
 
 class DBEntityBook(Base, DBEntityMixin):
@@ -14,6 +25,10 @@ class DBEntityBook(Base, DBEntityMixin):
     __tablename__ = "books"
     code = Column(String)
     title: Column = Column(String)
+    page_number: Column = Column(Integer)
+    purchase_date: Column = Column(Date)
+    available: Column = Column(Boolean)
+    synopsis: Column = Column(Text)
 
 
 class BookRepo(Repo[Book, BookData]):

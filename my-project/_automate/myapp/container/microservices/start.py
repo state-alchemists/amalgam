@@ -1,4 +1,4 @@
-from zrb import DockerComposeTask, runner
+from zrb import DockerComposeStartTask, runner
 
 from ...._project import start_project_containers
 from ..._checker import (
@@ -13,16 +13,17 @@ from ..._checker import (
 )
 from ..._constant import PREFER_MICROSERVICES, RESOURCE_DIR
 from ..._input import host_input, https_input, local_input
+from ...image import build_myapp_image
 from ...image._env import image_env
 from ...image._input import image_input
 from .._env import compose_env_file, host_port_env
 from .._input import enable_monitoring_input
 from .._service_config import myapp_service_configs
+from ..remove import remove_myapp_container
 from ._group import myapp_microservices_container_group
 from ._helper import activate_microservices_compose_profile
-from .init import init_myapp_microservices_container
 
-start_myapp_microservices_container = DockerComposeTask(
+start_myapp_microservices_container = DockerComposeStartTask(
     icon="🐳",
     name="start",
     description="Start myapp container",
@@ -35,11 +36,9 @@ start_myapp_microservices_container = DockerComposeTask(
         image_input,
     ],
     should_execute="{{ input.local_myapp}}",
-    upstreams=[init_myapp_microservices_container],
+    upstreams=[build_myapp_image, remove_myapp_container],
     cwd=RESOURCE_DIR,
     setup_cmd=activate_microservices_compose_profile,
-    compose_cmd="logs",
-    compose_flags=["-f"],
     compose_env_prefix="CONTAINER_MYAPP",
     compose_service_configs=myapp_service_configs,
     env_files=[compose_env_file],

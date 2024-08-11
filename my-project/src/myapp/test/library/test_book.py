@@ -1,13 +1,14 @@
+from datetime import date, datetime, time
 from typing import AsyncIterator
 
 import pytest
+from config import APP_AUTH_ADMIN_PASSWORD, APP_AUTH_ADMIN_USERNAME
 from httpx import AsyncClient
-from src.config import app_auth_admin_password, app_auth_admin_username
 
-inserted_success_data = {"code": "test-kebab-create-entity-name-success", 'title': ''}
-to_be_updated_success_data = {"code": "test-book-to-be-updated-success", 'title': ''}
-updated_success_data = {"code": "test-book-updated-success", 'title': ''}
-to_be_deleted_success_data = {"code": "test-book-to-be-deleted-success", 'title': ''}
+inserted_success_data = {"code": "test-kebab-create-entity-name-success", 'title': "A string", 'page_number': 42, 'purchase_date': date(2024, 8, 10), 'available': True, 'synopsis': "A text"}
+to_be_updated_success_data = {"code": "test-book-to-be-updated-success", 'title': "A string", 'page_number': 42, 'purchase_date': date(2024, 8, 10), 'available': True, 'synopsis': "A text"}
+updated_success_data = {"code": "test-book-updated-success", 'title': "A string", 'page_number': 42, 'purchase_date': date(2024, 8, 10), 'available': True, 'synopsis': "A text"}
+to_be_deleted_success_data = {"code": "test-book-to-be-deleted-success", 'title': "A string", 'page_number': 42, 'purchase_date': date(2024, 8, 10), 'available': True, 'synopsis': "A text"}
 
 
 @pytest.mark.asyncio
@@ -19,8 +20,8 @@ async def test_insert_book_and_get_success(
         login_admin_response = await client.post(
             "/api/v1/auth/login",
             json={
-                "identity": app_auth_admin_username,
-                "password": app_auth_admin_password,
+                "identity": APP_AUTH_ADMIN_USERNAME,
+                "password": APP_AUTH_ADMIN_PASSWORD,
             },
         )
         assert login_admin_response.status_code == 200
@@ -72,8 +73,8 @@ async def test_update_book_and_get_success(
         login_admin_response = await client.post(
             "/api/v1/auth/login",
             json={
-                "identity": app_auth_admin_username,
-                "password": app_auth_admin_password,
+                "identity": APP_AUTH_ADMIN_USERNAME,
+                "password": APP_AUTH_ADMIN_PASSWORD,
             },
         )
         assert login_admin_response.status_code == 200
@@ -139,8 +140,8 @@ async def test_delete_book_and_get_success(
         login_admin_response = await client.post(
             "/api/v1/auth/login",
             json={
-                "identity": app_auth_admin_username,
-                "password": app_auth_admin_password,
+                "identity": APP_AUTH_ADMIN_USERNAME,
+                "password": APP_AUTH_ADMIN_PASSWORD,
             },
         )
         assert login_admin_response.status_code == 200

@@ -118,6 +118,10 @@
                 <th></th>
                 <th>Code</th>
                 <th>Title</th>
+                <th>Page number</th>
+                <th>Purchase date</th>
+                <th>Available</th>
+                <th>Synopsis</th>
                 <!-- DON'T DELETE: insert new column header here-->
                 <th></th>
             </tr>
@@ -128,6 +132,10 @@
                     <th>{row.id}</th>
                     <td>{row.code}</td>
                     <td>{row.title}</td>
+                    <td>{row.page_number}</td>
+                    <td>{row.purchase_date}</td>
+                    <td>{row.available}</td>
+                    <td>{row.synopsis}</td>
                     <!-- DON'T DELETE: insert new column here-->
                     <td>
                         {#if allowGetById}
