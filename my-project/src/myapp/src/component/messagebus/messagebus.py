@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Any, Callable, List, Mapping, Optional
+from collections.abc import Callable, Mapping
+from typing import Any, Optional
 
 from component.serializer.serializer import JsonSerializer, Serializer
 
@@ -8,11 +9,11 @@ TEventHandler = Callable[[Any], Any]
 
 class Admin(ABC):
     @abstractmethod
-    async def create_events(self, event_names: List[str]):
+    async def create_events(self, event_names: list[str]):
         pass
 
     @abstractmethod
-    async def delete_events(self, event_names: List[str]):
+    async def delete_events(self, event_names: list[str]):
         pass
 
 

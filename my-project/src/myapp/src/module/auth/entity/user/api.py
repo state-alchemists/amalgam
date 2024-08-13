@@ -1,5 +1,6 @@
+from collections.abc import Mapping
 from logging import Logger
-from typing import Annotated, List, Mapping
+from typing import Annotated
 
 from component.error import HTTPAPIException
 from component.messagebus import Publisher

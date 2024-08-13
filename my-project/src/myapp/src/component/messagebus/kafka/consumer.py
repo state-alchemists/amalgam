@@ -1,7 +1,8 @@
 import asyncio
 import inspect
 import logging
-from typing import Any, Callable, Mapping, Optional
+from collections.abc import Callable, Mapping
+from typing import Any, Optional
 
 from aiokafka import AIOKafkaConsumer, __version__
 from aiokafka.consumer.consumer import RoundRobinPartitionAssignor

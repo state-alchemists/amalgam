@@ -1,7 +1,8 @@
 import asyncio
 import inspect
 import logging
-from typing import Any, Callable, List, Mapping
+from collections.abc import Callable, Mapping
+from typing import Any
 
 from component.messagebus.messagebus import (
     Admin,
@@ -59,8 +60,8 @@ class MockPublisher(Publisher):
 
 
 class MockAdmin(Admin):
-    async def create_events(self, event_names: List[str]):
+    async def create_events(self, event_names: list[str]):
         return
 
-    async def delete_events(self, event_names: List[str]):
+    async def delete_events(self, event_names: list[str]):
         return

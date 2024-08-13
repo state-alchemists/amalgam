@@ -1,6 +1,7 @@
 import asyncio
 import logging
-from typing import Any, List, Mapping, Optional
+from collections.abc import Mapping
+from typing import Any, Optional
 
 import aiormq
 from component.messagebus.messagebus import Admin
@@ -28,7 +29,7 @@ class RMQAdmin(Admin):
         self.configs = configs
         self._existing_events: Mapping[str, bool] = {}
 
-    async def create_events(self, event_names: List[str]):
+    async def create_events(self, event_names: list[str]):
         # Only handle non-existing events
         event_names = [
             event_name
@@ -60,7 +61,7 @@ class RMQAdmin(Admin):
                 exc_info=True,
             )
 
-    async def delete_events(self, event_names: List[str]):
+    async def delete_events(self, event_names: list[str]):
         # Only handle existing events
         event_names = [
             event_name

@@ -1,4 +1,5 @@
-from typing import List, Mapping, Optional
+from collections.abc import Mapping
+from typing import Optional
 
 from component.messagebus.messagebus import Publisher
 from module.auth.component import AccessTokenUtil, RefreshTokenUtil
@@ -81,7 +82,7 @@ class UserModel(HistoricalRepoModel[User, UserData, UserResult]):
             for permission_name in permission_names
         }
 
-    def _get_permission_names(self, user: User) -> List[str]:
+    def _get_permission_names(self, user: User) -> list[str]:
         permission_names = [permission.name for permission in user.permissions]
         for group in user.groups:
             additional_permission_names = [

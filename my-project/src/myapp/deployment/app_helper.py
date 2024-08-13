@@ -1,5 +1,5 @@
 import os
-from typing import List, Mapping
+from collections.abc import Mapping
 
 import pulumi_kubernetes as k8s
 from _common import (
@@ -24,8 +24,8 @@ app_port = int(os.getenv("APP_PORT", app_monolith_env_map.get("APP_PORT", "8080"
 app_gateway_env_map = get_app_gateway_env_map(TEMPLATE_ENV_MAP, MODULES)
 
 
-def create_app_microservices_deployments() -> List[k8s.apps.v1.Deployment]:
-    deployments: List[k8s.apps.v1.Deployment] = []
+def create_app_microservices_deployments() -> list[k8s.apps.v1.Deployment]:
+    deployments: list[k8s.apps.v1.Deployment] = []
     deployments.append(
         _create_app_deployment(
             resource_name="myapp-gateway",
@@ -58,8 +58,8 @@ def create_app_microservices_deployments() -> List[k8s.apps.v1.Deployment]:
     return deployments
 
 
-def create_app_microservices_services() -> List[k8s.core.v1.Service]:
-    services: List[k8s.core.v1.Service] = []
+def create_app_microservices_services() -> list[k8s.core.v1.Service]:
+    services: list[k8s.core.v1.Service] = []
     services.append(
         _create_app_service(
             resource_name="myapp-gateway",

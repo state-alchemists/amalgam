@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Any, Callable, List, Mapping, TypeVar
+from collections.abc import Callable, Mapping
+from typing import Any, TypeVar
 
 TRPCHandler = Callable[..., Any]
 TMessage = TypeVar("TMessage", bound="Message")
@@ -27,7 +28,7 @@ class Server(ABC):
 
 
 class Message:
-    def __init__(self, reply_event: str, args: List[Any], kwargs: Mapping[str, Any]):
+    def __init__(self, reply_event: str, args: list[Any], kwargs: Mapping[str, Any]):
         self.reply_event = reply_event
         self.args = args
         self.kwargs = kwargs

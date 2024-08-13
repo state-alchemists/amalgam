@@ -1,5 +1,6 @@
 from abc import ABC
-from typing import Any, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from component.repo import DBEntityMixin, DBRepo, Repo
 from module.auth.entity.permission.repo import DBEntityPermission

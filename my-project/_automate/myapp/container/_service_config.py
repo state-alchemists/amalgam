@@ -1,5 +1,5 @@
 import os
-from typing import Mapping
+from collections.abc import Mapping
 
 from zrb import Env, EnvFile, ServiceConfig
 from zrb.helper.util import to_kebab_case

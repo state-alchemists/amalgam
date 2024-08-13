@@ -1,6 +1,7 @@
 import asyncio
 import logging
-from typing import List, Mapping, Optional
+from collections.abc import Mapping
+from typing import Optional
 
 from aiokafka import __version__
 from aiokafka.admin import AIOKafkaAdminClient, NewTopic
@@ -44,7 +45,7 @@ class KafkaAdmin(Admin):
         self.sasl_oauth_token_provider = sasl_oauth_token_provider
         self._existing_events: Mapping[str, bool] = {}
 
-    async def create_events(self, event_names: List[str]):
+    async def create_events(self, event_names: list[str]):
         # Only handle non-existing events
         event_names = [
             event_name
@@ -72,7 +73,7 @@ class KafkaAdmin(Admin):
         for event_name in event_names:
             self._existing_events[event_name] = True
 
-    async def delete_events(self, event_names: List[str]):
+    async def delete_events(self, event_names: list[str]):
         # Only handle existing events
         event_names = [
             event_name

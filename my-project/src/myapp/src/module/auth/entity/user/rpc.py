@@ -1,5 +1,6 @@
+from collections.abc import Mapping
 from logging import Logger
-from typing import Any, List, Mapping, Union
+from typing import Any, Union
 
 from component.messagebus import Publisher
 from component.repo import SearchFilter
@@ -30,7 +31,7 @@ def register_rpc(
 
     @rpc_server.register("auth_is_user_authorized")
     async def is_user_having_permission(
-        id: str, permission_name: Union[str, List[str]]
+        id: str, permission_name: Union[str, list[str]]
     ) -> Mapping[str, bool]:
         """
         Used by RPC Authenticator

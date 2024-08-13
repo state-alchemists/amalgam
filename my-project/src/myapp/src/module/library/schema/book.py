@@ -1,5 +1,5 @@
 from datetime import date, datetime, time
-from typing import List, Optional
+from typing import Optional
 
 from component.schema import BaseCountSchema, BaseDateTimeSchema
 
@@ -21,4 +21,4 @@ class Book(BookData):
 
 
 class BookResult(BaseCountSchema):
-    data: List[Book]
+    data: list[Book]

@@ -1,6 +1,7 @@
 import logging
 from abc import ABC, abstractmethod
-from typing import Any, List, Mapping
+from collections.abc import Mapping
+from typing import Any
 
 from component.repo import DBEntityMixin, DBRepo, Repo
 from module.auth.component import PasswordHasher
@@ -46,7 +47,7 @@ class UserDBRepo(DBRepo[User, UserData], UserRepo):
 
     async def get_by_user_login(self, user_login: UserLogin) -> User:
         db = self._get_db_session()
-        db_users: List[DBEntityUser] = []
+        db_users: list[DBEntityUser] = []
         try:
             search_filter = or_(
                 DBEntityUser.username == user_login.identity,
