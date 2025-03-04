@@ -1,4 +1,7 @@
-import _automate._project as _automate_project
-import _automate.myapp as _automate_myapp
-assert _automate_project
-assert _automate_myapp
+from zrb import load_file
+import os
+
+_DIR = os.path.dirname(__file__)
+# Load myapp automation
+myapp = load_file(os.path.join(_DIR, "myapp", "_zrb", "task.py"))
+assert myapp

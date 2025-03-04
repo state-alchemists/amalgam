@@ -1,5 +1,0 @@
-from ._group import myapp_microservices_container_group
-from .start import start_myapp_microservices_container
-
-assert myapp_microservices_container_group
-assert start_myapp_microservices_container

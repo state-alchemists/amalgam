@@ -7,39 +7,24 @@ then
 fi
 
 echo "👷 Create my-project"
-zrb project create --project-dir my-project --project-name "My Project"
+zrb project create --project-dir my-project --project "My Project"
 cd my-project
-rm -Rf .git
 
 echo "👷 Add fastapp"
-zrb project add fastapp app --project-dir . --app-name "myapp" --http-port 3000
+zrb project add fastapp --project-dir . --app "myapp"
 
 echo "👷 Add library module"
-zrb project add fastapp module --project-dir . --app-name "myapp" --module-name "library"
+zrb project myapp create module --module library
 
 echo "👷 Add book entity"
-zrb project add fastapp crud --project-dir . --app-name "myapp" --module-name "library" \
-    --entity-name "book" --plural-entity-name "books" --column-name "code"
+zrb project myapp create entity --module library --entity book --plural books --column isbn
 
 echo "👷 Add title field"
-zrb project add fastapp field --project-dir . --app-name "myapp" --module-name "library" \
-    --entity-name "book" --column-name "title" --column-type "string"
+zrb project myapp create column --module library --entity book --column title --type str
 
-echo "👷 Add page_number field"
-zrb project add fastapp field --project-dir . --app-name "myapp" --module-name "library" \
-    --entity-name "book" --column-name "page_number" --column-type "integer"
-
-echo "👷 Add purchase_date field"
-zrb project add fastapp field --project-dir . --app-name "myapp" --module-name "library" \
-    --entity-name "book" --column-name "purchase_date" --column-type "date"
-
-echo "👷 Add available field"
-zrb project add fastapp field --project-dir . --app-name "myapp" --module-name "library" \
-    --entity-name "book" --column-name "available" --column-type "boolean"
-
-echo "👷 Add synopsis field"
-zrb project add fastapp field --project-dir . --app-name "myapp" --module-name "library" \
-    --entity-name "book" --column-name "synopsis" --column-type "text"
+echo "👷 Add author field"
+zrb project myapp create column --module library --entity book --column author --type str
 
 echo "👷 Start fastapp"
-zrb project myapp monolith start
+export MYAPP_AUTH_SUPER_ADMIN_PASSWORD=admin
+zrb project myapp run all --env dev

@@ -1,5 +1,0 @@
-from ._group import myapp_support_container_group
-from .start import start_myapp_support_container
-
-assert myapp_support_container_group
-assert start_myapp_support_container

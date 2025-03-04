@@ -1,7 +1,0 @@
-from ._group import myapp_microservices_group
-from .deploy import deploy_myapp_microservices
-from .start import start_myapp_microservices
-
-assert myapp_microservices_group
-assert deploy_myapp_microservices
-assert start_myapp_microservices
