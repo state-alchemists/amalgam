@@ -61,13 +61,13 @@ Currently, `myapp` is running as a single process on your local computer.
 Let's confirm this by opening a new terminal and invoking the following command:
 
 ```bash
-pgrep uvicorn -a
+pgrep fastapi -a
 ```
 
 You should see a single process like this:
 
 ```
-4001 ... main:app --host 0.0.0.0 --port 3000 --reload --reload-include index.html
+46252 ... fastapi dev main.py --port 3000
 ```
 
 # Run Myapp as Microservices
@@ -85,32 +85,25 @@ Once started, you will be able to access [http://localhost:3000](http://localhos
 Now let's invoke the following command on your second terminal:
 
 ```bash
-pgrep uvicorn -a
+pgrep fastapi -a
 ```
 
 ```
-5305 ... main:app --host 0.0.0.0 --port 3000 --reload --reload-include index.html
-5307 ... main:app --host 0.0.0.0 --port 3001 --reload --reload-include index.html
-5309 ... main:app --host 0.0.0.0 --port 3002 --reload --reload-include index.html
-5311 ... main:app --host 0.0.0.0 --port 3003 --reload --reload-include index.html
+46252 ... fastapi dev main.py --port 3001
+46254 ... fastapi dev main.py --port 3002
+46256 ... fastapi dev main.py --port 3003
 ```
 
 You can see that now you have multiple processes.
 
 Each process handles different aspect of the application:
 
-- `myapp-gateway` (port: 3000)
+- `myapp-gateway` (port: 3001)
     - Handle HTTP requests from user
-    - Send RPC requests to other services
-    - Consume RPC replies from other services
-- `myapp-auth-service` (port: 3001)
-    - Handle RPC requests related to authentication/authorization
-    - Send RPC responses to Gateway
-- `myapp-log-service` (port: 3002)
-    - Handle RPC requests related to user activities/entities change history
-    - Send RPC responses to Gateway
-- `myapp-library-service` (port: 3002)
-    - Handle RPC requests related to book management
-    - Send RPC response to Gateway
+    - Send HTTP requests to other services
+- `myapp-auth-service` (port: 3002)
+    - Handle and reply HTTP requests from gateway
+- `myapp-library-service` (port: 3003)
+    - Handle and reply HTTP requests from gateway
 
 You can see that you can run `myapp` as either microservices or as a Monolith.

@@ -27,7 +27,7 @@ class UserServiceConfig(BaseModel):
     max_parallel_session: int = 1
     access_token_expire_minutes: int = 30
     refresh_token_expire_minutes: int = 1440
-    secret_key: str = "neat-face-3244"
+    secret_key: str = "bold-bush-7924"
     prioritize_new_session: bool = True
 
 

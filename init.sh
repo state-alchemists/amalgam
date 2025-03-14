@@ -26,5 +26,5 @@ echo "👷 Add author field"
 zrb project myapp create column --module library --entity book --column author --type str
 
 echo "👷 Start fastapp"
-export MYAPP_AUTH_SUPER_ADMIN_PASSWORD=admin
+export MYAPP_AUTH_SUPER_USER_PASSWORD=admin
 zrb project myapp run all --env dev

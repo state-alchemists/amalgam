@@ -8,7 +8,7 @@ APP_MODULE_NAME = os.path.basename(APP_DIR)
 MICROSERVICES_ENV_VARS = {
     "MYAPP_MODE": "microservices",
     "MYAPP_AUTH_BASE_URL": "http://localhost:3002",
-    "MYAPP_LIBRARY_BASE_URL": "http://localhost:3003",
+    "MYAPP_LIBRARY_BASE_URL": "http://localhost:3004",
 }
 MONOLITH_ENV_VARS = {
     "MYAPP_MODE": "monolith",
