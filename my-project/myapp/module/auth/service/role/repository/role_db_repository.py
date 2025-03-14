@@ -6,6 +6,7 @@ from sqlalchemy.sql import Select
 from sqlmodel import delete, insert, select
 
 from myapp.common.base_db_repository import BaseDBRepository
+from myapp.common.error import InvalidValueError
 from myapp.module.auth.service.role.repository.role_repository import RoleRepository
 from myapp.schema.permission import Permission
 from myapp.schema.role import (
@@ -64,6 +65,20 @@ class RoleDBRepository(
             for data in role_map.values()
         ]
 
+    async def validate_permission_names(self, permission_names: list[str]):
+        async with self._session_scope() as session:
+            result = await self._execute_statement(
+                session,
+                select(Permission.name).where(Permission.name.in_(permission_names)),
+            )
+            existing_permissions = {row[0] for row in result.all()}
+            # Identify any missing permission names
+            missing_permissions = set(permission_names) - existing_permissions
+            if missing_permissions:
+                raise InvalidValueError(
+                    f"Permission(s) not found: {', '.join(missing_permissions)}"
+                )
+
     async def add_permissions(self, data: dict[str, list[str]], created_by: str):
         now = datetime.datetime.now(datetime.timezone.utc)
         # get mapping from perrmission names to permission ids
@@ -93,6 +108,8 @@ class RoleDBRepository(
                         )
                     )
                 )
+        if len(data_dict_list) == 0:
+            return
         # Insert rolePermissions
         async with self._session_scope() as session:
             await self._execute_statement(
@@ -103,5 +120,5 @@ class RoleDBRepository(
         async with self._session_scope() as session:
             await self._execute_statement(
                 session,
-                delete(RolePermission).where(RolePermission.role_id._in(role_ids)),
+                delete(RolePermission).where(RolePermission.role_id.in_(role_ids)),
             )

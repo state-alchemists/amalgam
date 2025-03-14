@@ -7,7 +7,7 @@ from sqlalchemy.sql import Select
 from sqlmodel import delete, insert, select, update
 
 from myapp.common.base_db_repository import BaseDBRepository
-from myapp.common.error import NotFoundError, UnauthorizedError
+from myapp.common.error import InvalidValueError, NotFoundError, UnauthorizedError
 from myapp.module.auth.service.user.repository.user_repository import UserRepository
 from myapp.schema.permission import Permission
 from myapp.schema.role import Role, RolePermission
@@ -86,6 +86,19 @@ class UserDBRepository(
             for data in user_map.values()
         ]
 
+    async def validate_role_names(self, role_names: list[str]):
+        async with self._session_scope() as session:
+            result = await self._execute_statement(
+                session, select(Role.name).where(Role.name.in_(role_names))
+            )
+            existing_roles = {row[0] for row in result.all()}
+            # Identify any missing role names
+            missing_roles = set(role_names) - existing_roles
+            if missing_roles:
+                raise InvalidValueError(
+                    f"Role(s) not found: {', '.join(missing_roles)}"
+                )
+
     async def add_roles(self, data: dict[str, list[str]], created_by: str):
         now = datetime.datetime.now(datetime.timezone.utc)
         # get mapping from role names to role ids
@@ -110,6 +123,8 @@ class UserDBRepository(
                         )
                     )
                 )
+        if len(data_dict_list) == 0:
+            return
         async with self._session_scope() as session:
             await self._execute_statement(
                 session, insert(UserRole).values(data_dict_list)
@@ -119,7 +134,7 @@ class UserDBRepository(
         async with self._session_scope() as session:
             await self._execute_statement(
                 session,
-                delete(UserRole).where(UserRole.user_id._in(user_ids)),
+                delete(UserRole).where(UserRole.user_id.in_(user_ids)),
             )
 
     async def get_by_credentials(self, username: str, password: str) -> UserResponse:

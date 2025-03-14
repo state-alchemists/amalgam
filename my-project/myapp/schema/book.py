@@ -26,7 +26,9 @@ class BookUpdate(SQLModel):
     author: str | None = None
 
     def with_audit(self, updated_by: str) -> "BookUpdateWithAudit":
-        return BookUpdateWithAudit(**self.model_dump(), updated_by=updated_by)
+        return BookUpdateWithAudit(
+            **self.model_dump(exclude_none=True), updated_by=updated_by
+        )
 
 
 class BookUpdateWithAudit(BookUpdate):

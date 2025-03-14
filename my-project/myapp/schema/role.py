@@ -7,11 +7,10 @@ from sqlmodel import Field, SQLModel
 
 class RoleBase(SQLModel):
     name: str
+    description: str = ""
 
 
 class RoleCreate(RoleBase):
-    description: str
-
     def with_audit(self, created_by: str) -> "RoleCreateWithAudit":
         return RoleCreateWithAudit(**self.model_dump(), created_by=created_by)
 
@@ -51,7 +50,9 @@ class RoleUpdate(SQLModel):
     description: str | None = None
 
     def with_audit(self, updated_by: str) -> "RoleUpdateWithAudit":
-        return RoleUpdateWithAudit(**self.model_dump(), updated_by=updated_by)
+        return RoleUpdateWithAudit(
+            **self.model_dump(exclude_none=True), updated_by=updated_by
+        )
 
 
 class RoleUpdateWithAudit(RoleUpdate):
@@ -63,7 +64,7 @@ class RoleUpdateWithPermissions(RoleUpdate):
 
     def with_audit(self, updated_by: str) -> "RoleUpdateWithPermissionsAndAudit":
         return RoleUpdateWithPermissionsAndAudit(
-            **self.model_dump(), updated_by=updated_by
+            **self.model_dump(exclude_none=True), updated_by=updated_by
         )
 
 
@@ -73,7 +74,7 @@ class RoleUpdateWithPermissionsAndAudit(RoleUpdateWithPermissions):
     def get_role_update_with_audit(self) -> RoleUpdateWithAudit:
         data = {
             key: val
-            for key, val in self.model_dump().items()
+            for key, val in self.model_dump(exclude_none=True).items()
             if key != "permission_names"
         }
         return RoleUpdateWithAudit(**data)

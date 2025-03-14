@@ -1,8 +1,8 @@
 """create_book_table
 
-Revision ID: ca8bbfff50d2
+Revision ID: c018db4d232d
 Revises: 
-Create Date: 2025-03-04 23:29:16.585142
+Create Date: 2025-03-14 20:18:02.776301
 
 """
 
@@ -13,7 +13,7 @@ import sqlmodel  # 🔥 FastApp Modification
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = "ca8bbfff50d2"
+revision: str = "c018db4d232d"
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
