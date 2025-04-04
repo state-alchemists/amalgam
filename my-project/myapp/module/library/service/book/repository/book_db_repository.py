@@ -1,7 +1,9 @@
 from passlib.context import CryptContext
 
 from myapp.common.base_db_repository import BaseDBRepository
-from myapp.module.library.service.book.repository.book_repository import BookRepository
+from myapp.module.library.service.book.repository.book_repository import (
+    BookRepository,
+)
 from myapp.schema.book import (
     Book,
     BookCreateWithAudit,

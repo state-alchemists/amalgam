@@ -1,8 +1,8 @@
 """create_book_title_column
 
-Revision ID: afe5540a212b
-Revises: d0552c9c3e12
-Create Date: 2025-03-14 21:30:53.060615
+Revision ID: 0b204c172a11
+Revises: 728c34789695
+Create Date: 2025-04-04 08:44:21.232481
 
 """
 
@@ -13,8 +13,8 @@ import sqlmodel  # 🔥 FastApp Modification
 from alembic import op
 
 # revision identifiers, used by Alembic.
-revision: str = "afe5540a212b"
-down_revision: Union[str, None] = "d0552c9c3e12"
+revision: str = "0b204c172a11"
+down_revision: Union[str, None] = "728c34789695"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
 

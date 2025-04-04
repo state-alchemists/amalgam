@@ -27,4 +27,4 @@ zrb project myapp create column --module library --entity book --column author -
 
 echo "👷 Start fastapp"
 export MYAPP_AUTH_SUPER_USER_PASSWORD=admin
-zrb project myapp run all --env dev
+zrb project myapp run all

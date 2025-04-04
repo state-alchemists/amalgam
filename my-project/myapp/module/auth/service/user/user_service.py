@@ -6,7 +6,9 @@ from pydantic import BaseModel
 
 from myapp.common.base_service import BaseService
 from myapp.common.error import ForbiddenError, NotFoundError
-from myapp.module.auth.service.user.repository.user_repository import UserRepository
+from myapp.module.auth.service.user.repository.user_repository import (
+    UserRepository,
+)
 from myapp.schema.user import (
     AuthUserResponse,
     MultipleUserResponse,
@@ -27,7 +29,7 @@ class UserServiceConfig(BaseModel):
     max_parallel_session: int = 1
     access_token_expire_minutes: int = 30
     refresh_token_expire_minutes: int = 1440
-    secret_key: str = "bold-bush-7924"
+    secret_key: str = "soft-chip-6726"
     prioritize_new_session: bool = True
 
 

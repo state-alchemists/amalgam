@@ -3,7 +3,9 @@ from myapp.config import APP_REPOSITORY_TYPE
 from myapp.module.auth.service.role.repository.role_db_repository import (
     RoleDBRepository,
 )
-from myapp.module.auth.service.role.repository.role_repository import RoleRepository
+from myapp.module.auth.service.role.repository.role_repository import (
+    RoleRepository,
+)
 
 if APP_REPOSITORY_TYPE == "db":
     role_repository: RoleRepository = RoleDBRepository(db_engine)

@@ -1,7 +1,9 @@
 from logging import Logger
 
 from myapp.common.base_service import BaseService
-from myapp.module.library.service.book.repository.book_repository import BookRepository
+from myapp.module.library.service.book.repository.book_repository import (
+    BookRepository,
+)
 from myapp.schema.book import (
     BookCreateWithAudit,
     BookResponse,

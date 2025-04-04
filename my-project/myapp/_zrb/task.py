@@ -192,7 +192,7 @@ prepare_venv >> migrate_test_auth >> migrate_test
 # 🔐 Run/Migrate Library ==========================================================
 
 run_library = app_run_group.add_task(
-    run_microservice("library", 3004), alias="svc-library"
+    run_microservice("library", 3003), alias="svc-library"
 )
 prepare_venv >> run_library >> run_microservices
 

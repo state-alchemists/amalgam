@@ -7,7 +7,9 @@ from sqlmodel import delete, insert, select
 
 from myapp.common.base_db_repository import BaseDBRepository
 from myapp.common.error import InvalidValueError
-from myapp.module.auth.service.role.repository.role_repository import RoleRepository
+from myapp.module.auth.service.role.repository.role_repository import (
+    RoleRepository,
+)
 from myapp.schema.permission import Permission
 from myapp.schema.role import (
     Role,

@@ -1,7 +1,9 @@
 from logging import Logger
 
 from myapp.common.base_service import BaseService
-from myapp.module.auth.service.role.repository.role_repository import RoleRepository
+from myapp.module.auth.service.role.repository.role_repository import (
+    RoleRepository,
+)
 from myapp.schema.role import (
     MultipleRoleResponse,
     RoleCreateWithPermissionsAndAudit,

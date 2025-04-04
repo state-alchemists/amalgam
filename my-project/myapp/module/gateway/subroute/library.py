@@ -7,7 +7,12 @@ from myapp.common.error import ForbiddenError
 from myapp.module.gateway.util.auth import get_current_user
 from myapp.module.gateway.util.view import render_content, render_error
 from myapp.module.library.client.library_client_factory import library_client
-from myapp.schema.book import BookCreate, BookResponse, BookUpdate, MultipleBookResponse
+from myapp.schema.book import (
+    BookCreate,
+    BookResponse,
+    BookUpdate,
+    MultipleBookResponse,
+)
 from myapp.schema.user import AuthUserResponse
 
 

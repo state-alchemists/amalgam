@@ -8,7 +8,9 @@ from sqlmodel import delete, insert, select, update
 
 from myapp.common.base_db_repository import BaseDBRepository
 from myapp.common.error import InvalidValueError, NotFoundError, UnauthorizedError
-from myapp.module.auth.service.user.repository.user_repository import UserRepository
+from myapp.module.auth.service.user.repository.user_repository import (
+    UserRepository,
+)
 from myapp.schema.permission import Permission
 from myapp.schema.role import Role, RolePermission
 from myapp.schema.user import (

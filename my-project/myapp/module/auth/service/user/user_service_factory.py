@@ -13,7 +13,10 @@ from myapp.config import (
 from myapp.module.auth.service.user.repository.user_repository_factory import (
     user_repository,
 )
-from myapp.module.auth.service.user.user_service import UserService, UserServiceConfig
+from myapp.module.auth.service.user.user_service import (
+    UserService,
+    UserServiceConfig,
+)
 
 user_service = UserService(
     logger,
