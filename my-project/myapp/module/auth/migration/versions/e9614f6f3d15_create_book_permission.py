@@ -1,8 +1,8 @@
 """create_book_permission
 
-Revision ID: 4263ff1d52dc
+Revision ID: e9614f6f3d15
 Revises: 8ed025bcc845
-Create Date: 2025-04-04 09:47:44.024393
+Create Date: 2025-06-09 11:00:43.666442
 
 """
 
@@ -15,7 +15,7 @@ from alembic import op
 from module.auth.migration_metadata import metadata
 
 # revision identifiers, used by Alembic.
-revision: str = "4263ff1d52dc"
+revision: str = "e9614f6f3d15"
 down_revision: Union[str, None] = "8ed025bcc845"
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None

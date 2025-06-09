@@ -29,7 +29,7 @@ class UserServiceConfig(BaseModel):
     max_parallel_session: int = 1
     access_token_expire_minutes: int = 30
     refresh_token_expire_minutes: int = 1440
-    secret_key: str = "kind-fuel-0783"
+    secret_key: str = "wild-cell-0660"
     prioritize_new_session: bool = True
 
 

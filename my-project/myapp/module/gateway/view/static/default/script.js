@@ -41,4 +41,4 @@ function updateAutoTheme() {
 }
 
 updateAutoTheme();
-window.matchMedia('(prefers-color-scheme: dark)').addListener(updateAutoTheme);
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateAutoTheme);
